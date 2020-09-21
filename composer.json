@@ -9,6 +9,8 @@
     "license": "MIT",
     "require": {
         "php": "^7.3",
+        "blade-ui-kit/blade-heroicons": "^0.2.2",
+        "blade-ui-kit/blade-ui-kit": "^0.1.1",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
