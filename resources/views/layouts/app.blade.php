@@ -48,6 +48,7 @@
 
         @stack('modals')
 
+        <script src="{{ asset('js/app.js') }}"></script>
         @livewireScripts
         @bukScripts
     </body>
