@@ -15,8 +15,8 @@ class CreateBulletsTable extends Migration
     {
         Schema::create('bullets', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable()->constrained();
-            $table->foreignId('collection_id')->nullable()->constrained();
+            $table->foreignId('user_id')->index()->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('collection_id')->index()->nullable()->constrained()->onDelete('cascade');
             $table->string('type');
             $table->string('name');
             $table->string('state');
