@@ -23,7 +23,7 @@ class DailyLog extends Component
             ->bullets()
             ->select(DB::raw('DISTINCT DATE(created_at) as date'))
             ->whereNull('collection_id')
-            ->latest()
+            ->latest('date')
             ->take(5)
             ->pluck('date')
             ->prepend(date('Y-m-d'))
