@@ -14,8 +14,9 @@ class Bullet extends Component
     public ?string $fade;
 
     protected $rules = [
-        'bullet.name' => 'required|string',
-        'bullet.state' => 'required|in:incomplete,complete,note,migrated,scheduled,event',
+        'bullet.name' => 'string',
+        'bullet.state' => 'in:incomplete,complete,note,migrated,scheduled,event',
+        'bullet.complete' => 'boolean',
     ];
 
     public function render()
@@ -26,6 +27,10 @@ class Bullet extends Component
     public function updated()
     {
         $this->validate();
+
+        if ($this->bullet->name === '') {
+            return $this->delete();
+        }
 
         $this->bullet->save();
     }

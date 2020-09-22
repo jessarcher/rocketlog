@@ -45,6 +45,10 @@ class Collection extends Component
 
     public function addBullet()
     {
+        if (empty($this->newBulletName)) {
+            return;
+        }
+
         Bullet::create([
             'name' => $this->newBulletName,
             'type' => 'task',
