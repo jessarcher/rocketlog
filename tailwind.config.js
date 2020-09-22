@@ -12,7 +12,7 @@ module.exports = {
     },
 
     variants: {
-        opacity: ['responsive', 'hover', 'focus', 'disabled'],
+        opacity: ({ after }) => after(['disabled']),
     },
 
     plugins: [require('@tailwindcss/ui')],
