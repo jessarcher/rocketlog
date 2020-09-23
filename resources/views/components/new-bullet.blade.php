@@ -28,6 +28,7 @@
                 }
             "
             @bullet-added.window="autosize.update($refs.name)"
+            wire:blur="addBullet"
         ></textarea>
 
         <x-jet-input-error for="newBulletName" class="mt-2" />
