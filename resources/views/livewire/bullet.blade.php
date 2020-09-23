@@ -100,13 +100,13 @@
         @endif
     </div>
 
-    <div class="w-full my-1 md:my-0 mx-2">
+    <div class="w-full mx-2">
         <textarea
             wire:ignore
             x-ref="name"
             wire:model.lazy="bullet.name"
             wire:loading.attr="disabled"
-            class="w-full py-1 text-gray-900 overflow-hidden bg-transparent disabled:opacity-50"
+            class="w-full py-2 md:py-1 text-gray-900 overflow-hidden bg-transparent disabled:opacity-50"
             style="resize: none; height: 1em;"
             rows="1"
             :class="[
