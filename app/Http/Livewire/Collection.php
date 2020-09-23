@@ -15,6 +15,10 @@ class Collection extends Component
 
     public $addUserEmail = '';
 
+    public $confirmingClearDone = false;
+
+    public $confirmingRemoveCollection = false;
+
     protected $rules = [
         'collection.name' => 'required|string',
         'collection.type' => 'required|in:bullet,checklist',
@@ -63,6 +67,7 @@ class Collection extends Component
     public function clearDone()
     {
         $this->collection->bullets()->where('state', 'complete')->delete();
+        $this->confirmingClearDone = false;
     }
 
     public function delete()

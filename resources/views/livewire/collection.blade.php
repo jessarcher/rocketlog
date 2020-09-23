@@ -63,7 +63,7 @@
                 <div class="-mx-2 flex flex-wrap gap-x-2 gap-y-2">
                     <button
                         class="px-2 py-1 inline-flex items-center font-semibold text-gray-300 rounded-md whitespace-no-wrap hover:bg-gray-600 hover:text-gray-200 focus:outline-none focus:bg-gray-600 focus:text-gray-200"
-                        wire:click="clearDone"
+                        wire:click="$toggle('confirmingClearDone')"
                     >
                         <svg class="mr-1 text-gray-400" style="height: 1em; width: 1em;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -75,7 +75,7 @@
 
                     <button
                         class="px-2 py-1 inline-flex items-center font-semibold text-gray-300 rounded-md whitespace-no-wrap hover:bg-gray-600 hover:text-gray-200 focus:outline-none focus:bg-gray-600 focus:text-gray-200"
-                        wire:click="delete"
+                        wire:click="$toggle('confirmingRemoveCollection')"
                     >
                         <svg class="mr-1 text-gray-400" style="height: 1em; width: 1em;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -147,4 +147,44 @@
     </div>
 
     <x-new-bullet />
+
+    <x-jet-confirmation-modal wire:model="confirmingClearDone">
+        <x-slot name="title">
+            Clear Done
+        </x-slot>
+
+        <x-slot name="content">
+            Are you sure you want to clear all complete items?
+        </x-slot>
+
+        <x-slot name="footer">
+            <x-jet-secondary-button wire:click="$toggle('confirmingClearDone')" wire:loading.attr="disabled">
+                {{ __('Nevermind') }}
+            </x-jet-secondary-button>
+
+            <x-jet-danger-button class="ml-2" wire:click="clearDone" wire:loading.attr="disabled">
+                {{ __('Clear Done') }}
+            </x-jet-danger-button>
+        </x-slot>
+    </x-jet-confirmation-modal>
+
+    <x-jet-confirmation-modal wire:model="confirmingRemoveCollection">
+        <x-slot name="title">
+            Remove Collection
+        </x-slot>
+
+        <x-slot name="content">
+            Are you sure you want to remove this collection?
+        </x-slot>
+
+        <x-slot name="footer">
+            <x-jet-secondary-button wire:click="$toggle('confirmingRemoveCollection')" wire:loading.attr="disabled">
+                {{ __('Nevermind') }}
+            </x-jet-secondary-button>
+
+            <x-jet-danger-button class="ml-2" wire:click="delete" wire:loading.attr="disabled">
+                {{ __('Remove Collection') }}
+            </x-jet-danger-button>
+        </x-slot>
+    </x-jet-confirmation-modal>
 </div>
