@@ -38,64 +38,50 @@
             class="-mx-12 px-12 py-6 bg-gray-700 shadow-inner text-white"
         >
             <div x-show="drawer === 'settings'" class="flex items-center justify-between flex-wrap gap-x-20 gap-y-6">
-                <div class="flex flex-wrap gap-x-12 gap-y-6">
-                    <div class="whitespace-no-wrap">
-                        <label class="font-semibold text-gray-300">Collection Type</label>
-                        <div class="mt-2">
-                            <label class="font-semibold">
-                                <input type="radio" wire:model="collection.type" name="type" value="bullet" class="form-radio h-5 w-5 border-gray-500 bg-gray-800"> <span class="ml-1 text-gray-200">Bullet</span>
-                            </label>
-                            <label class="ml-4 font-semibold">
-                                <input type="radio" wire:model="collection.type" name="type" value="checklist" class="form-radio h-5 w-5 border-gray-500 bg-gray-800"> <span class="ml-1 text-gray-200">Checklist</span>
-                            </label>
-                        </div>
+                <div class="flex flex-wrap gap-x-4 gap-y-4">
+                    <div class="flex">
+                        <label class="flex items-center">
+                            <input type="radio" wire:model="collection.type" name="type" value="bullet" class="form-radio h-5 w-5 border-gray-500 bg-gray-800 text-purple-700">
+                            <span class="ml-2 font-semibold text-gray-300">Bullets</span>
+                        </label>
+                        <label class="ml-4 flex items-center">
+                            <input type="radio" wire:model="collection.type" name="type" value="checklist" class="form-radio h-5 w-5 border-gray-500 bg-gray-800 text-purple-700">
+                            <span class="ml-2 font-semibold text-gray-300">Checklist</span>
+                        </label>
                     </div>
 
-                    <div class="whitespace-no-wrap">
-                        <label class="font-semibold text-gray-300">Hide Done</label>
-                        <div class="mt-2">
-                            <span
-                                role="checkbox"
-                                tabindex="0"
-                                :aria-checked="hideDone"
-                                class="relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:shadow-outline"
-                                :class="hideDone ? 'bg-blue-600' : 'bg-gray-800'"
-                                @click="hideDone = ! hideDone"
-                            >
-                              <span
-                                  aria-hidden="true"
-                                  class="translate-x-0 inline-block h-5 w-5 rounded-full bg-white shadow transform transition ease-in-out duration-200"
-                                  :class="hideDone ? 'translate-x-5' : 'translate-x-0'"
-                              ></span>
-                            </span>
-                        </div>
+                    <div class="border-l border-gray-600"></div>
+
+                    <div>
+                        <label class="flex items-center">
+                            <input type="checkbox" wire:model="collection.hide_done" value="1" class="form-checkbox h-5 w-5 border-gray-500 bg-gray-800 text-purple-700">
+                            <span class="ml-2 font-semibold text-gray-300 whitespace-no-wrap">Hide done</span>
+                        </label>
                     </div>
                 </div>
 
-                <div class="flex flex-wrap gap-x-6 gap-y-2">
-                    <div>
-                        <button
-                            class="inline-flex items-center font-medium text-gray-200 whitespace-no-wrap"
-                            wire:click="clearDone"
-                        >
-                            <svg class="mr-1 text-gray-400" style="height: 1em; width: 1em;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                            </svg>
-                            Clear Done
-                        </button>
-                    </div>
+                <div class="-mx-2 flex flex-wrap gap-x-2 gap-y-2">
+                    <button
+                        class="px-2 py-1 inline-flex items-center font-semibold text-gray-300 rounded-md whitespace-no-wrap hover:bg-gray-600 hover:text-gray-200 focus:outline-none focus:bg-gray-600 focus:text-gray-200"
+                        wire:click="clearDone"
+                    >
+                        <svg class="mr-1 text-gray-400" style="height: 1em; width: 1em;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        Clear Done
+                    </button>
 
-                    <div>
-                        <button
-                            class="inline-flex items-center font-medium text-gray-200 whitespace-no-wrap"
-                            wire:click="delete"
-                        >
-                            <svg class="mr-1 text-gray-400" style="height: 1em; width: 1em;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                            </svg>
-                            Remove Collection
-                        </button>
-                    </div>
+                    <div class="border-l border-gray-600"></div>
+
+                    <button
+                        class="px-2 py-1 inline-flex items-center font-semibold text-gray-300 rounded-md whitespace-no-wrap hover:bg-gray-600 hover:text-gray-200 focus:outline-none focus:bg-gray-600 focus:text-gray-200"
+                        wire:click="delete"
+                    >
+                        <svg class="mr-1 text-gray-400" style="height: 1em; width: 1em;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                        Remove Collection
+                    </button>
                 </div>
             </div>
 
