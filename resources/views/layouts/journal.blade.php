@@ -5,7 +5,7 @@
                 @livewire('index')
             </aside>
 
-            <div class="flex-1 p-6 md:p-12 bg-white overflow-hidden sm:rounded-lg md:shadow-xl">
+            <div class="flex-1 p-4 sm:p-6 md:p-12 bg-white overflow-hidden sm:rounded-lg md:shadow-xl">
                 {{ $slot }}
             </div>
         </div>
