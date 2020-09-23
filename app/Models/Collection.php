@@ -5,21 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Mtvs\EloquentHashids\HasHashid;
+use Mtvs\EloquentHashids\HashidRouting;
 
 class Collection extends Model
 {
     use HasFactory;
+    use HasHashid;
+    use HashidRouting;
 
     protected $guarded = [];
 
     protected $casts = [
         'hide_done' => 'boolean',
     ];
-
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
 
     public function setNameAttribute($value)
     {
