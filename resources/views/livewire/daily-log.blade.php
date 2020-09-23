@@ -4,7 +4,7 @@
             $fade = $loop->iteration >= 5;
         @endphp
 
-        <h2 class="{{ $loop->first ? '' : 'mt-12' }} pb-3 font-bold border-b border-gray-200 {{ $fade ? 'text-gray-300' : 'text-gray-900' }}" wire:key="{{ $day->date }}">{{ $day->date->format('D, M d') }}</h2>
+        <h2 class="{{ $loop->first ? '' : 'mt-12' }} pb-3 font-bold border-b border-gray-200 {{ $fade ? 'text-gray-300' : 'text-gray-800' }}" wire:key="{{ $day->date }}">{{ $day->date->format('D, M d') }}</h2>
 
         <div>
             @foreach ($day->bullets as $bullet)

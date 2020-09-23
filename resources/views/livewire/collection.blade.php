@@ -7,27 +7,27 @@
             <input
                 type="text"
                 wire:model.lazy="collection.name"
-                class="py-3 text-gray-900 font-bold"
+                class="flex-1 py-3 text-gray-800 font-bold"
                 value="{{ $collection->name }}"
             />
 
-            <div class="flex flex-wrap gap-4">
+            <div class="-mr-2 flex gap-2 text-gray-400">
                 <button
                     type="button"
                     @click="drawer = drawer === 'share' ? '' : 'share'"
-                    class="hover:text-gray-600 focus:outline-none focus:text-gray-600"
-                    :class="drawer === 'share' ? 'text-gray-600' : 'text-gray-400'"
+                    class="p-2 rounded-md hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
+                    :class="drawer === 'share' ? 'bg-gray-100 text-gray-500' : 'text-gray-400'"
                 >
-                    <x-heroicon-o-share class="w-5 h-5" />
+                    <x-heroicon-o-share class="w-6 h-6 md:w-5 md:w-5" />
                 </button>
 
                 <button
                     type="button"
                     @click="drawer = drawer === 'settings' ? '' : 'settings'"
-                    class="hover:text-gray-600 focus:outline-none focus:text-gray-600"
-                    :class="drawer === 'settings' ? 'text-gray-600' : 'text-gray-400'"
+                    class="p-2 rounded-md hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
+                    :class="drawer === 'settings' ? 'bg-gray-100 text-gray-500' : 'text-gray-400'"
                 >
-                    <x-heroicon-o-adjustments class="w-5 h-5" />
+                    <x-heroicon-o-adjustments class="w-6 h-6" />
                 </button>
             </div>
         </div>
@@ -147,6 +147,7 @@
                             Add
                         </button>
                     </div>
+
                     <x-jet-input-error for="email" class="mt-2" />
                 </form>
             </div>
