@@ -20,7 +20,6 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-    Route::view('/dashboard', 'dashboard')->name('dashboard');
     Route::get('daily-log', DailyLog::class)->name('daily-log');
     Route::get('collections/{collection}', Collection::class)->name('collections');
 });
