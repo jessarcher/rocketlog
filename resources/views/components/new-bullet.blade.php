@@ -1,6 +1,6 @@
 <form
     wire:submit.prevent="addBullet"
-    class="py-2 border-b border-gray-200 flex"
+    class="py-1 md:py-2 border-b border-gray-200 flex"
     x-data
     x-init="autosize($refs.name)"
     x-ref="form"
@@ -17,7 +17,7 @@
             x-ref="name"
             wire:model.defer="newBulletName"
             wire:loading.attr="disabled"
-            class="w-full py-1 text-gray-900 overflow-hidden bg-transparent disabled:opacity-50"
+            class="w-full py-2 md:py-1 text-gray-900 overflow-hidden bg-transparent disabled:opacity-50"
             style="resize: none; height: 1em;"
             rows="1"
             placeholder="Unburden your mind..."
