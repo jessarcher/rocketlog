@@ -28,7 +28,11 @@
                 }
             "
             @bullet-added.window="autosize.update($refs.name)"
-            wire:blur="addBullet"
+            @blur="
+                if ($event.target.value.length) {
+                    $wire.addBullet()
+                }
+            "
         ></textarea>
 
         <x-jet-input-error for="newBulletName" class="mt-2" />
