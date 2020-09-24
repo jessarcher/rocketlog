@@ -89,7 +89,7 @@
             </div>
         @elseif ($type === 'checklist')
             <div class="border border-transparent">
-                <div class="h-8 w-8 flex items-center justify-center">
+                <div class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center">
                     <input
                         type="checkbox"
                         class="form-checkbox h-5 w-5"
