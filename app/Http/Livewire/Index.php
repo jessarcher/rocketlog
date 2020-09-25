@@ -11,7 +11,8 @@ class Index extends Component
     public function render()
     {
         return view('livewire.index', [
-            'collections' => request()->user()->currentTeam->collections
+            'collections' => request()->user()->currentTeam->collections,
+            'sharedCollections' => request()->user()->sharedCollections
         ]);
     }
 

@@ -69,4 +69,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Bullet::class);
     }
+
+    public function sharedCollections()
+    {
+        return $this->belongsToMany(Collection::class);
+    }
 }
