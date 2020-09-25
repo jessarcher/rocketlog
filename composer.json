@@ -15,6 +15,7 @@
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.0",
+        "laravel/horizon": "^5.1",
         "laravel/jetstream": "^1.2",
         "laravel/sanctum": "^2.6",
         "laravel/tinker": "^2.0",
@@ -68,7 +69,8 @@
             "@php artisan migrate --force",
             "@php artisan config:cache",
             "@php artisan route:cache",
-            "@php artisan view:cache"
+            "@php artisan view:cache",
+            "@php artisan horizon:publish"
         ],
         "clear": [
             "@php artisan cache:clear",
