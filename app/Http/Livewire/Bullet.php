@@ -35,6 +35,11 @@ class Bullet extends Component
         $this->bullet->save();
     }
 
+    public function updatedBulletComplete()
+    {
+        $this->emitUp('bulletStateUpdated');
+    }
+
     public function updatedBulletState()
     {
         $this->emitUp('bulletStateUpdated');
