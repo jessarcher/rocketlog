@@ -13,6 +13,7 @@ class DailyLog extends Component
 
     protected $listeners = [
         'bulletDeleted' => '$refresh',
+        'bulletMigrated' => '$refresh',
         'bulletStateUpdated' => '$refresh',
     ];
 

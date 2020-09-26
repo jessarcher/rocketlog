@@ -15,7 +15,7 @@ class Bullet extends Component
 
     protected $rules = [
         'bullet.name' => 'string',
-        'bullet.state' => 'in:incomplete,complete,note,migrated,scheduled,event',
+        'bullet.state' => 'in:incomplete,complete,note,scheduled,event',
         'bullet.complete' => 'boolean',
     ];
 
@@ -57,9 +57,9 @@ class Bullet extends Component
             'name' => $this->bullet->name,
             'type' => $this->bullet->type,
             'collection_id' => $collectionId,
-            'state' => 'incomplete',
+            'state' => $this->bullet->state,
         ]);
-
+        $this->bullet->delete();
         $this->emitUp('bulletMigrated');
     }
 }

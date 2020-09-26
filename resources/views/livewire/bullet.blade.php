@@ -27,11 +27,6 @@
                     @endif
                     <x-icon.complete x-cloak x-show="state === 'complete'" class="h-6 w-6 md:h-5 md:h-5" />
 
-                    @if ($bullet->state === 'migrated')
-                        <x-icon.migrated x-show="state === ''" class="h-6 w-6 md:h-5 md:h-5 text-gray-400" />
-                    @endif
-                    <x-icon.migrated x-cloak x-show="state === 'migrated'" class="h-6 w-6 md:h-5 md:h-5" />
-
                     @if ($bullet->state === 'note')
                         <x-icon.note x-show="state === ''" class="h-6 w-6 md:h-5 md:h-5 text-gray-400" />
                     @endif
@@ -54,7 +49,6 @@
                 <button class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center focus:outline-none" @click="menu = false">
                     <x-icon.complete x-show="state === 'complete'" class="h-6 w-6 md:h-5 md:h-5" />
                     <x-icon.incomplete x-show="state === 'incomplete'" class="h-6 w-6 md:h-5 md:h-5" />
-                    <x-icon.migrated x-show="state === 'migrated'" class="h-6 w-6 md:h-5 md:h-5" />
                     <x-icon.note x-show="state === 'note'" class="h-6 w-6 md:h-5 md:h-5" />
                     <x-icon.event x-show="state === 'event'" class="h-6 w-6 md:h-5 md:h-5" />
                 </button>
@@ -78,7 +72,7 @@
                 @endif
 
                 @if ($bullet->collection_id === null && $bullet->created_at <= today())
-                    <button x-show="state !== 'migrated'" class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 focus:outline-none" @click="state = 'migrated'" wire:click="migrate">
+                    <button x-show="state !== 'migrated'" class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 focus:outline-none" wire:click="migrate">
                         <x-icon.migrated class="w-6 h-6 md:w-5 md:h-5" />
                     </button>
                 @endif
