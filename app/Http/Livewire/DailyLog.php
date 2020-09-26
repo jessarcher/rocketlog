@@ -2,14 +2,15 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Bullet;
+use App\Models\User;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class DailyLog extends Component
 {
     public $newBulletName = '';
+
+    public User $user;
 
     protected $listeners = [
         'bulletDeleted' => '$refresh',
@@ -17,18 +18,29 @@ class DailyLog extends Component
         'bulletStateUpdated' => '$refresh',
     ];
 
+    protected $rules = [
+        'user.timezone' => 'string',
+    ];
+
+    public function mount()
+    {
+        $this->user = request()->user();
+    }
+
     public function render()
     {
         $dates = request()
             ->user()
             ->bullets()
-            ->select(DB::raw('DISTINCT DATE(created_at) as date'))
+            ->select('date')
+            ->distinct()
             ->whereNull('collection_id')
             ->latest('date')
             ->take(5)
             ->pluck('date')
-            ->prepend(date('Y-m-d'))
+            ->prepend(now()->timezone($this->user->timezone)->format('Y-m-d'))
             ->unique()
+            ->sortDesc()
             ->take(5);
 
         $bulletsByDate = request()
@@ -39,7 +51,7 @@ class DailyLog extends Component
             ->whereDate('created_at', '>=', $dates->last())
             ->whereNull('collection_id')
             ->get()
-            ->groupBy(fn ($bullet) => $bullet->created_at->format('Y-m-d'));
+            ->groupBy(fn ($bullet) => $bullet->created_at->timezone($this->user->timezone)->format('Y-m-d'));
 
         return view('livewire.daily-log', [
             'days' => $dates->map(fn ($date) => (object) [
@@ -56,6 +68,7 @@ class DailyLog extends Component
         }
 
         request()->user()->bullets()->create([
+            'date' => now()->timezone(request()->user()->timezone),
             'name' => $this->newBulletName,
             'type' => 'task',
             'state' => 'incomplete',
@@ -63,5 +76,10 @@ class DailyLog extends Component
 
         $this->reset('newBulletName');
         $this->dispatchBrowserEvent('bullet-added');
+    }
+
+    public function updatedUserTimezone()
+    {
+        $this->user->save();
     }
 }

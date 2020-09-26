@@ -1,4 +1,8 @@
 <div>
+    <div
+        x-data="{ timezone: @entangle('user.timezone') }"
+        x-init="timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;"
+    ></div>
     @foreach ($days as $day)
         @php
             $fade = $loop->iteration >= 5;

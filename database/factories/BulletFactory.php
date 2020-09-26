@@ -30,7 +30,7 @@ class BulletFactory extends Factory
             'state' => $this->faker->randomElement([
                 'incomplete',
                 'complete',
-                'migrated',
+                // 'migrated',
                 'note',
                 // 'scheduled',
             ]),

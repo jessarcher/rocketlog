@@ -54,6 +54,7 @@ class Bullet extends Component
     public function migrate($collectionId = null)
     {
         request()->user()->bullets()->create([
+            'date' => now()->timezone(request()->user()->timezone),
             'name' => $this->bullet->name,
             'type' => $this->bullet->type,
             'collection_id' => $collectionId,
