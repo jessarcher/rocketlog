@@ -21,5 +21,5 @@ Route::get('/', function () {
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('daily-log', DailyLog::class)->name('daily-log');
-    Route::get('c/{collection}', Collection::class)->name('collections');
+    Route::get('c/{collection}', Collection::class)->name('collection');
 });
