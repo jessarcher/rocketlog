@@ -101,13 +101,13 @@
             wire:model.lazy="bullet.name"
             wire:loading.attr="disabled"
             class="w-full py-2 md:py-1 overflow-hidden bg-transparent disabled:opacity-50"
-            style="resize: none; height: 1em;"
+            style="resize: none;"
             rows="1"
             :class="[
                 ! $wire.fade && (state === 'incomplete' || state === 'note' || state === 'event') ? 'text-gray-900' : 'text-gray-400',
                 deleting ? 'opacity-25' : ''
             ]"
-        ></textarea>
+        >{{ $bullet->name }}</textarea>
 
         <x-jet-input-error for="bullet.name" class="mt-2" />
         <x-jet-input-error for="bullet.state" class="mt-2" />
