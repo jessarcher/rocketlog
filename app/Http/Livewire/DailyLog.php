@@ -34,6 +34,7 @@ class DailyLog extends Component
             ->bullets()
             ->select('date')
             ->distinct()
+            ->whereNotNull('date')
             ->whereNull('collection_id')
             ->latest('date')
             ->take(5)
