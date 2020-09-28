@@ -15,6 +15,7 @@
         <textarea
             wire:ignore
             x-ref="name"
+            wire:key="new-bullet"
             wire:model.defer="newBulletName"
             wire:loading.attr="disabled"
             class="w-full py-2 md:py-1 text-gray-900 overflow-hidden bg-transparent disabled:opacity-50"
