@@ -21,7 +21,8 @@
         "laravel/sanctum": "^2.6",
         "laravel/tinker": "^2.0",
         "livewire/livewire": "^2.0",
-        "mtvs/eloquent-hashids": "^3.0"
+        "mtvs/eloquent-hashids": "^3.0",
+        "pusher/pusher-php-server": "~4.0"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",
