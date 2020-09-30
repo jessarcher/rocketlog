@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Events\CollectionUpdated;
 use App\Models\Bullet;
 use App\Models\Collection as CollectionModel;
 use App\Models\User;
@@ -29,10 +30,14 @@ class Collection extends Component
         'addUserEmail' => 'email',
     ];
 
-    protected $listeners = [
-        'bulletDeleted' => '$refresh',
-        'bulletStateUpdated' => '$refresh',
-    ];
+    public function getListeners()
+    {
+        return [
+            'bulletDeleted' => '$refresh',
+            'bulletStateUpdated' => '$refresh',
+            "echo-private:collection.{$this->collection->id},CollectionUpdated" => '$refresh',
+        ];
+    }
 
     public function render()
     {
@@ -52,6 +57,8 @@ class Collection extends Component
         $this->authorize('update', $this->collection);
 
         $this->collection->save();
+
+        event(new CollectionUpdated($this->collection));
     }
 
     public function addBullet()
