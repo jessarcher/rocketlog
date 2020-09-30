@@ -21,6 +21,8 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
-        "autosize": "^4.0.2"
+        "autosize": "^4.0.2",
+        "laravel-echo": "^1.8.1",
+        "pusher-js": "^7.0.0"
     }
 }
