@@ -5,10 +5,13 @@ namespace App\Http\Livewire;
 use App\Models\Bullet;
 use App\Models\Collection as CollectionModel;
 use App\Models\User;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 
 class Collection extends Component
 {
+    use AuthorizesRequests;
+
     public CollectionModel $collection;
 
     public $newBulletName = '';
@@ -33,6 +36,8 @@ class Collection extends Component
 
     public function render()
     {
+        $this->authorize('view', $this->collection);
+
         return view('livewire.collection', [
             'bullets' => $this->collection->hide_done ?
                 $this->collection->bullets()->whereIn('state', ['incomplete', 'note'])->get() :
@@ -44,6 +49,8 @@ class Collection extends Component
     {
         $this->validate();
 
+        $this->authorize('update', $this->collection);
+
         $this->collection->save();
     }
 
@@ -52,6 +59,8 @@ class Collection extends Component
         if (empty($this->newBulletName)) {
             return;
         }
+
+        $this->authorize('update', $this->collection);
 
         Bullet::create([
             'name' => $this->newBulletName,
@@ -66,12 +75,16 @@ class Collection extends Component
 
     public function clearDone()
     {
+        $this->authorize('update', $this->collection);
+
         $this->collection->bullets()->where('state', 'complete')->delete();
         $this->confirmingClearDone = false;
     }
 
     public function delete()
     {
+        $this->authorize('delete', $this->collection);
+
         $this->collection->delete();
 
         return redirect()->to('/daily-log');
@@ -79,6 +92,8 @@ class Collection extends Component
 
     public function addUser()
     {
+        $this->authorize('share', $this->collection);
+
         $this->validateOnly('addUserEmail');
 
         $user = User::where('email', $this->addUserEmail)->first();
@@ -96,6 +111,8 @@ class Collection extends Component
 
     public function removeUser($userId)
     {
+        $this->authorize('share', $this->collection);
+
         $this->collection->users()->detach($userId);
 
         $this->collection = $this->collection->fresh();

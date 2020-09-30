@@ -36,6 +36,11 @@ class Collection extends Model
         return $this->belongsToMany(User::class);
     }
 
+    public function team()
+    {
+        return $this->belongsTo(Team::class);
+    }
+
     public function addBullet($attributes)
     {
         if (is_string($attributes)) {
