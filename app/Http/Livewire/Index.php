@@ -25,6 +25,6 @@ class Index extends Component
 
         $this->reset();
 
-        return redirect()->to(route('collections', $collection));
+        return redirect()->to(route('collection', $collection));
     }
 }
