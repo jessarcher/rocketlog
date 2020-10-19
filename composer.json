@@ -72,7 +72,8 @@
             "@php artisan config:cache",
             "@php artisan route:cache",
             "@php artisan view:cache",
-            "@php artisan horizon:publish"
+            "@php artisan horizon:publish",
+            "@php artisan livewire:publish --assets"
         ],
         "clear": [
             "@php artisan cache:clear",
