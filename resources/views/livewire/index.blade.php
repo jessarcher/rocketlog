@@ -5,9 +5,7 @@
         href="{{ route('daily-log') }}"
         class="flex items-center py-3 border-b border-gray-200 font-medium hover:text-purple-800 focus:text-purple-800"
     >
-        <svg class="h-4 w-4 {{ request()->route()->named('daily-log') ? 'text-purple-500' : 'text-gray-500' }}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-        </svg>
+        <x-heroicon-o-calendar class="h-4 w-4 {{ request()->route()->named('daily-log') ? 'text-purple-500' : 'text-gray-500' }}" />
         <span class="ml-2 {{ request()->route()->named('daily-log') ? 'text-purple-900' : 'text-gray-900' }}">Daily Log</span>
     </a>
 
@@ -20,9 +18,7 @@
 
     @foreach($collections as $collection)
         <a href="/c/{{ $collection->hashid() }}" class="flex items-center py-3 border-b border-gray-200 font-medium text-gray-900 hover:text-purple-800 focus:text-purple-800">
-            <svg class="h-4 w-4 {{ request()->route()->named('collection') && request()->route()->collection->id === $collection->id ? 'text-purple-500' : 'text-gray-500' }}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
-            </svg>
+            <x-heroicon-o-clipboard class="h-4 w-4 {{ request()->route()->named('collection') && request()->route()->collection->id === $collection->id ? 'text-purple-500' : 'text-gray-500' }}" />
             <span class="ml-2 {{ request()->route()->named('collection') && request()->route()->collection->id === $collection->id ? 'text-purple-900' : '' }}">{{ $collection->name }}</span>
         </a>
     @endforeach
@@ -36,9 +32,7 @@
 
         @foreach($sharedCollections as $collection)
             <a href="/c/{{ $collection->hashid() }}" class="flex items-center py-3 border-b border-gray-200 font-medium text-gray-900 hover:text-purple-800 focus:text-purple-800">
-                <svg class="h-4 w-4 {{ request()->route()->named('collection') && request()->route()->collection->id === $collection->id ? 'text-purple-500' : 'text-gray-500' }}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
-                </svg>
+                <x-heroicon-o-clipboard class="h-4 w-4 {{ request()->route()->named('collection') && request()->route()->collection->id === $collection->id ? 'text-purple-500' : 'text-gray-500' }}" />
                 <span class="ml-2 {{ request()->route()->named('collection') && request()->route()->collection->id === $collection->id ? 'text-purple-900' : '' }}">{{ $collection->name }}</span>
             </a>
         @endforeach
