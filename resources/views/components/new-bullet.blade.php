@@ -20,7 +20,7 @@
             class="w-full py-2 md:py-1 text-gray-900 overflow-hidden bg-transparent disabled:opacity-50"
             style="resize: none; height: 1em;"
             rows="1"
-            placeholder=""
+            placeholder="Unburden your mind..."
             @keydown.enter="
                 if (! $event.shiftKey && $event.target.value.length) {
                     $event.preventDefault()
