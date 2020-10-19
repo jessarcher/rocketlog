@@ -2,6 +2,7 @@
 
 use App\Http\Livewire\Collection;
 use App\Http\Livewire\DailyLog;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,7 +16,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/', function (Request $request) {
+    if ($request->user()) {
+        return redirect()->to('daily-log');
+    }
+
     return view('welcome');
 });
 
