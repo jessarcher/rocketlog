@@ -142,7 +142,7 @@
 
     <div :key="$collection->type">
         @foreach ($bullets as $bullet)
-            <livewire:bullet :bullet="$bullet" :key="$collection->type . $bullet->id" :type="$collection->type" />
+            <livewire:bullet :bullet="$bullet" :key="$bullet->id" :type="$collection->type" />
         @endforeach
     </div>
 
