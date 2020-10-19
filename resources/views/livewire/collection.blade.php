@@ -14,6 +14,16 @@
             <div class="-mr-2 flex gap-2 text-gray-400">
                 <button
                     type="button"
+                    @click="hideDone = ! hideDone"
+                    class="p-2 rounded-md hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
+                    :class="hideDone ? 'text-gray-400 hover:text-gray-500 focus:text-gray-500' : 'text-purple-600 hover:text-purple-700 focus:text-purple-700'"
+                    title="Show done"
+                >
+                    <x-heroicon-o-clipboard-check class="w-6 h-6 md:w-5 md:w-5" />
+                </button>
+
+                <button
+                    type="button"
                     @click="drawer = drawer === 'share' ? '' : 'share'"
                     class="p-2 rounded-md hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
                     :class="drawer === 'share' ? 'bg-gray-100 text-gray-500' : 'text-gray-400'"
@@ -47,15 +57,6 @@
                         <label class="ml-4 flex items-center">
                             <input type="radio" wire:model="collection.type" name="type" value="checklist" class="form-radio h-5 w-5 border-gray-500 bg-gray-800 text-purple-700">
                             <span class="ml-2 font-semibold text-gray-300">Checklist</span>
-                        </label>
-                    </div>
-
-                    <div class="border-l border-gray-600"></div>
-
-                    <div>
-                        <label class="flex items-center">
-                            <input type="checkbox" wire:model="collection.hide_done" value="1" class="form-checkbox h-5 w-5 border-gray-500 bg-gray-800 text-purple-700">
-                            <span class="ml-2 font-semibold text-gray-300 whitespace-no-wrap">Hide done</span>
                         </label>
                     </div>
                 </div>
