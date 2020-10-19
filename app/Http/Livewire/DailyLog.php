@@ -62,7 +62,7 @@ class DailyLog extends Component
 
     public function addBullet($value)
     {
-        if (empty($bullet)) {
+        if (empty($value)) {
             return;
         }
 
