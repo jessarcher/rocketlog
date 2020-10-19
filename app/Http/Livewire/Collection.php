@@ -15,8 +15,6 @@ class Collection extends Component
 
     public CollectionModel $collection;
 
-    public $newBulletName = '';
-
     public $addUserEmail = '';
 
     public $confirmingClearDone = false;
@@ -61,23 +59,21 @@ class Collection extends Component
         event(new CollectionUpdated($this->collection));
     }
 
-    public function addBullet()
+    public function addBullet($value)
     {
-        if (empty($this->newBulletName)) {
+        if (empty($value)) {
             return;
         }
 
         $this->authorize('update', $this->collection);
 
         Bullet::create([
-            'name' => $this->newBulletName,
+            'name' => $value,
             'type' => 'task',
             'state' => 'incomplete',
             'user_id' => request()->user()->id,
             'collection_id' => $this->collection->id,
         ]);
-
-        $this->reset('newBulletName');
     }
 
     public function clearDone()

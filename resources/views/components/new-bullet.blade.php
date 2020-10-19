@@ -16,22 +16,21 @@
             wire:ignore
             x-ref="name"
             wire:key="new-bullet"
-            wire:model.defer="newBulletName"
             wire:loading.attr="disabled"
             class="w-full py-2 md:py-1 text-gray-900 overflow-hidden bg-transparent disabled:opacity-50"
             style="resize: none; height: 1em;"
             rows="1"
             placeholder=""
             @keydown.enter="
-                if (! $event.shiftKey) {
+                if (! $event.shiftKey && $event.target.value.length) {
                     $event.preventDefault()
-                    $wire.addBullet()
+                    $wire.addBullet($event.target.value).then(() => $event.target.value = '')
                 }
             "
             @bullet-added.window="autosize.update($refs.name)"
             @blur="
                 if ($event.target.value.length) {
-                    $wire.addBullet()
+                    $wire.addBullet($event.target.value).then(() => $event.target.value = '')
                 }
             "
         ></textarea>

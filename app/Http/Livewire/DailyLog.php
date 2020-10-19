@@ -8,8 +8,6 @@ use Livewire\Component;
 
 class DailyLog extends Component
 {
-    public $newBulletName = '';
-
     public User $user;
 
     protected $listeners = [
@@ -62,20 +60,19 @@ class DailyLog extends Component
         ])->layout('layouts.journal');
     }
 
-    public function addBullet()
+    public function addBullet($value)
     {
-        if (empty($this->newBulletName)) {
+        if (empty($bullet)) {
             return;
         }
 
         request()->user()->bullets()->create([
             'date' => now()->timezone(request()->user()->timezone),
-            'name' => $this->newBulletName,
+            'name' => $value,
             'type' => 'task',
             'state' => 'incomplete',
         ]);
 
-        $this->reset('newBulletName');
         $this->dispatchBrowserEvent('bullet-added');
     }
 
