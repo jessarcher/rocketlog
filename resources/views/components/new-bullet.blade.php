@@ -24,13 +24,18 @@
             @keydown.enter="
                 if (! $event.shiftKey && $event.target.value.length) {
                     $event.preventDefault()
-                    $wire.addBullet($event.target.value).then(() => $event.target.value = '')
+                    $wire.addBullet($event.target.value).then(() => {
+                        $event.target.value = ''
+                        autosize.update($event.target)
+                    })
                 }
             "
-            @bullet-added.window="autosize.update($refs.name)"
             @blur="
                 if ($event.target.value.length) {
-                    $wire.addBullet($event.target.value).then(() => $event.target.value = '')
+                    $wire.addBullet($event.target.value).then(() => {
+                        $event.target.value = ''
+                        autosize.update($event.target)
+                    })
                 }
             "
         ></textarea>

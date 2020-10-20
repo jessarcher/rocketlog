@@ -72,8 +72,6 @@ class DailyLog extends Component
             'type' => 'task',
             'state' => 'incomplete',
         ]);
-
-        $this->dispatchBrowserEvent('bullet-added');
     }
 
     public function updatedUserTimezone()
