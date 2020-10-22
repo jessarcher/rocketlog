@@ -11,6 +11,10 @@ class Bullet extends Model
 
     protected $guarded = [];
 
+    protected $appends = [
+        'complete',
+    ];
+
     public function getCompleteAttribute()
     {
         return $this->state === 'complete';
