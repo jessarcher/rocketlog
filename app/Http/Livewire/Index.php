@@ -18,6 +18,10 @@ class Index extends Component
 
     public function addCollection()
     {
+        if (empty($this->newCollectionName)) {
+            return;
+        }
+
         $collection = request()->user()->currentTeam->collections()->create([
             'name' => $this->newCollectionName,
             'type' => 'bullet',

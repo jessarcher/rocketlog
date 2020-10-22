@@ -24,7 +24,7 @@
     @endforeach
 
     <div class="relative">
-        <input type="text" wire:model.lazy="newCollectionName" wire:keydown.enter="addCollection" class="py-3 px-2 border-b border-gray-200 w-full bg-transparent" placeholder="New collection...">
+        <input type="text" wire:model.defer="newCollectionName" wire:keydown.enter="addCollection" class="py-3 px-2 border-b border-gray-200 w-full bg-transparent" placeholder="New collection...">
     </div>
 
     @if ($sharedCollections->isNotEmpty())
