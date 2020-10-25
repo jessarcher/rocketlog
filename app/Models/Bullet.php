@@ -15,6 +15,10 @@ class Bullet extends Model
         'complete',
     ];
 
+    protected $casts = [
+        'date' => 'date',
+    ];
+
     public function getCompleteAttribute()
     {
         return $this->state === 'complete';
