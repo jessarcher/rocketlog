@@ -30,6 +30,7 @@ class DailyLog extends Component
         $dates = request()
             ->user()
             ->bullets()
+            ->toBase()
             ->select('date')
             ->distinct()
             ->whereNotNull('date')
