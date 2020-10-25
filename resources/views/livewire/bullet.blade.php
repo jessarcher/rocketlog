@@ -68,7 +68,7 @@
                 {{--     </button> --}}
                 {{-- @endif --}}
 
-                @if ($bullet->collection_id === null && $bullet->date <= today()->timezone(request()->user()->timezone))
+                @if ($bullet->collection_id === null && $bullet->date < today()->timezone(request()->user()->timezone))
                     <button x-show="state !== 'migrated'" class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 focus:outline-none" wire:click="migrate">
                         <x-icon.migrated class="w-6 h-6 md:w-5 md:h-5" />
                     </button>
