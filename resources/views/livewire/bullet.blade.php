@@ -24,15 +24,15 @@
                     @endif
                     <x-icon.complete x-cloak x-show="state === 'complete'" class="h-6 w-6 md:h-5 md:h-5" />
 
-                    @if ($bullet->state === 'note')
-                        <x-icon.note x-show="state === ''" class="h-6 w-6 md:h-5 md:h-5" />
-                    @endif
-                    <x-icon.note x-cloak x-show="state === 'note'" class="h-6 w-6 md:h-5 md:h-5" />
+{{--                     @if ($bullet->state === 'note') --}}
+{{--                         <x-icon.note x-show="state === ''" class="h-6 w-6 md:h-5 md:h-5" /> --}}
+{{--                     @endif --}}
+{{--                     <x-icon.note x-cloak x-show="state === 'note'" class="h-6 w-6 md:h-5 md:h-5" /> --}}
 
-                    @if ($bullet->state === 'event')
-                        <x-icon.event x-show="state === ''" class="h-6 w-6 md:h-5 md:h-5" />
-                    @endif
-                    <x-icon.event x-cloak x-show="state === 'event'" class="h-6 w-6 md:h-5 md:h-5" />
+{{--                     @if ($bullet->state === 'event') --}}
+{{--                         <x-icon.event x-show="state === ''" class="h-6 w-6 md:h-5 md:h-5" /> --}}
+{{--                     @endif --}}
+{{--                     <x-icon.event x-cloak x-show="state === 'event'" class="h-6 w-6 md:h-5 md:h-5" /> --}}
                 </button>
             </div>
 
@@ -46,8 +46,8 @@
                 <button class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center focus:outline-none" @click="menu = false">
                     <x-icon.complete x-show="state === 'complete'" class="h-6 w-6 md:h-5 md:h-5" />
                     <x-icon.incomplete x-show="state === 'incomplete'" class="h-6 w-6 md:h-5 md:h-5" />
-                    <x-icon.note x-show="state === 'note'" class="h-6 w-6 md:h-5 md:h-5" />
-                    <x-icon.event x-show="state === 'event'" class="h-6 w-6 md:h-5 md:h-5" />
+                    {{-- <x-icon.note x-show="state === 'note'" class="h-6 w-6 md:h-5 md:h-5" /> --}}
+                    {{-- <x-icon.event x-show="state === 'event'" class="h-6 w-6 md:h-5 md:h-5" /> --}}
                 </button>
 
                 <button x-show="state !== 'incomplete'" class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 focus:outline-none" @click="state = 'incomplete'">
@@ -58,15 +58,15 @@
                     <x-icon.complete class="w-6 h-6 md:w-5 md:h-5" />
                 </button>
 
-                <button x-show="state !== 'note'" class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 focus:outline-none" @click="state = 'note'">
-                    <x-icon.note class="w-6 h-6 md:w-5 md:h-5" />
-                </button>
+                {{-- <button x-show="state !== 'note'" class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 focus:outline-none" @click="state = 'note'"> --}}
+                {{--     <x-icon.note class="w-6 h-6 md:w-5 md:h-5" /> --}}
+                {{-- </button> --}}
 
-                @if ($bullet->collection_id === null)
-                    <button x-show="state !== 'event'" class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 focus:outline-none" @click="state = 'event'">
-                        <x-icon.event class="w-6 h-6 md:w-5 md:h-5" />
-                    </button>
-                @endif
+                {{-- @if ($bullet->collection_id === null) --}}
+                {{--     <button x-show="state !== 'event'" class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 focus:outline-none" @click="state = 'event'"> --}}
+                {{--         <x-icon.event class="w-6 h-6 md:w-5 md:h-5" /> --}}
+                {{--     </button> --}}
+                {{-- @endif --}}
 
                 @if ($bullet->collection_id === null && $bullet->created_at <= today()->timezone(request()->user()->timezone))
                     <button x-show="state !== 'migrated'" class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 focus:outline-none" wire:click="migrate">
