@@ -68,7 +68,7 @@ class DailyLog extends Component
         }
 
         request()->user()->bullets()->create([
-            'date' => now()->timezone(request()->user()->timezone),
+            'date' => today(request()->user()->timezone),
             'name' => $value,
             'type' => 'task',
             'state' => 'incomplete',
