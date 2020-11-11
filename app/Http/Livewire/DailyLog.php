@@ -47,11 +47,11 @@ class DailyLog extends Component
             ->user()
             ->bullets()
             ->oldest()
-            ->whereDate('created_at', '<=', $dates->first())
-            ->whereDate('created_at', '>=', $dates->last())
+            ->whereDate('date', '<=', $dates->first())
+            ->whereDate('date', '>=', $dates->last())
             ->whereNull('collection_id')
             ->get()
-            ->groupBy(fn ($bullet) => $bullet->created_at->timezone($this->user->timezone)->format('Y-m-d'));
+            ->groupBy(fn ($bullet) => $bullet->date->format('Y-m-d'));
 
         return view('livewire.daily-log', [
             'days' => $dates->map(fn ($date) => (object) [
