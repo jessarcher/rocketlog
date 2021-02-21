@@ -154,6 +154,9 @@
 
                 <!-- Responsive Navigation Menu -->
                 <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden">
+                    <div class="border-t border-gray-200 p-4">
+                        <index />
+                    </div>
                     <!-- <div class="pt-2 pb-3 space-y-1"> -->
                     <!--     <jet-responsive-nav-link :href="route('daily-log.index')" :active="route().current('daily-log.index')"> -->
                     <!--         Daily Log -->
@@ -254,6 +257,7 @@
     import JetDropdownLink from '@/Jetstream/DropdownLink'
     import JetNavLink from '@/Jetstream/NavLink'
     import JetResponsiveNavLink from '@/Jetstream/ResponsiveNavLink'
+    import Index from '@/Components/Index'
 
     export default {
         components: {
@@ -262,6 +266,7 @@
             JetDropdownLink,
             JetNavLink,
             JetResponsiveNavLink,
+            Index,
         },
 
         data() {
