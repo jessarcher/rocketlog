@@ -1,9 +1,14 @@
 <?php
 
-use App\Http\Livewire\Collection;
-use App\Http\Livewire\DailyLog;
+use App\Http\Controllers\CollectionBulletController;
+use App\Http\Controllers\CollectionBulletDoneController;
+use App\Http\Controllers\CollectionController;
+use App\Http\Controllers\CollectionUserController;
+use App\Http\Controllers\DailyLogController;
+use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,13 +23,35 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function (Request $request) {
     if ($request->user()) {
-        return redirect()->to('daily-log');
+        return redirect()->to(route('daily-log.index'));
     }
 
     return view('welcome');
+
+//     return Inertia::render('Welcome', [
+//         'canLogin' => Route::has('login'),
+//         'canRegister' => Route::has('register'),
+//         'laravelVersion' => Application::VERSION,
+//         'phpVersion' => PHP_VERSION,
+//     ]);
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-    Route::get('daily-log', DailyLog::class)->name('daily-log');
-    Route::get('c/{collection}', Collection::class)->name('collection');
+    Route::resource('daily-log', DailyLogController::class)
+        ->only('index', 'store', 'update', 'destroy')
+        ->parameters(['daily-log' => 'bullet']);
+
+    Route::resource('c', CollectionController::class)
+        ->only('show', 'store', 'update', 'destroy')
+        ->parameters(['c' => 'collection']);
+
+    Route::delete('c/{collection}/bullets/done', [CollectionBulletDoneController::class, 'destroy'])->name('c.destroy-done');
+
+    Route::resource('c.bullets', CollectionBulletController::class)
+        ->only('store', 'update', 'destroy')
+        ->parameters(['c' => 'collection']);
+
+    Route::resource('c.users', CollectionUserController::class)
+        ->only('store', 'destroy')
+        ->parameters(['c' => 'collection']);
 });

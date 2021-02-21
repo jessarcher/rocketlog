@@ -20,6 +20,10 @@ class Collection extends Model
         'hide_done' => 'boolean',
     ];
 
+    protected $appends = [
+        'hashid',
+    ];
+
     public function setNameAttribute($value)
     {
         $this->attributes['name'] = $value;

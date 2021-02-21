@@ -9,28 +9,28 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
-        "beyondcode/laravel-websockets": "^1.8",
-        "blade-ui-kit/blade-heroicons": "^0.2.2",
-        "blade-ui-kit/blade-ui-kit": "^0.1.1",
-        "fideloper/proxy": "^4.2",
+        "beyondcode/laravel-websockets": "^1.9",
+        "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
-        "laravel/framework": "^8.0",
+        "inertiajs/inertia-laravel": "^0.3.5",
+        "laravel/framework": "^8.12",
         "laravel/horizon": "^5.1",
-        "laravel/jetstream": "^1.2",
+        "laravel/jetstream": "^2.1",
         "laravel/sanctum": "^2.6",
-        "laravel/tinker": "^2.0",
-        "livewire/livewire": "^2.0",
-        "mtvs/eloquent-hashids": "^3.0",
-        "pusher/pusher-php-server": "~4.0"
+        "laravel/spark-paddle": "^1.0",
+        "laravel/tinker": "^2.5",
+        "mtvs/eloquent-hashids": "^3.1",
+        "pusher/pusher-php-server": "~4.1",
+        "tightenco/ziggy": "^1.0"
     },
     "require-dev": {
-        "facade/ignition": "^2.3.6",
-        "fzaninotto/faker": "^1.9.1",
-        "laravel/sail": "^0.0.5",
-        "mockery/mockery": "^1.3.1",
+        "facade/ignition": "^2.5",
+        "fakerphp/faker": "^1.9.1",
+        "laravel/sail": "^1.3",
+        "mockery/mockery": "^1.4.2",
         "nunomaduro/collision": "^5.0",
-        "phpunit/phpunit": "^9.3"
+        "phpunit/phpunit": "^9.3.3"
     },
     "config": {
         "optimize-autoloader": true,
@@ -73,8 +73,7 @@
             "@php artisan config:cache",
             "@php artisan route:cache",
             "@php artisan view:cache",
-            "@php artisan horizon:publish",
-            "@php artisan livewire:publish --assets"
+            "@php artisan horizon:publish"
         ],
         "clear": [
             "@php artisan cache:clear",
@@ -82,5 +81,11 @@
             "@php artisan route:clear",
             "@php artisan view:clear"
         ]
-    }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://spark.laravel.com"
+        }
+    ]
 }
