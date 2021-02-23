@@ -47,7 +47,7 @@
                             <migrate-icon class="w-6 h-6 md:w-5 md:h-5" />
                         </button>
 
-                        <button class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 focus:outline-none" @click="$emit('delete', bullet)">
+                        <button class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 focus:outline-none" @click="destroy">
                             <trash-icon class="h-6 w-6 md:w-5 md:h-5 text-gray-500" />
                         </button>
                     </div>
@@ -82,11 +82,7 @@
                             save()
                         }
                     "
-                    @blur="
-                        if ($event.target.value.length) {
-                            save()
-                        }
-                    "
+                    @blur="$event.target.value.length > 0 ? save() : destroy()"
                 ></textarea>
             </div>
         </div>
@@ -164,6 +160,10 @@ export default {
             await this.$listeners.input({ id: this.bullet.id, date: this.date().startOf('day') })
 
             this.saving = false;
+        },
+
+        destroy() {
+            this.$emit('delete', this.bullet)
         }
     },
 }
