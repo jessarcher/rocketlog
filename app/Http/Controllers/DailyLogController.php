@@ -21,11 +21,7 @@ class DailyLogController extends Controller
             ->whereNull('collection_id')
             ->latest('date')
             ->take(5)
-            ->pluck('date')
-            ->prepend(now()->timezone($request->user()->timezone)->format('Y-m-d'))
-            ->unique()
-            ->sortDesc()
-            ->take(5);
+            ->pluck('date');
 
         $bulletsByDate = $request
             ->user()
@@ -39,7 +35,7 @@ class DailyLogController extends Controller
 
         return Inertia::render('DailyLog', [
             'days' => $dates->map(fn ($date) => (object) [
-                'date' => new Carbon($date),
+                'date' => $date,
                 'bullets' => $bulletsByDate->get($date) ?? []
             ]),
         ]);
@@ -52,7 +48,7 @@ class DailyLogController extends Controller
         }
 
         $request->user()->bullets()->create([
-            'date' => today(request()->user()->timezone),
+            'date' => $request->date,
             'name' => $request->name,
             'type' => 'task',
             'state' => 'incomplete',

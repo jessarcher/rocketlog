@@ -43,7 +43,7 @@
                             <complete-icon class="w-6 h-6 md:w-5 md:h-5" />
                         </button>
 
-                        <button v-if="bullet.collection_id === null && date(bullet.date).isBefore(date().startOf('day'))" class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 focus:outline-none" @click="migrate">
+                        <button v-if="bullet.collection_id === null && $date(bullet.date).isBefore($today())" class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 focus:outline-none" @click="migrate">
                             <migrate-icon class="w-6 h-6 md:w-5 md:h-5" />
                         </button>
 
@@ -157,7 +157,7 @@ export default {
         async migrate() {
             this.processing = true;
 
-            await this.$listeners.input({ id: this.bullet.id, date: this.date().startOf('day') })
+            await this.$listeners.migrate(this.bullet)
 
             this.processing = false;
         },

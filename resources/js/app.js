@@ -18,9 +18,15 @@ Vue.mixin({ methods: { route } });
 Vue.use(InertiaPlugin);
 Vue.use(PortalVue);
 Vue.mixin({ methods: {
-    date(date) {
-        return dayjs.utc(date);
-    }
+    $utc(date) {
+        return dayjs.utc(date)
+    },
+    $date(date) {
+        return dayjs(date)
+    },
+    $today() {
+        return dayjs().startOf('day')
+    },
 }});
 
 const app = document.getElementById('app');

@@ -1,23 +1,22 @@
 <template>
     <journal-layout>
-        <div :class="{'opacity-50': saving}">
-            <div v-for="(day, i) in days" :key="day.date" :class="{ 'mt-12': i > 0 }">
-                <h2 class="pb-3 font-bold border-b border-gray-200" :class="[i >= 5 ? 'text-gray-300' : 'text-gray-800']">
-                    {{ date(day.date).format('ddd, MMM D') }}
-                </h2>
+        <div v-for="(day, i) in daysIncludingToday" :key="day.date" :class="{ 'mt-12': i > 0 }">
+            <h2 class="pb-3 font-bold border-b border-gray-200" :class="[i >= 4 ? 'text-gray-400' : 'text-gray-800']">
+                {{ $date(day.date).format('ddd, MMM D') }}
+            </h2>
 
-                <bullet
-                    v-for="bullet in day.bullets"
-                    :key="bullet.id"
-                    :bullet="bullet"
-                    :fade="i >= 5"
-                    type="bullet"
-                    @input="updateBullet"
-                    @delete="deleteBullet"
-                />
+            <bullet
+                v-for="bullet in day.bullets"
+                :key="bullet.id"
+                :bullet="bullet"
+                :fade="i >= 4"
+                type="bullet"
+                @input="updateBullet"
+                @migrate="migrateBullet"
+                @delete="deleteBullet"
+            />
 
-                <new-bullet v-if="i == 0" @input="storeBullet" />
-            </div>
+            <new-bullet v-if="i == 0" @input="storeBullet" />
         </div>
     </journal-layout>
 </template>
@@ -38,16 +37,34 @@
 
         data() {
             return {
-                test: 'test1',
-                saving: false,
+                today: this.$today(),
             }
+        },
+
+        computed: {
+            daysIncludingToday() {
+                if (! this.today.isAfter(this.$date(this.days[0].date))) {
+                    return this.days
+                }
+
+                return [
+                    { date: this.today.format('YYYY-MM-DD'), bullets: [] },
+                    ...this.days.slice(0, -1)
+                ]
+            }
+        },
+
+        mounted() {
+            setInterval(() => {
+                this.today = this.$today()
+            }, 1000)
         },
 
         methods: {
             async storeBullet(bullet) {
                 await this.$inertia.post(
                     route('daily-log.store'),
-                    bullet,
+                    { ...bullet, date: this.$today().format('YYYY-MM-DD') },
                     { preserveScroll: true }
                 )
             },
@@ -70,7 +87,7 @@
             async migrateBullet(bullet) {
                 await this.$inertia.patch(
                     route('daily-log.update', bullet.id),
-                    { date: this.date() },
+                    { date: this.$today().format('YYYY-MM-DD') },
                     { preserveScroll: true }
                 )
             }
