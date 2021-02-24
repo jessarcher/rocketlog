@@ -120,6 +120,7 @@ export default {
 
     data() {
         return {
+            dirty: false,
             processing: false,
             name: this.bullet.name,
             state: this.bullet.state,
@@ -144,6 +145,10 @@ export default {
             await this.$listeners.input({ id: this.bullet.id, state })
             this.processing = false;
         },
+
+        name() {
+            this.dirty = true;
+        }
     },
 
     mounted() {
@@ -152,11 +157,16 @@ export default {
 
     methods: {
         async save() {
+            if (!this.dirty) {
+                return;
+            }
+
             this.processing = true;
 
             await this.$listeners.input({ id: this.bullet.id, name: this.name })
 
             this.processing = false;
+            this.dirty = false;
         },
 
         async migrate() {
