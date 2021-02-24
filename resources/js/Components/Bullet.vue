@@ -97,6 +97,7 @@
 </template>
 
 <script>
+import autosize from 'autosize'
 import CompleteIcon from './Icons/CompleteIcon'
 import IncompleteIcon from './Icons/IncompleteIcon'
 import MigrateIcon from './Icons/MigrateIcon'
@@ -143,6 +144,10 @@ export default {
             await this.$listeners.input({ id: this.bullet.id, state })
             this.processing = false;
         },
+    },
+
+    mounted() {
+        autosize(this.$refs.name)
     },
 
     methods: {

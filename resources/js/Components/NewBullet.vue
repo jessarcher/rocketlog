@@ -2,8 +2,6 @@
     <form
         @submit.prevent="create"
         class="py-1 md:py-2 border-b border-gray-200 flex"
-        x-init="autosize($refs.name)"
-        x-ref="form"
     >
         <div class="border border-transparent flex-shrink-0">
             <div class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center">
