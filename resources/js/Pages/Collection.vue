@@ -1,7 +1,7 @@
 <template>
     <journal-layout>
         <div class="flex flex-col">
-            <div class="-mt-3 flex items-center justify-between border-b border-gray-200">
+            <div class="-mt-3 flex items-center justify-between" :class="drawer ? '' : 'border-b border-gray-200'">
                 <input
                     type="text"
                     v-model.lazy="name"
