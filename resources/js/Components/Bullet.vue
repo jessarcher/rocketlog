@@ -30,24 +30,24 @@
                         @blur="menu = false"
                         @click="menu = false"
                     >
-                        <button class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center focus:outline-none" @click="menu = false">
+                        <button class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center focus:bg-gray-100 focus:outline-none" @click="menu = false">
                             <complete-icon v-if="state === 'complete'" class="h-6 w-6 md:h-5" />
                             <incomplete-icon v-if="state === 'incomplete'" class="h-6 w-6 md:h-5" />
                         </button>
 
-                        <button v-if="state !== 'incomplete'" class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 focus:outline-none" @click="state = 'incomplete'">
+                        <button v-if="state !== 'incomplete'" class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 focus:bg-gray-100 focus:outline-none" @click="state = 'incomplete'">
                             <incomplete-icon class="w-6 h-6 md:w-5 md:h-5" />
                         </button>
 
-                        <button v-else-if="state !== 'complete'" class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 focus:outline-none" @click="state = 'complete'">
+                        <button v-else-if="state !== 'complete'" class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 focus:bg-gray-100 focus:outline-none" @click="state = 'complete'">
                             <complete-icon class="w-6 h-6 md:w-5 md:h-5" />
                         </button>
 
-                        <button v-if="bullet.collection_id === null && $date(bullet.date).isBefore($today())" class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 focus:outline-none" @click="migrate">
+                        <button v-if="bullet.collection_id === null && $date(bullet.date).isBefore($today())" class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 focus:bg-gray-100 focus:outline-none" @click="migrate">
                             <migrate-icon class="w-6 h-6 md:w-5 md:h-5" />
                         </button>
 
-                        <button class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 focus:outline-none" @click="destroy">
+                        <button class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 focus:bg-gray-100 focus:outline-none" @click="destroy">
                             <trash-icon class="h-6 w-6 md:w-5 md:h-5 text-gray-500" />
                         </button>
                     </div>
