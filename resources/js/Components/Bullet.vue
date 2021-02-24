@@ -82,6 +82,8 @@
                             save()
                         }
                     "
+                    @keydown.up="up"
+                    @keydown.down="down"
                     @blur="$event.target.value.length > 0 ? save() : destroy()"
                 ></textarea>
             </div>
@@ -183,7 +185,23 @@ export default {
             await this.$listeners.delete(this.bullet)
 
             this.processing = false;
-        }
+        },
+
+        up() {
+            if (this.$refs.name.selectionStart === 0 && this.$refs.name.selectionStart === 0) {
+                this.$emit('up')
+            }
+        },
+
+        down() {
+            if (this.$refs.name.selectionStart === this.$refs.name.value.length && this.$refs.name.selectionStart === this.$refs.name.value.length) {
+                this.$emit('down')
+            }
+        },
+
+        focus() {
+            this.$refs.name.focus()
+        },
     },
 }
 </script>

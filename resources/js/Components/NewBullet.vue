@@ -18,6 +18,8 @@
                 style="resize: none; height: 1em;"
                 rows="1"
                 placeholder="Unburden your mind..."
+                @keydown.up="up"
+                @keydown.down="down"
                 @keydown.enter="
                     if (! $event.shiftKey && $event.target.value.length) {
                         $event.preventDefault()
@@ -74,6 +76,22 @@ export default {
                 autosize.update(this.$refs.name)
                 this.$refs.name.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
             })
+        },
+
+        up() {
+            if (this.$refs.name.selectionStart === 0 && this.$refs.name.selectionStart === 0) {
+                this.$emit('up')
+            }
+        },
+
+        down() {
+            if (this.$refs.name.selectionStart === this.$refs.name.value.length && this.$refs.name.selectionStart === this.$refs.name.value.length) {
+                this.$emit('down')
+            }
+        },
+
+        focus() {
+            this.$refs.name.focus()
         },
     },
 }
