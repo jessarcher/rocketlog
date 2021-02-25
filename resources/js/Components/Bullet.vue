@@ -59,7 +59,7 @@
                     <div class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center">
                         <input
                             type="checkbox"
-                            class="h-5 w-5 rounded border-gray-300"
+                            class="h-5 w-5 rounded border-gray-300 dark:border-gray-600 dark:bg-gray-900 text-indigo-500"
                             v-model="complete"
                         />
                     </div>
