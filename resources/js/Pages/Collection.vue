@@ -1,18 +1,18 @@
 <template>
     <journal-layout>
         <div class="flex flex-col">
-            <div class="-mt-3 flex items-center justify-between" :class="drawer ? '' : 'border-b border-gray-200'">
+            <div class="-mt-3 flex items-center justify-between" :class="drawer ? '' : 'border-b border-gray-200 dark:border-gray-700'">
                 <input
                     type="text"
                     v-model.lazy="name"
-                    class="flex-1 px-0 py-3 text-gray-800 font-bold border-none"
+                    class="flex-1 px-0 py-3 font-bold border-none bg-transparent text-gray-800 dark:text-gray-100"
                 />
 
                 <div class="-mr-2 flex gap-2 text-gray-400">
                     <button
                         type="button"
                         @click="hideDone = ! hideDone"
-                        class="p-2 rounded-md hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
+                        class="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 transition duration-150 ease-in-out"
                         :class="hideDone ? 'text-gray-400 hover:text-gray-500 focus:text-gray-500' : 'text-purple-600 hover:text-purple-700 focus:text-purple-700'"
                         title="Show done"
                     >
@@ -22,8 +22,8 @@
                     <button
                         type="button"
                         @click="drawer = drawer === 'share' ? '' : 'share'"
-                        class="p-2 rounded-md hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
-                        :class="drawer === 'share' ? 'bg-gray-100 text-gray-500' : 'text-gray-400'"
+                        class="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 transition duration-150 ease-in-out"
+                        :class="drawer === 'share' ? 'bg-gray-100 dark:bg-gray-900 text-gray-500 dark:text-gray-300' : 'text-gray-400'"
                     >
                         <share-icon class="w-6 h-6 md:w-5 md:h-5" />
                     </button>
@@ -31,8 +31,8 @@
                     <button
                         type="button"
                         @click="drawer = drawer === 'settings' ? '' : 'settings'"
-                        class="p-2 rounded-md hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
-                        :class="drawer === 'settings' ? 'bg-gray-100 text-gray-500' : 'text-gray-400'"
+                        class="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 transition duration-150 ease-in-out"
+                        :class="drawer === 'settings' ? 'bg-gray-100 dark:bg-gray-900 text-gray-500 dark:text-gray-300' : 'text-gray-400'"
                     >
                         <adjustments-icon class="w-6 h-6 md:w-5 md:h-5" />
                     </button>
@@ -41,25 +41,25 @@
 
             <div
                 v-show="drawer"
-                class="-mx-12 px-12 py-6 bg-gray-100 shadow-inner"
+                class="-mx-12 px-12 py-6 bg-gray-100 dark:bg-gray-900 shadow-inner"
             >
                 <div v-show="drawer === 'settings'" class="flex items-center justify-between flex-wrap gap-x-20 gap-y-6">
                     <div class="flex flex-wrap gap-x-4 gap-y-4">
                         <div class="flex">
                             <label class="flex items-center">
                                 <input type="radio" v-model="type" name="type" value="bullet" class="h-5 w-5 border-gray-400 text-purple-700">
-                                <span class="ml-2 font-semibold text-gray-700">Bullets</span>
+                                <span class="ml-2 font-semibold text-gray-700 dark:text-gray-300">Bullets</span>
                             </label>
                             <label class="ml-4 flex items-center">
                                 <input type="radio" v-model="type" name="type" value="checklist" class="h-5 w-5 border-gray-400 text-purple-700">
-                                <span class="ml-2 font-semibold text-gray-700">Checklist</span>
+                                <span class="ml-2 font-semibold text-gray-700 dark:text-gray-300">Checklist</span>
                             </label>
                         </div>
                     </div>
 
                     <div class="-mx-2 flex flex-wrap gap-x-2 gap-y-2">
                         <button
-                            class="px-2 py-1 inline-flex items-center font-semibold text-gray-600 rounded-md whitespace-no-wrap hover:bg-gray-200 hover:text-gray-800 focus:outline-none focus:bg-gray-200 focus:text-gray-800"
+                            class="px-2 py-1 inline-flex items-center font-semibold text-gray-600 dark:text-gray-300 rounded-md whitespace-no-wrap hover:bg-gray-200 dark:hover:bg-gray-800 hover:text-gray-800 dark:hover:text-gray-300 focus:outline-none focus:bg-gray-200 dark:focus:bg-gray-800 focus:text-gray-800 dark:focus:text-gray-300"
                             @click="confirmingClearDone = true"
                         >
                             <svg class="mr-1 text-gray-500" style="height: 1em; width: 1em;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -69,7 +69,7 @@
                         </button>
 
                         <button
-                            class="px-2 py-1 inline-flex items-center font-semibold text-gray-600 rounded-md whitespace-no-wrap hover:bg-gray-200 hover:text-gray-800 focus:outline-none focus:bg-gray-200 focus:text-gray-800"
+                            class="px-2 py-1 inline-flex items-center font-semibold text-gray-600 dark:text-gray-300 rounded-md whitespace-no-wrap hover:bg-gray-200 dark:hover:bg-gray-800 hover:text-gray-800 dark:hover:text-gray-300 focus:outline-none focus:bg-gray-200 dark:focus:bg-gray-800 focus:text-gray-800 dark:focus:text-gray-300"
                             @click="confirmingDeleteCollection = true"
                         >
                             <svg class="mr-1 text-gray-500" style="height: 1em; width: 1em;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -81,11 +81,11 @@
                 </div>
 
                 <div v-show="drawer === 'share'" class="grid gap-6">
-                    <div v-if="collection.users.length > 0" class="p-6 space-y-6 border border-gray-300 rounded">
+                    <div v-if="collection.users.length > 0" class="p-6 space-y-6 border border-gray-300 dark:border-gray-700 rounded">
                         <div v-for="user in collection.users" :key="user.id" class="flex items-center justify-between">
                             <div class="flex items-center">
                                 <img class="w-8 h-8 rounded-full" :src="user.profile_photo_url" :alt="user.name">
-                                <div class="ml-4">{{ user.name }}</div>
+                                <div class="ml-4 text-gray-900 dark:text-gray-100">{{ user.name }}</div>
                             </div>
 
                             <div class="flex items-center">
@@ -97,28 +97,28 @@
                     </div>
 
                     <form @submit.prevent="addUserForm.post(route('c.users.store', collection.hashid))">
-                        <h3 class="text-gray-800">
+                        <h3 class="text-gray-800 dark:text-gray-200">
                             Add a new collaborator, allowing them to view and edit this collection.
                         </h3>
 
-                        <div class="mt-2 max-w-xl text-sm text-gray-600">
+                        <div class="mt-2 max-w-xl text-sm text-gray-600 dark:text-gray-400">
                             Please provide the email address of the person you would like to add to this collection. The email address must be associated with an existing account.
                         </div>
 
-                        <label for="email" class="mt-4 block font-semibold text-gray-600">Email</label>
+                        <label for="email" class="mt-4 block font-semibold text-gray-600 dark:text-gray-400">Email</label>
 
                         <div class="mt-1 flex flex-wrap justify-end gap-4">
                             <input
                                 id="email"
                                 type="email"
                                 name="email"
-                                class="flex-1 block border-gray-300 rounded"
+                                class="flex-1 block border-gray-300 dark:border-gray-500 rounded bg-transparent text-gray-900 dark:text-gray-100"
                                 v-model="addUserForm.email"
                             />
 
                             <button
                                 type="submit"
-                                class="px-4 py-2 flex items-center border border-gray-300 rounded font-medium"
+                                class="px-4 py-2 flex items-center border border-gray-300 dark:border-gray-500 rounded font-medium text-gray-900 dark:text-gray-100"
                                 :disabled="addUserForm.processing"
                             >
                                 <user-add-icon class="mr-1 text-gray-400" style="height: 1em; width: 1em;" />

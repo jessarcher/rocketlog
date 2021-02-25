@@ -1,10 +1,10 @@
 <template>
-    <div class="py-1 md:py-2 border-b border-gray-200 flex">
+    <div class="py-1 md:py-2 border-b border-gray-200 dark:border-gray-700 flex">
         <div class="relative flex-shrink-0">
             <template v-if="type === 'bullet'">
                 <div class="border border-transparent" :class="state === 'complete' || fade ? 'opacity-50' : ''">
                     <button
-                        class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center rounded-full border border-transparent hover:border-gray-200 hover:shadow focus:outline-none focus:border-gray-200 focus:shadow-inner disabled:opacity-50"
+                        class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center rounded-full border border-transparent text-gray-900 dark:text-gray-100 hover:border-gray-200 dark:hover:border-gray-600 hover:shadow focus:outline-none focus:border-gray-200 dark:focus:border-gray-600 focus:shadow-inner disabled:opacity-50"
                         @click="menu = true"
                         :disabled="processing"
                     >
@@ -26,29 +26,29 @@
                 >
                     <div
                         v-if="menu"
-                        class="absolute top-0 left-0 -ml-2 inline-flex px-2 rounded-full border border-gray-200 bg-white shadow-xl text-gray-700 z-50 overflow-hidden"
+                        class="absolute top-0 left-0 -ml-2 inline-flex px-2 rounded-full text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-500 bg-white dark:bg-gray-700 shadow-xl z-50 overflow-hidden"
                         @blur="menu = false"
                         @click="menu = false"
                     >
-                        <button class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center focus:bg-gray-100 focus:outline-none" @click="menu = false">
+                        <button class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center focus:bg-gray-100 dark:focus:bg-gray-800 focus:outline-none" @click="menu = false">
                             <complete-icon v-if="state === 'complete'" class="h-6 w-6 md:h-5" />
                             <incomplete-icon v-if="state === 'incomplete'" class="h-6 w-6 md:h-5" />
                         </button>
 
-                        <button v-if="state !== 'incomplete'" class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 focus:bg-gray-100 focus:outline-none" @click="state = 'incomplete'">
+                        <button v-if="state !== 'incomplete'" class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 focus:bg-gray-100 dark:focus:bg-gray-800 focus:outline-none" @click="state = 'incomplete'">
                             <incomplete-icon class="w-6 h-6 md:w-5 md:h-5" />
                         </button>
 
-                        <button v-else-if="state !== 'complete'" class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 focus:bg-gray-100 focus:outline-none" @click="state = 'complete'">
+                        <button v-else-if="state !== 'complete'" class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 focus:bg-gray-100 dark:focus:bg-gray-800 focus:outline-none" @click="state = 'complete'">
                             <complete-icon class="w-6 h-6 md:w-5 md:h-5" />
                         </button>
 
-                        <button v-if="bullet.collection_id === null && $date(bullet.date).isBefore($today())" class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 focus:bg-gray-100 focus:outline-none" @click="migrate">
+                        <button v-if="bullet.collection_id === null && $date(bullet.date).isBefore($today())" class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 focus:bg-gray-100 dark:focus:bg-gray-800 focus:outline-none" @click="migrate">
                             <migrate-icon class="w-6 h-6 md:w-5 md:h-5" />
                         </button>
 
-                        <button class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 focus:bg-gray-100 focus:outline-none" @click="destroy">
-                            <trash-icon class="h-6 w-6 md:w-5 md:h-5 text-gray-500" />
+                        <button class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 focus:bg-gray-100 dark:focus:bg-gray-800 focus:outline-none" @click="destroy">
+                            <trash-icon class="h-6 w-6 md:w-5 md:h-5" />
                         </button>
                     </div>
                 </transition>
@@ -73,7 +73,7 @@
                     ref="name"
                     v-model="name"
                     :disabled="processing"
-                    class="w-full p-2 md:p-1 overflow-hidden bg-transparent border-none disabled:opacity-75"
+                    class="w-full p-2 md:p-1 overflow-hidden bg-transparent border-none disabled:opacity-75 text-gray-900 dark:text-gray-100"
                     style="resize: none;"
                     rows="1"
                     @keydown.enter="

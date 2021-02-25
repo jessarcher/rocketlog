@@ -8,6 +8,8 @@ module.exports = {
         './resources/js/**/*.vue',
     ],
 
+    darkMode: 'media',
+
     theme: {
         extend: {
             fontFamily: {

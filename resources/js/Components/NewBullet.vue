@@ -1,11 +1,11 @@
 <template>
     <form
         @submit.prevent="create"
-        class="py-1 md:py-2 border-b border-gray-200 flex"
+        class="py-1 md:py-2 border-b border-gray-200 dark:border-gray-700 flex"
     >
         <div class="border border-transparent flex-shrink-0">
             <div class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center">
-                <incomplete-icon class="h-5 w-5 text-gray-200" />
+                <incomplete-icon class="h-5 w-5 text-gray-200 dark:text-gray-700" />
             </div>
         </div>
 
@@ -14,7 +14,7 @@
                 v-model="name"
                 ref="name"
                 :disabled="creating"
-                class="w-full p-2 md:p-1 text-gray-900 overflow-hidden bg-transparent border-none disabled:opacity-50 placeholder-gray-300"
+                class="w-full p-2 md:p-1 text-gray-900 dark:text-gray-100 overflow-hidden bg-transparent border-none disabled:opacity-50 placeholder-gray-300 dark:placeholder-gray-600"
                 style="resize: none; height: 1em;"
                 rows="1"
                 placeholder="Unburden your mind..."

@@ -1,7 +1,7 @@
 <template>
     <journal-layout>
         <div v-for="(day, i) in daysIncludingToday" :key="day.date" :class="{ 'mt-12': i > 0 }">
-            <h2 class="pb-3 font-bold border-b border-gray-200" :class="[i >= 4 ? 'text-gray-400' : 'text-gray-800']">
+            <h2 class="pb-3 font-bold border-b border-gray-200 dark:border-gray-700" :class="[i >= 4 ? 'text-gray-400 dark:text-gray-600' : 'text-gray-800 dark:text-gray-200']">
                 {{ $date(day.date).format('ddd, MMM D') }}
             </h2>
 
