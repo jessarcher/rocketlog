@@ -1,6 +1,6 @@
 {
-    "name": "Rocket Log",
-    "short_name": "Rocket Log",
+    "name": "RocketLog",
+    "short_name": "RocketLog",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",
@@ -13,7 +13,5 @@
             "type": "image/png"
         }
     ],
-    "theme_color": "#ffffff",
-    "background_color": "#ffffff",
     "display": "standalone"
 }
