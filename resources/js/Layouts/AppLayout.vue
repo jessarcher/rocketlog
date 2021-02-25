@@ -3,7 +3,10 @@
         <jet-banner />
 
         <div class="flex flex-col min-h-screen bg-gray-100 dark:bg-gray-900">
-            <nav class="bg-white border-b border-gray-100 dark:bg-gray-800 dark:border-gray-700">
+            <!-- Header spacer -->
+            <div class="h-16"></div>
+
+            <nav class="fixed w-full bg-white border-b border-gray-100 dark:bg-gray-800 dark:border-gray-700 z-10">
                 <!-- Primary Navigation Menu -->
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex justify-between h-16">
