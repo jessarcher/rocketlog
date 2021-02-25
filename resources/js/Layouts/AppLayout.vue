@@ -130,7 +130,8 @@
                                         <div class="border-t border-gray-100 dark:border-gray-600"></div>
 
                                         <!-- Authentication -->
-                                        <form @submit.prevent="logout">
+                                        <form method="post" action="/logout">
+                                            <input type="hidden" name="_token" :value="$page.props.csrf_token" />
                                             <jet-dropdown-link as="button">
                                                 Logout
                                             </jet-dropdown-link>
@@ -282,10 +283,6 @@
                 }, {
                     preserveState: false
                 })
-            },
-
-            logout() {
-                this.$inertia.post(route('logout'));
             },
         }
     }
