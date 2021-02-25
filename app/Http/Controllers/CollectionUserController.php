@@ -15,6 +15,7 @@ class CollectionUserController extends Controller
         $user = User::where('email', $request->email)->first();
 
         $this->invalidIf($user === null, 'email', 'A user with this email address was not found.');
+        $this->invalidIf($collection->users->contains($user), 'email', 'This user has already been added to this collection.');
 
         $collection->users()->attach($user);
 
