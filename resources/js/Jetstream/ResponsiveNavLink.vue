@@ -4,6 +4,10 @@
             <slot></slot>
         </button>
 
+        <a :href="href" :class="classes" v-else-if="as = 'a'">
+            <slot></slot>
+        </a>
+
         <inertia-link :href="href" :class="classes" v-else>
             <slot></slot>
         </inertia-link>
