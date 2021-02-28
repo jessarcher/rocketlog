@@ -5,6 +5,8 @@
 /public/mix-manifest.json
 /public/storage
 /public/vendor
+/resources/views/vendor
+/resources/lang/spark
 /storage/*.key
 /vendor
 .env
