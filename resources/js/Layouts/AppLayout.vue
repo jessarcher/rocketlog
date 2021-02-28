@@ -190,7 +190,8 @@
                             </jet-responsive-nav-link>
 
                             <!-- Authentication -->
-                            <form method="POST" @submit.prevent="logout">
+                            <form method="post" action="/logout">
+                                <input type="hidden" name="_token" :value="$page.props.csrf_token" />
                                 <jet-responsive-nav-link as="button">
                                     Logout
                                 </jet-responsive-nav-link>
