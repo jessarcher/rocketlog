@@ -4,7 +4,7 @@
             <slot></slot>
         </button>
 
-        <a :href="href" :class="classes" v-else-if="as = 'a'">
+        <a :href="href" :class="classes" v-else-if="as == 'a'">
             <slot></slot>
         </a>
 
