@@ -36,13 +36,15 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request)
     {
-        if (!$request->user()) {
-            return parent::share($request);
-        }
-
-        return array_merge(parent::share($request), [
-            'collections' => $request->user()->currentTeam->collections,
-            'sharedCollections' => $request->user()->sharedCollections
-        ]);
+        return array_merge(
+            parent::share($request),
+            [
+                'csrf_token' => csrf_token(),
+            ],
+            $request->user() ? [
+                'collections' => $request->user()->currentTeam->collections,
+                'sharedCollections' => $request->user()->sharedCollections
+            ] : [],
+        );
     }
 }
