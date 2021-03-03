@@ -1,4 +1,5 @@
-@extends('base')
+@extends('base', ['bodyClass' => 'spotlight-bg'])
+
 @section('body')
     @if (Route::has('login'))
         <div class="fixed top-0 right-0 px-6 py-4">
@@ -14,7 +15,7 @@
         </div>
     @endif
 
-    <div class="p-4 md:p-10 max-w-2xl mx-auto">
+    <div class="p-4 md:p-10 max-w-3xl mx-auto">
         <svg class="h-12" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 143 32">
             <g clip-path="url(#clip0)">
             <path d="M29.838 2.19l.975.223a1 1 0 00-1.198-1.198l.223.975zM13.13 10.804l-.644-.765a1.044 1.044 0 00-.063.058l.707.707zm8.094 8.094l.707.707c.02-.02.04-.041.058-.063l-.765-.644zm-7.046 5.154l-.707.707a1 1 0 001.149.19l-.442-.897zM7.976 17.85l-.897-.442a1 1 0 00.19 1.149l.707-.707zm8.822 4.694l-.551-.834a1 1 0 00-.436.674l.987.16zm-.969 5.978l-.987-.16a1 1 0 001.694.867l-.707-.707zm5.668-5.668l.707.707a1 1 0 00.28-.549l-.987-.158zm.859-5.36l.987.157a1 1 0 00-1.779-.769l.792.611zM14.59 9.628l.61.792a1 1 0 00-.769-1.78l.159.988zm-5.082 5.563l.16.987a1 1 0 00.673-.434l-.833-.553zm-6.031.979l-.708-.707a1 1 0 00.868 1.694l-.16-.987zm5.668-5.668l-.159-.988a1 1 0 00-.548.28l.707.708zm13.626-.377a.595.595 0 01-.842 0l-1.414 1.414a2.595 2.595 0 003.67 0l-1.414-1.414zm-.842 0a.595.595 0 010-.842L20.516 7.87a2.595 2.595 0 000 3.67l1.414-1.414zm0-.842a.595.595 0 01.842 0l1.414-1.414a2.595 2.595 0 00-3.67 0l1.414 1.414zm.842 0a.595.595 0 010 .842l1.414 1.414a2.595 2.595 0 000-3.67l-1.414 1.414zM18.6 14.3a.595.595 0 01-.842 0l-1.414 1.415a2.595 2.595 0 003.67 0l-1.414-1.415zm-.842 0a.595.595 0 010-.841l-1.414-1.415a2.595 2.595 0 000 3.67l1.414-1.414zm0-.841a.595.595 0 01.842 0l1.414-1.415a2.595 2.595 0 00-3.67 0l1.414 1.415zm.842 0a.595.595 0 010 .841l1.414 1.415a2.595 2.595 0 000-3.67l-1.414 1.414zm-4.174 5.015a.595.595 0 01-.842 0l-1.414 1.414a2.595 2.595 0 003.67 0l-1.414-1.414zm-.842 0a.595.595 0 010-.842l-1.414-1.414a2.595 2.595 0 000 3.67l1.414-1.414zm0-.842a.595.595 0 01.842 0l1.414-1.414a2.595 2.595 0 00-3.67 0l1.414 1.414zm.842 0a.595.595 0 010 .842l1.414 1.414a2.595 2.595 0 000-3.67l-1.414 1.414zm15.19-16.416C23.738 2.56 17.53 5.793 12.486 10.039l1.289 1.53c4.83-4.067 10.757-7.139 16.286-8.404l-.446-1.95zM21.99 19.542c4.246-5.043 7.48-11.252 8.824-17.13l-1.95-.445c-1.265 5.529-4.337 11.456-8.404 16.287l1.53 1.288zm-7.37 5.407c2.506-1.232 4.973-3.005 7.312-5.344l-1.414-1.415c-2.2 2.2-4.49 3.838-6.78 4.964l.883 1.795zm-7.35-6.392l6.202 6.202 1.415-1.414-6.203-6.202-1.414 1.414zm5.154-8.46c-2.339 2.34-4.112 4.806-5.344 7.311l1.795.883c1.126-2.29 2.764-4.58 4.963-6.78l-1.414-1.414zm3.388 12.287l-.97 5.978 1.975.32.97-5.978-1.975-.32zm.725 6.845l5.668-5.668-1.414-1.414-5.668 5.668 1.414 1.414zm5.948-6.217l.86-5.36-1.976-.317-.858 5.361 1.974.316zm-.92-6.13c-.36.466-.728.924-1.105 1.371l1.53 1.289a43.3 43.3 0 001.159-1.438l-1.584-1.222zm-1.047 1.308a27.609 27.609 0 01-4.27 3.52l1.103 1.668a29.6 29.6 0 004.58-3.773l-1.413-1.415zm-6.742-6.62c.465-.393.94-.776 1.426-1.149l-1.22-1.585c-.508.391-1.006.792-1.495 1.203l1.289 1.53zm-3.433 4.175a27.64 27.64 0 013.495-4.234l-1.414-1.414a29.642 29.642 0 00-3.747 4.542l1.666 1.106zm-.993-1.54l-6.032.979.32 1.974 6.032-.979-.32-1.974zm-5.164 2.673l5.668-5.668-1.414-1.414-5.669 5.668 1.415 1.414zm5.12-5.388l5.444-.874-.317-1.975-5.445.874.317 1.975z" fill="url(#paint0_linear)"/>
@@ -32,45 +33,51 @@
             </defs>
         </svg>
 
-        <h2 class="mt-10 font-bold text-3xl leading-tight">Is your todo list a guilt-trip of things you thought were important but haven't done?</h2>
-        <p class="mt-4 text-lg">We've been there too. You have lots of things you want to get done. You store them so you won't forget. But now you're facing a seemingly-insurmountable list of varying priorities that just causes more stress.</p>
+        <h2 class="mt-10 font-bold text-3xl leading-snug text-gray-900">Is your todo list a guilt-trip of things you thought were important but haven't done?</h2>
+        <p class="mt-6 text-lg text-gray-500">We've been there too. You have lots of things you want to get done. You store them so you won't forget. But now you're facing a seemingly-insurmountable list of varying priorities that just causes more stress.</p>
 
-        <h2 class="mt-10 font-bold text-2xl leading-tight">RocketLog helps you focus on the things you actually care about so your mind is free for creativity and deep work.</h2>
+        <h2 class="mt-10 font-bold text-2xl leading-snug text-gray-900">RocketLog helps you focus on the things you actually care about so your mind is free for creativity and deep work.</h2>
 
-        <p class="mt-4 text-lg">By following the well-established practices of rapid logging and migration, you will always know what your priorities are, while the unimportant things just fade away, guilt-free.</p>
+        <p class="mt-6 text-lg text-gray-500">By following the well-established practices of <a href="https://bulletjournal.com/pages/learn" class="text-gray-900 underline font-medium" target="_blank" rel="noopener">rapid logging and migration</a>, you will always know what your priorities are, while the unimportant things just fade away, guilt-free.</p>
 
-        <div class="mt-6 text-center">
+        <img class="mt-10 w-48 mx-auto" src="/images/to-the-stars.svg" />
+
+        <div class="mt-4 max-w-xl mx-auto text-center">
             <a href="#" onclick="alert('Coming soon.\n\nFollow @rocketlogapp and @jessarchercodes on Twitter to be notified.')" class="px-6 py-3 inline-block bg-gradient-to-br from-pink-500 to-purple-700 text-xl font-bold text-white rounded-lg shadow-lg hover:from-pink-600 hover:to-purple-800">Unburden your mind</a>
-            <p class="mt-6 text-base">RocketLog is privacy-respecting open-source software with a premium hosted option for your convenience.</p>
+            <p class="mt-6 text-base text-gray-500">RocketLog is privacy-respecting open-source software with a premium hosted option for your convenience.</p>
         </div>
 
-        <div class="mt-10 flex items-start">
+        <div class="mt-10 flex items-center px-4 py-6 border shadow rounded-md">
             <img src="/images/jess-archer.jpg" class="flex-shrink-0 block h-16 w-16 rounded-full" />
-            <p class="ml-4 text-lg">Created by Jess Archer, digital maker, podcaster, speaker, and fan of Bullet Journalling.</p>
+            <div class="ml-4 text-base text-gray-500">
+            <p>Created by <a class="underline font-medium text-gray-900" href="https://twitter.com/jessarchercodes" target="_blank">Jess Archer</a></p>
+            <p>Digital maker, podcaster, speaker, and fan of Bullet Journalling.</p>
+            </div>
         </div>
 
-        <h3 class="mt-10 text-2xl font-bold">Why another todo list?</h3>
-        <p class="mt-4 text-lg"><strong>RocketLog is not your average todo list. It's a fan-letter to bullet-journalling, rapid-logging, and task migration.</strong></p>
-        <p class="mt-4 text-lg">Many of the limitations of a paper journal are what make them so good for focus and prioritisation.</p>
-        <p class="mt-4 text-lg">The process of <em>Bullet Journalling</em> gives you an organisation system to manage this.</p>
-        <p class="mt-4 text-lg">RocketLog makes this digital, while also providing conveniences that aren't possible with paper.</p>
+        <div class="mt-10 prose prose-lg text-gray-500">
+            <h3>Why another todo list?</h3>
+            <p><strong>RocketLog is not your average todo list. It's a fan-letter to bullet-journalling, rapid-logging, and task migration.</strong></p>
+            <p>Many of the limitations of a paper journal are what make them so good for focus and prioritisation.</p>
+            <p>The process of <a href="https://bulletjournal.com/pages/learn" class="text-gray-900 underline font-medium" target="_blank" rel="noopener">Bullet Journalling</a> gives you an organisation system to manage this.</p>
+            <p>RocketLog makes this digital, while also providing conveniences that aren't possible with paper.</p>
+            <h3>How does it work?</h3>
+            <p>As you add new tasks to your todo list, the older incomplete tasks naturally fall out of view, unless you migrate them forward.</p>
+            <p><strong>This naturally causes you to reassess what's still important and what only felt important at the time.</strong></p>
+            <p>If you don't complete or migrate a task forward, it will start to fade away.</p>
+            <p>This gives you a more organic and truer representation of what's actually important. No arbitrary priority rankings, and no "smart" automated prioritisation.</p>
 
-        <h3 class="mt-10 text-2xl font-bold">How does it work?</h3>
-        <p class="mt-4 text-lg">As you add new tasks to your todo list, the older incomplete tasks naturally fall out of view, unless you migrate them forward.</p>
-        <p class="mt-4 text-lg"><strong>This naturally causes you to reassess what's still important and what only felt important at the time.</strong></p>
-        <p class="mt-4 text-lg">If you don't complete or migrate a task forward, it will start to fade away.</p>
-        <p class="mt-4 text-lg">This gives you a more organic and truer representation of what's actually important. No arbitrary priority rankings, and no "smart" automated prioritisation.</p>
+            <h3>RocketLog respects your privacy and freedom</h3>
+            <p>The RocketLog software project is open-source and free to self-host. We believe in maintaining the privacy of <em>your</em> data. We believe that you should be free to see "under the hood" of the software you use, and be able modify it if you see fit.</p>
 
-        <h3 class="mt-10 text-2xl font-bold">RocketLog respects your privacy and freedom</h3>
-        <p class="mt-4 text-lg">The RocketLog software project is open-source and free to self-host. We believe in maintaining the privacy of <em>your</em> data. We believe that you should be free to see "under the hood" of the software you use, and be able modify it if you see fit.</p>
+            <h3>What if I can't or don't want to host it myself?</h3>
+            <p>While RocketLog is completely free to host yourself, we understand that not everyone has the time or knowledge to manage software hosting themselves.</p>
+            <p>That's why we offer a premium hosted option for your convenience. We'd be honoured to take care of your data for you and do not take that trust lightly. We won't share anything with third parties and we don't include any of the invasive tracking code that is prevalent on so many services these days.</p>
+            <p>You will also be helping to support the ongoing development of the project.</p>
+        </div>
 
-        <h3 class="mt-10 text-2xl font-bold">What if I can't or don't want to host it myself?</h3>
-        <p class="mt-4 text-lg">While RocketLog is completely free to host yourself, we understand that not everyone has the time or knowledge to manage software hosting themselves.</p>
-        <p class="mt-4 text-lg">That's why we offer a premium hosted option for your convenience. We'd be honoured to take care of your data for you and do not take that trust lightly. We won't share anything with third parties and we don't include any of the invasive tracking code that is prevalent on so many services these days.</p>
-        <p class="mt-4 text-lg">You will also be helping to support the ongoing development of the project.</p>
-
-        <h3 class="mt-10 text-2xl font-bold">Features</h3>
-        <ul class="mt-4 flex-wrap text-lg">
+        <h3 class="mt-10 text-2xl font-semibold text-gray-900">Features</h3>
+        <ul class="mt-6 flex-wrap text-lg text-gray-500">
             <li class="mt-0 flex">
                 <svg class="mr-2 h-6 flex-shrink-0 text-pink-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -95,15 +102,20 @@
                 </svg>
                 Show or hide complete items - sometimes you want to see how much you've done, and sometimes you just want to focus on what's left.
             </li>
+            <li class="mt-4 flex">
+                <svg class="mr-2 h-6 flex-shrink-0 text-pink-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Dark Mode - Because why not?
+            </li>
         </ul>
 
         <div class="mt-10 text-center">
             <a href="#" onclick="alert('Coming soon.\n\nFollow @rocketlogapp and @jessarchercodes on Twitter to be notified.')" class="px-6 py-3 inline-block bg-gradient-to-br from-pink-500 to-purple-700 text-xl font-bold text-white rounded-lg shadow-lg hover:from-pink-600 hover:to-purple-800">Unburden your mind</a>
-            <p class="mt-6">For a limited time we're offering 50% off for early adopters!</p>
         </div>
 
-        <p class="mt-4 text-center">
-        <a href="https://github.com/jessarcher/rocketlog" class="text-gray-700 hover:underline"><svg class="w-5 h-5 inline-block text-gray-500 mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>Get the source code on GitHub</a>
+        <p class="mt-6 text-center">
+            <a href="https://github.com/jessarcher/rocketlog" class="text-gray-700 hover:underline"><svg class="w-5 h-5 inline-block text-gray-500 mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>Get the source code on GitHub</a>
         </p>
 
         {{-- <p class="mt-10 text-center text-gray-600 text-sm"><a href="">Privacy policy</a></p> --}}

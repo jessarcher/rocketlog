@@ -1,3 +1,23 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+@layer components {
+    @media (min-width: 1024px) {
+        .spotlight-bg {
+            background-image: url('/images/spotlight-bg.svg');
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-color: #F9FAFB;
+        }
+    }
+
+    /* @media (min-width: 1024px) and (prefers-color-scheme: dark) { */
+    /*     .spotlight-bg { */
+    /*         background-image: url('/images/spotlight-bg-dark.svg'); */
+    /*         background-color: #F3F4F6; */
+    /*     } */
+    /* } */
+}
