@@ -25,7 +25,7 @@
         @routes
         @stack('scripts')
     </head>
-    <body class="font-sans antialiased {{ $bodyClass }}">
+    <body class="font-sans antialiased {{ $bodyClass ?? '' }}">
         @yield('body')
     </body>
 </html>
