@@ -85,13 +85,15 @@ return [
             'plans' => [
                 [
                     'name' => 'RocketLog Subscription',
-                    'short_description' => 'This is a short, human friendly description of the plan.',
+                    'short_description' => 'One simple plan. All of the features. Your subscription helps to support open source software.',
                     'monthly_id' => env('SPARK_STANDARD_MONTHLY_PLAN', 1000),
                     'yearly_id' => env('SPARK_STANDARD_YEARLY_PLAN', 1001),
                     'features' => [
-                        'Feature 1',
-                        'Feature 2',
-                        'Feature 3',
+                        'Daily Log',
+                        'Collections',
+                        'Share Collections',
+                        'Dark Mode',
+                        'More to come, including Monthly Log and Future Log!',
                     ],
                     'archived' => false,
                 ],
