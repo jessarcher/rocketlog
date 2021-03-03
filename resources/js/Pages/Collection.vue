@@ -199,6 +199,8 @@
                 </jet-danger-button>
             </template>
         </jet-confirmation-modal>
+
+        <subscription-prompt-modal :show="showingSubscriptionPrompt" @close="showingSubscriptionPrompt = false" />
     </journal-layout>
 </template>
 
@@ -214,6 +216,7 @@ import JetConfirmationModal from '@/Jetstream/ConfirmationModal'
 import JetSecondaryButton from '@/Jetstream/SecondaryButton'
 import JetDangerButton from '@/Jetstream/DangerButton'
 import JetInputError from '@/Jetstream/InputError'
+import SubscriptionPromptModal from '@/Components/SubscriptionPromptModal'
 
 export default {
     components: {
@@ -228,6 +231,7 @@ export default {
         JetSecondaryButton,
         JetDangerButton,
         JetInputError,
+        SubscriptionPromptModal,
     },
 
     props: ['collection'],
@@ -241,6 +245,7 @@ export default {
             drawer: false,
             confirmingClearDone: false,
             confirmingDeleteCollection: false,
+            showingSubscriptionPrompt: false,
 
             addUserForm: this.$inertia.form({
                 email: '',
@@ -282,6 +287,10 @@ export default {
                 bullet,
                 { preserveScroll: true }
             )
+
+            if (this.$page.props.showSubscriptionPrompt) {
+                this.showingSubscriptionPrompt = true;
+            }
         },
 
         async updateBullet(bullet) {

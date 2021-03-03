@@ -18,6 +18,8 @@
 
             <new-bullet v-if="i == 0" @input="storeBullet" />
         </div>
+
+        <subscription-prompt-modal :show="showingSubscriptionPrompt" @close="showingSubscriptionPrompt = false" />
     </journal-layout>
 </template>
 
@@ -25,12 +27,14 @@
     import JournalLayout from '@/Layouts/JournalLayout'
     import Bullet from '@/Components/Bullet'
     import NewBullet from '@/Components/NewBullet'
+    import SubscriptionPromptModal from '@/Components/SubscriptionPromptModal'
 
     export default {
         components: {
             Bullet,
             JournalLayout,
             NewBullet,
+            SubscriptionPromptModal,
         },
 
         props: ['days'],
@@ -38,6 +42,7 @@
         data() {
             return {
                 today: this.$today(),
+                showingSubscriptionPrompt: false,
             }
         },
 
@@ -67,6 +72,10 @@
                     { ...bullet, date: this.$today().format('YYYY-MM-DD') },
                     { preserveScroll: true }
                 )
+
+                if (this.$page.props.showSubscriptionPrompt) {
+                    this.showingSubscriptionPrompt = true;
+                }
             },
 
             async updateBullet(bullet) {
