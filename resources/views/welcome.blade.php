@@ -71,7 +71,7 @@
         </div>
 
         <h3 class="mt-10 text-2xl font-semibold text-gray-900">One simple plan. Two ways to pay.</h3>
-        <div class="mt-10 grid grid-cols-2 gap-6">
+        <div class="mt-10 grid sm:grid-cols-2 gap-6 max-w-xs sm:max-w-none mx-auto">
             <div class="p-6 border rounded-md shadow-md text-center">
                 <p class="tracking-tight">
                     <span class="font-semibold text-indigo-600"><sup class="text-4xl">$</sup><span class="text-7xl">9</span></span> <span class="text-lg font-semibold text-gray-500">/month</span>
