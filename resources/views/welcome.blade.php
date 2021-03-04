@@ -51,7 +51,7 @@
         <div class="mt-10 flex items-center px-4 py-6 border shadow-md rounded-md">
             <img src="/images/jess-archer.jpg" class="flex-shrink-0 block h-16 w-16 rounded-full" />
             <div class="ml-4 text-base text-gray-500">
-            <p><strong>Created by <a class="underline font-medium text-gray-900" href="https://twitter.com/jessarchercodes" target="_blank">Jess Archer</a></strong></p>
+            <p><strong>Created by <a class="underline font-medium text-gray-900" href="https://jessarcher.com" target="_blank">Jess Archer</a></strong></p>
             <p>Digital maker, podcaster, speaker, and fan of bullet journalling.</p>
             </div>
         </div>
@@ -65,12 +65,12 @@
 
             <h3>How does it work?</h3>
             <p>As you add new tasks to your todo list, the older incomplete tasks naturally fall out of view, unless you migrate them forward.</p>
-            <p><strong>This naturally causes you to reassess what's still important and what only felt important at the time.</strong></p>
-            <p>If you don't complete or migrate a task forward, it will start to fade away.</p>
-            <p>This gives you a more organic and truer representation of what's actually important. No arbitrary priority rankings, and no "smart" automated prioritisation.</p>
+            <p><strong>This naturally causes you to reassess what's still important vs. what only felt important at the time.</strong></p>
+            <p>If you don't complete or migrate a task forward, it will start fading away.</p>
+            <p>This gives you a more organic and truer representation of what is important to you. No arbitrary priority rankings, and no "smart" automated prioritisation.</p>
         </div>
 
-        <h3 class="mt-10 text-2xl font-semibold text-gray-900">One simple plan. Two ways to pay.</h3>
+        <h3 class="mt-10 text-2xl font-semibold text-gray-900">One simple plan. All of the features.</h3>
         <div class="mt-10 grid sm:grid-cols-2 gap-6 max-w-xs sm:max-w-none mx-auto">
             <div class="p-6 border rounded-md shadow-md text-center">
                 <p class="tracking-tight">
