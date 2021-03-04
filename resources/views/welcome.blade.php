@@ -62,14 +62,137 @@
             <p>Many of the limitations of a paper journal are what make them so good for focus and prioritisation.</p>
             <p>The process of <a href="https://bulletjournal.com/pages/learn" class="text-gray-900 underline font-medium" target="_blank" rel="noopener">bullet journalling</a> gives you an organisation system to manage this.</p>
             <p>RocketLog makes this digital, while also providing conveniences that aren't possible with paper.</p>
-
-            <h3>How does it work?</h3>
-            <p>As you add new tasks to your todo list, the older incomplete tasks naturally fall out of view, unless you migrate them forward.</p>
-            <p><strong>This naturally causes you to reassess what's still important vs. what only felt important at the time.</strong></p>
-            <p>If you don't complete or migrate a task forward, it will start fading away.</p>
-            <p>This gives you a more organic and truer representation of what is important to you. No arbitrary priority rankings, and no "smart" automated prioritisation.</p>
         </div>
+    </div>
 
+    <div class="px-4 md:p-10 max-w-3xl lg:max-w-5xl mx-auto">
+        <div class="lg:flex">
+            <div class="lg:w-3/5 lg:pr-10 prose prose-lg text-gray-500">
+                <h3>How does it work?</h3>
+                <p>As you add new tasks to your todo list, the older incomplete tasks naturally fall out of view, unless you migrate them forward.</p>
+                <p><strong>This naturally causes you to reassess what's still important versus what only felt important at the time.</strong></p>
+                <p>If you don't complete or migrate a task forward, it will start fading away.</p>
+                <p>This gives you a more organic and truer representation of what is important to you. No arbitrary priority rankings, and no "smart" automated prioritisation.</p>
+            </div>
+
+            <div class="mt-10 lg:mt-0 lg:flex-1">
+                <div class="p-4 max-w-md mx-auto sm:p-6 md:p-12 bg-white darkx:bg-gray-800 overflow-hidden sm:rounded-lg md:shadow-xl">
+                    <div
+                        x-data="{
+                            date: '{{ date('D, M j') }}',
+                            days: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+                            months: ['Jan', 'Feb', 'Mar', 'Apr', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                            setCurrentDate() {
+                                let date = new Date
+                                let day = date.getDay()
+                                let month = date.getMonth()
+                                this.date = this.days[day] + ', ' + this.months[month] + ' ' + date.getDate()
+                            }
+                        }"
+                        x-init="setCurrentDate"
+                        class="pb-3 font-bold border-b border-gray-200 darkx:border-gray-700 text-gray-800 darkx:text-gray-200"
+                    >
+                        <span x-text="date">{{ date('D, M j') }}</span>
+                    </div>
+
+                    <div class="py-1 md:py-2 border-b border-gray-200 darkx:border-gray-700 flex">
+                        <div class="relative flex-shrink-0 opacity-50">
+                            <div class="border border-transparent">
+                                <div class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center rounded-full border border-transparent text-gray-900 darkx:text-gray-100">
+                                    <svg class="h-6 w-6 md:h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-full p-2 md:p-1 overflow-hidden bg-transparent border-none disabled:opacity-75 text-gray-900 darkx:text-gray-100 opacity-50">
+                            Be awesome
+                        </div>
+                    </div>
+
+                    <div class="py-1 md:py-2 border-b border-gray-200 darkx:border-gray-700 flex">
+                        <div class="relative flex-shrink-0 opacity-50">
+                            <div class="border border-transparent">
+                                <div class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center rounded-full border border-transparent text-gray-900 darkx:text-gray-100">
+                                    <svg class="h-6 w-6 md:h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-full p-2 md:p-1 overflow-hidden bg-transparent border-none disabled:opacity-75 text-gray-900 darkx:text-gray-100 opacity-50">
+                            Read about a cool new app
+                        </div>
+                    </div>
+
+                    <div class="py-1 md:py-2 border-b border-gray-200 darkx:border-gray-700 flex">
+                        <div x-data="{ menu: false }" class="relative flex-shrink-0">
+                            <div class="border border-transparent">
+                                <button
+                                    class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center rounded-full border border-transparent text-gray-900 darkx:text-gray-100 hover:border-gray-200 darkx:hover:border-gray-600 hover:shadow focus:outline-none focus:border-gray-200 darkx:focus:border-gray-600 focus:shadow-inner disabled:opacity-50"
+                                    @click="menu = true"
+                                >
+                                    <svg class="h-6 w-6 md:h-5" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                        <path d="M7.8 10a2.2 2.2 0 0 0 4.4 0 2.2 2.2 0 0 0-4.4 0z"></path>
+                                    </svg>
+                                </button>
+                            </div>
+
+                            <div
+                                x-show.transition="menu"
+                                class="absolute top-0 left-0 -ml-2 inline-flex px-2 rounded-full text-gray-700 darkx:text-gray-300 border border-gray-200 darkx:border-gray-500 bg-white darkx:bg-gray-700 shadow-xl z-50 overflow-hidden"
+                                @click.away="menu = false"
+                            >
+                                <button @click="menu = false" class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center focus:bg-gray-100 darkx:focus:bg-gray-800 focus:outline-none">
+                                    <svg class="h-6 w-6 md:h-5" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                        <path d="M7.8 10a2.2 2.2 0 0 0 4.4 0 2.2 2.2 0 0 0-4.4 0z"></path>
+                                    </svg>
+                                </button>
+                                <div class="h-10 md:h-8 pr-4 flex items-center font-medium text-gray-800 whitespace-nowrap">10% off code: <code class="px-1 text-pink-600 font-semibold">IFOUNDIT</code></div>
+                            </div>
+                        </div>
+                        <div class="w-full p-2 md:p-1 overflow-hidden bg-transparent border-none disabled:opacity-75 text-gray-900 darkx:text-gray-100">
+                            Check out RocketLog
+                        </div>
+                    </div>
+
+{{--                     <div class="py-1 md:py-2 border-b border-gray-200 darkx:border-gray-700 flex"> --}}
+{{--                         <div class="relative flex-shrink-0"> --}}
+{{--                             <a href="{{ route('register') }}" class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center rounded-full border border-transparent text-gray-200 darkx:text-gray-700 hover:border-gray-200 darkx:hover:border-gray-600 hover:shadow focus:outline-none focus:border-gray-200 darkx:focus:border-gray-600 focus:shadow-inner disabled:opacity-50"> --}}
+{{--                                 <svg class="h-6 w-6 md:h-5" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"> --}}
+{{--                                     <path d="M7.8 10a2.2 2.2 0 0 0 4.4 0 2.2 2.2 0 0 0-4.4 0z"></path> --}}
+{{--                                 </svg> --}}
+{{--                             </a> --}}
+{{--                         </div> --}}
+{{--                         <div class="w-full p-2 md:p-1 overflow-hidden bg-transparent border-none disabled:opacity-75 text-gray-300 darkx:text-gray-600"> --}}
+{{--                             Unburden your mind... --}}
+{{--                         </div> --}}
+{{--                     </div> --}}
+
+                    <div class="mt-12 pb-3 font-bold border-b border-gray-200 darkx:border-gray-700 text-gray-800 darkx:text-gray-200 opacity-25">
+                        {{ date('D, M j', strtotime('5 days ago')) }}
+                    </div>
+
+                    <div class="py-1 md:py-2 border-b border-gray-200 darkx:border-gray-700 flex opacity-25">
+                        <div class="relative flex-shrink-0">
+                            <div class="border border-transparent">
+                                <div class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center rounded-full border border-transparent text-gray-900 darkx:text-gray-100">
+                                    <svg class="h-6 w-6 md:h-5" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                        <path d="M7.8 10a2.2 2.2 0 0 0 4.4 0 2.2 2.2 0 0 0-4.4 0z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-full p-2 md:p-1 overflow-hidden bg-transparent border-none disabled:opacity-75 text-gray-900 darkx:text-gray-100">
+                            Paint the bike shed
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="p-4 md:p-10 max-w-3xl mx-auto">
         <h3 class="mt-10 text-2xl font-semibold text-gray-900">One simple plan. All of the features.</h3>
         <div class="mt-10 grid sm:grid-cols-2 gap-6 max-w-xs sm:max-w-none mx-auto">
             <div class="p-6 border rounded-md shadow-md text-center">
@@ -105,7 +228,7 @@
                 <svg class="mr-2 h-6 flex-shrink-0 text-pink-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                Collections - create lists to manage projects, book recommendations, menu planning, and more!
+                Collections - create fixed lists to manage projects, book recommendations, menu planning, and more!
             </li>
             <li class="mt-4 flex">
                 <svg class="mr-2 h-6 flex-shrink-0 text-pink-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -118,6 +241,12 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 Show or hide complete items - sometimes you want to see how much you've done, and sometimes you just want to focus on what's left.
+            </li>
+            <li class="mt-4 flex">
+                <svg class="mr-2 h-6 flex-shrink-0 text-pink-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Access your RocketLog from any device with a web browser
             </li>
             <li class="mt-4 flex">
                 <svg class="mr-2 h-6 flex-shrink-0 text-pink-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -155,3 +284,7 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.1/dist/alpine.min.js" defer></script>
+@endpush
