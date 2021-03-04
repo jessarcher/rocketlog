@@ -139,7 +139,7 @@
                             </div>
 
                             <div
-                                x-show.transition="menu"
+                                x-show.transition.opacity="menu"
                                 class="absolute top-0 left-0 -ml-2 inline-flex px-2 rounded-full text-gray-700 darkx:text-gray-300 border border-gray-200 darkx:border-gray-500 bg-white darkx:bg-gray-700 shadow-xl z-50 overflow-hidden"
                                 @click.away="menu = false"
                             >
