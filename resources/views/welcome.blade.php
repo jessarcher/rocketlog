@@ -43,15 +43,16 @@
         <img class="mt-10 w-48 mx-auto" src="/images/to-the-stars.svg" />
 
         <div class="mt-4 max-w-xl mx-auto text-center">
-            <a href="#" onclick="alert('Coming soon.\n\nFollow @rocketlogapp and @jessarchercodes on Twitter to be notified.')" class="px-6 py-3 inline-block bg-gradient-to-br from-pink-500 to-purple-700 text-xl font-bold text-white rounded-lg shadow-lg hover:from-pink-600 hover:to-purple-800">Unburden your mind</a>
+            <a href="{{ route('register') }}" class="px-6 py-3 inline-block bg-gradient-to-br from-pink-500 to-purple-700 text-xl font-bold text-white rounded-lg shadow-lg hover:from-pink-600 hover:to-purple-800">Unburden your mind</a>
             <p class="mt-6 text-base text-gray-500">RocketLog is privacy-respecting open-source software with a premium hosted option for your convenience.</p>
+            <p class="mt-6 text-base text-gray-500"><strong>Start your free 7 day trial with no upfront credit card.</strong></p>
         </div>
 
-        <div class="mt-10 flex items-center px-4 py-6 border shadow rounded-md">
+        <div class="mt-10 flex items-center px-4 py-6 border shadow-md rounded-md">
             <img src="/images/jess-archer.jpg" class="flex-shrink-0 block h-16 w-16 rounded-full" />
             <div class="ml-4 text-base text-gray-500">
-            <p>Created by <a class="underline font-medium text-gray-900" href="https://twitter.com/jessarchercodes" target="_blank">Jess Archer</a></p>
-            <p>Digital maker, podcaster, speaker, and fan of Bullet Journalling.</p>
+            <p><strong>Created by <a class="underline font-medium text-gray-900" href="https://twitter.com/jessarchercodes" target="_blank">Jess Archer</a></strong></p>
+            <p>Digital maker, podcaster, speaker, and fan of bullet journalling.</p>
             </div>
         </div>
 
@@ -59,21 +60,37 @@
             <h3>Why another todo list?</h3>
             <p><strong>RocketLog is not your average todo list. It's a fan-letter to bullet-journalling, rapid-logging, and task migration.</strong></p>
             <p>Many of the limitations of a paper journal are what make them so good for focus and prioritisation.</p>
-            <p>The process of <a href="https://bulletjournal.com/pages/learn" class="text-gray-900 underline font-medium" target="_blank" rel="noopener">Bullet Journalling</a> gives you an organisation system to manage this.</p>
+            <p>The process of <a href="https://bulletjournal.com/pages/learn" class="text-gray-900 underline font-medium" target="_blank" rel="noopener">bullet journalling</a> gives you an organisation system to manage this.</p>
             <p>RocketLog makes this digital, while also providing conveniences that aren't possible with paper.</p>
+
             <h3>How does it work?</h3>
             <p>As you add new tasks to your todo list, the older incomplete tasks naturally fall out of view, unless you migrate them forward.</p>
             <p><strong>This naturally causes you to reassess what's still important and what only felt important at the time.</strong></p>
             <p>If you don't complete or migrate a task forward, it will start to fade away.</p>
             <p>This gives you a more organic and truer representation of what's actually important. No arbitrary priority rankings, and no "smart" automated prioritisation.</p>
+        </div>
 
-            <h3>RocketLog respects your privacy and freedom</h3>
-            <p>The RocketLog software project is open-source and free to self-host. We believe in maintaining the privacy of <em>your</em> data. We believe that you should be free to see "under the hood" of the software you use, and be able modify it if you see fit.</p>
+        <h3 class="mt-10 text-2xl font-semibold text-gray-900">One simple plan. Two ways to pay.</h3>
+        <div class="mt-10 grid grid-cols-2 gap-6">
+            <div class="p-6 border rounded-md shadow-md text-center">
+                <p class="tracking-tight">
+                    <span class="font-semibold text-indigo-600"><sup class="text-4xl">$</sup><span class="text-7xl">9</span></span> <span class="text-lg font-semibold text-gray-500">/month</span>
+                </p>
+                <p class="mt-4">
+                    <a href="{{ route('register') }}" class="px-4 py-2 inline-block bg-gradient-to-br from-pink-500 to-purple-700 font-bold text-white rounded-lg shadow-lg hover:from-pink-600 hover:to-purple-800">Start free trial</a>
+                </p>
+                <p class="mt-2 text-gray-700"><small>No credit card required</small></p>
+            </div>
 
-            <h3>What if I can't or don't want to host it myself?</h3>
-            <p>While RocketLog is completely free to host yourself, we understand that not everyone has the time or knowledge to manage software hosting themselves.</p>
-            <p>That's why we offer a premium hosted option for your convenience. We'd be honoured to take care of your data for you and do not take that trust lightly. We won't share anything with third parties and we don't include any of the invasive tracking code that is prevalent on so many services these days.</p>
-            <p>You will also be helping to support the ongoing development of the project.</p>
+            <div class="p-6 border rounded-md shadow-md text-center">
+                <p class="tracking-tight">
+                    <span class="font-semibold text-indigo-600"><sup class="text-4xl">$</sup><span class="text-7xl">90</span></span> <span class="text-lg font-semibold text-gray-500">/year</span>
+                </p>
+                <p class="mt-4">
+                    <a href="{{ route('register') }}" class="px-4 py-2 inline-block bg-gradient-to-br from-pink-500 to-purple-700 font-bold text-white rounded-lg shadow-lg hover:from-pink-600 hover:to-purple-800">Start free trial</a>
+                </p>
+                <p class="mt-2 text-gray-700"><small>No credit card required</small></p>
+            </div>
         </div>
 
         <h3 class="mt-10 text-2xl font-semibold text-gray-900">Features</h3>
@@ -110,8 +127,19 @@
             </li>
         </ul>
 
+        <div class="mt-10 prose prose-lg text-gray-500">
+            <h3>RocketLog respects your privacy and freedom</h3>
+            <p>The RocketLog software project is open-source and free to self-host. We believe in maintaining the privacy of <em>your</em> data. We believe that you should be free to see "under the hood" of the software you use, and be able modify it if you see fit.</p>
+
+            {{-- <h3>What if I can't or don't want to host it myself?</h3> --}}
+            <p>While RocketLog is completely free to host yourself, we understand that not everyone has the time or knowledge to manage software hosting themselves.</p>
+            <p>That's why we offer a premium hosted option for your convenience. We'd be honoured to take care of your data for you and do not take that trust lightly. We won't share anything with third parties and we don't include any of the invasive tracking code that is prevalent on so many services these days.</p>
+            <p>You will also be helping to support the ongoing development of the project.</p>
+        </div>
+
+
         <div class="mt-10 text-center">
-            <a href="#" onclick="alert('Coming soon.\n\nFollow @rocketlogapp and @jessarchercodes on Twitter to be notified.')" class="px-6 py-3 inline-block bg-gradient-to-br from-pink-500 to-purple-700 text-xl font-bold text-white rounded-lg shadow-lg hover:from-pink-600 hover:to-purple-800">Unburden your mind</a>
+            <a href="{{ route('register') }}" class="px-6 py-3 inline-block bg-gradient-to-br from-pink-500 to-purple-700 text-xl font-bold text-white rounded-lg shadow-lg hover:from-pink-600 hover:to-purple-800">Unburden your mind</a>
         </div>
 
         <p class="mt-6 text-center">
