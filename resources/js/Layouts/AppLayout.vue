@@ -130,6 +130,10 @@
                                             Billing
                                         </jet-dropdown-link>
 
+                                        <jet-dropdown-link as="button" @click.native="showingSupportModal = true">
+                                            Support
+                                        </jet-dropdown-link>
+
                                         <jet-dropdown-link :href="route('api-tokens.index')" v-if="$page.props.jetstream.hasApiFeatures">
                                             API Tokens
                                         </jet-dropdown-link>
@@ -191,6 +195,10 @@
 
                             <jet-responsive-nav-link :href="route('spark.portal')" as="a">
                                 Billing
+                            </jet-responsive-nav-link>
+
+                            <jet-responsive-nav-link @click.native="showingSupportModal = true" as="button">
+                                Support
                             </jet-responsive-nav-link>
 
                             <jet-responsive-nav-link :href="route('api-tokens.index')" :active="route().current('api-tokens.index')" v-if="$page.props.jetstream.hasApiFeatures">
@@ -257,6 +265,8 @@
                 <slot></slot>
             </main>
 
+            <support-modal :show="showingSupportModal" @close="showingSupportModal = false" />
+
             <!-- Modal Portal -->
             <portal-target name="modal" multiple>
             </portal-target>
@@ -271,6 +281,7 @@
     import JetNavLink from '@/Jetstream/NavLink'
     import JetResponsiveNavLink from '@/Jetstream/ResponsiveNavLink'
     import Index from '@/Components/Index'
+    import SupportModal from '@/Components/SupportModal'
 
     export default {
         components: {
@@ -280,11 +291,13 @@
             JetNavLink,
             JetResponsiveNavLink,
             Index,
+            SupportModal,
         },
 
         data() {
             return {
                 showingNavigationDropdown: false,
+                showingSupportModal: false,
             }
         },
 
