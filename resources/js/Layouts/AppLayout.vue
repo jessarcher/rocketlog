@@ -165,10 +165,7 @@
                 </div>
 
                 <!-- Responsive Navigation Menu -->
-                <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden">
-                    <div class="border-t border-gray-200 dark:border-gray-700 p-4">
-                        <index />
-                    </div>
+                <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden fixed inset-0 bg-white dark:bg-gray-800 overflow-y-auto mt-16">
                     <!-- <div class="pt-2 pb-3 space-y-1"> -->
                     <!--     <jet-responsive-nav-link :href="route('daily-log.index')" :active="route().current('daily-log.index')"> -->
                     <!--         Daily Log -->
@@ -249,6 +246,10 @@
                                 </template>
                             </template>
                         </div>
+
+                        <div class="mt-3 border-t border-gray-200 dark:border-gray-700 p-4">
+                            <index />
+                        </div>
                     </div>
                 </div>
             </nav>
@@ -298,6 +299,19 @@
             return {
                 showingNavigationDropdown: false,
                 showingSupportModal: false,
+            }
+        },
+
+        watch: {
+            showingNavigationDropdown: {
+                immediate: true,
+                handler: (show) => {
+                    if (show) {
+                        document.body.style.overflow = 'hidden'
+                    } else {
+                        document.body.style.overflow = null
+                    }
+                }
             }
         },
 
