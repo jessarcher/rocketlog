@@ -40,7 +40,7 @@
                 Later
             </jet-secondary-button>
 
-            <a href="/billing" class="ml-2 inline-flex items-center px-4 py-2 bg-gradient-to-r from-pink-500 to-purple-700 rounded-md font-bold text-sm text-white hover:from-pink-600 hover:to-purple-800 active:from-pink-600 active:to-purple-800 focus:outline-none focus:shadow-outline-gray transition ease-in-out duration-150">
+            <a href="/billing" class="ml-2 inline-flex items-center px-5 py-2 bg-gradient-to-r from-pink-500 to-purple-700 rounded-md font-bold text-sm text-white hover:from-pink-600 hover:to-purple-800 active:from-pink-600 active:to-purple-800 focus:outline-none focus:shadow-outline-gray transition ease-in-out duration-150">
                 Subscribe
             </a>
         </template>
