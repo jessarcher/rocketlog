@@ -277,7 +277,6 @@
 </template>
 
 <script>
-    import JetBanner from '@/Jetstream/Banner'
     import JetDropdown from '@/Jetstream/Dropdown'
     import JetDropdownLink from '@/Jetstream/DropdownLink'
     import JetNavLink from '@/Jetstream/NavLink'
@@ -287,7 +286,6 @@
 
     export default {
         components: {
-            JetBanner,
             JetDropdown,
             JetDropdownLink,
             JetNavLink,
