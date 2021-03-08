@@ -2,7 +2,7 @@
     <jet-dialog-modal :show="show" @close="$emit('close')">
         <template #content>
             <div class="sm:flex">
-                <img src="images/jess-archer.jpg" class="h-14 w-14 rounded-full" />
+                <img src="/images/jess-archer.jpg" class="h-14 w-14 rounded-full" />
                 <div class="mt-4 sm:mt-0 sm:ml-4">
                     <p class=""><strong>Hey there, {{ $page.props.user.name }}!</strong></p>
                     <p class="mt-4">I'm here if you need any help.</p>
