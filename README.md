@@ -1,4 +1,4 @@
-<p align="center"><a href="https://rocketlog.app" target="_blank"><img src="https://raw.githubusercontent.com/jessarcher/rocketlog/main/public/images/logo-vertical.svg" width="400"></a></p>
+<p align="center"><a href="https://rocketlog.app" target="_blank"><img src="https://raw.githubusercontent.com/jessarcher/rocketlog/main/public/images/rocketlog.svg" width="400"></a></p>
 
 ## License
 
