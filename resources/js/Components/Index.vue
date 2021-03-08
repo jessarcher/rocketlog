@@ -4,10 +4,9 @@
 
         <inertia-link
             :href="route('daily-log.index')"
-            class="flex items-center py-3 border-b border-gray-200 dark:border-gray-700 font-medium hover:text-purple-800 dark:hover:text-purple-400 focus:text-purple-800 dark:focus:text-purple-400"
-            :class="route().current('daily-log.index') ? 'text-purple-900 dark:text-purple-400' : 'text-gray-700 dark:text-gray-300'"
+            class="flex items-center py-3 border-b border-gray-200 dark:border-gray-700 font-medium text-gray-500 dark:text-gray-300 hover:text-gray-900 dark:hover:text-pink-500 focus:text-gray-900 dark:focus:text-pink-500"
         >
-            <calendar-icon class="h-4 w-4" :class="route().current('daily-log.index') ? 'text-purple-500' : 'text-gray-500'" />
+            <calendar-icon class="h-4 w-4" :class="route().current('daily-log.index') ? 'text-pink-500' : 'text-gray-500'" />
             <span class="ml-2">Daily Log</span>
         </inertia-link>
 
@@ -15,10 +14,9 @@
             v-for="collection in $page.props.collections"
             :key="collection.hashid"
             :href="route('c.show', collection.hashid)"
-            class="flex items-center py-3 border-b border-gray-200 dark:border-gray-700 font-medium hover:text-purple-800 dark:hover:text-purple-400 focus:text-purple-800 dark:focus:text-purple-400"
-            :class="route().current('c.show', collection.hashid) ? 'text-purple-900 dark:text-purple-400' : 'text-gray-700 dark:text-gray-300'"
+            class="flex items-center py-3 border-b border-gray-200 dark:border-gray-700 font-medium text-gray-500 dark:text-gray-300 hover:text-gray-900 dark:hover:text-pink-500 focus:text-gray-900 dark:focus:text-pink-500"
         >
-            <clipboard-icon class="h-4 w-4" :class="route().current('c.show', collection.hashid) ? 'text-purple-500' : 'text-gray-500'" />
+            <clipboard-icon class="h-4 w-4" :class="route().current('c.show', collection.hashid) ? 'text-pink-500' : 'text-gray-500'" />
             <span class="ml-2">{{ collection.name }}</span>
         </inertia-link>
 
@@ -33,10 +31,9 @@
                 v-for="collection in $page.props.sharedCollections"
                 :key="collection.hashid"
                 :href="route('c.show', collection.hashid)"
-                class="flex items-center py-3 border-b border-gray-200 dark:border-gray-700 font-medium hover:text-purple-800 dark:hover:text-purple-400 focus:text-purple-800 dark:focus:text-purple-400"
-                :class="route().current('c.show', collection.hashid) ? 'text-purple-900 dark:text-purple-400' : 'text-gray-700 dark:text-gray-300'"
+                class="flex items-center py-3 border-b border-gray-200 dark:border-gray-700 font-medium text-gray-500 dark:text-gray-300 hover:text-gray-900 dark:hover:text-pink-500 focus:text-gray-900 dark:focus:text-pink-500"
             >
-                <clipboard-icon class="h-4 w-4" :class="route().current('c.show', collection.hashid) ? 'text-purple-500' : 'text-gray-500'" />
+                <clipboard-icon class="h-4 w-4" :class="route().current('c.show', collection.hashid) ? 'text-pink-500' : 'text-gray-500'" />
                 <span class="ml-2">{{ collection.name }}</span>
             </inertia-link>
         </template>

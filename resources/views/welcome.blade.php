@@ -44,7 +44,7 @@
         <img class="mt-10 w-48 mx-auto" src="/images/to-the-stars.svg" />
 
         <div class="mt-6 max-w-xl mx-auto text-center">
-            <a href="{{ route('register') }}" class="px-6 py-3 inline-block bg-gradient-to-br from-pink-500 to-purple-700 text-xl font-bold text-white rounded-lg shadow-lg hover:from-pink-600 hover:to-purple-800">Unburden your mind</a>
+            <a href="{{ route('register') }}" class="px-6 py-3 inline-block bg-gradient-to-r from-pink-500 to-purple-700 text-xl font-bold text-white rounded-lg shadow-lg hover:from-pink-600 hover:to-purple-800">Unburden your mind</a>
             <p class="mt-6 text-base text-gray-500"><strong>Start your free 7 day trial with no upfront credit card.</strong></p>
             <p class="mt-6 text-base text-gray-500">RocketLog is privacy-respecting open-source software with a premium hosted option for your convenience.</p>
         </div>
@@ -198,20 +198,20 @@
         <div class="mt-10 grid sm:grid-cols-2 gap-6 max-w-xs sm:max-w-none mx-auto">
             <div class="p-6 border rounded-md shadow-md text-center">
                 <p class="tracking-tight">
-                    <span class="font-semibold text-indigo-600"><sup class="text-4xl">$</sup><span class="text-7xl">9</span></span> <span class="text-lg font-semibold text-gray-500">/month</span>
+                    <span class="font-semibold text-pink-600"><sup class="text-4xl">$</sup><span class="text-7xl">9</span></span> <span class="text-lg font-semibold text-gray-500">/month</span>
                 </p>
                 <p class="mt-4">
-                    <a href="{{ route('register') }}" class="px-4 py-2 inline-block bg-gradient-to-br from-pink-500 to-purple-700 font-bold text-white rounded-lg shadow-lg hover:from-pink-600 hover:to-purple-800">Start free trial</a>
+                    <a href="{{ route('register') }}" class="px-4 py-2 inline-block bg-gradient-to-r from-pink-500 to-purple-700 font-bold text-white rounded-lg shadow-lg hover:from-pink-600 hover:to-purple-800">Start free trial</a>
                 </p>
                 <p class="mt-2 text-gray-700"><small>No credit card required</small></p>
             </div>
 
             <div class="p-6 border rounded-md shadow-md text-center">
                 <p class="tracking-tight">
-                    <span class="font-semibold text-indigo-600"><sup class="text-4xl">$</sup><span class="text-7xl">90</span></span> <span class="text-lg font-semibold text-gray-500">/year</span>
+                    <span class="font-semibold text-pink-600"><sup class="text-4xl">$</sup><span class="text-7xl">90</span></span> <span class="text-lg font-semibold text-gray-500">/year</span>
                 </p>
                 <p class="mt-4">
-                    <a href="{{ route('register') }}" class="px-4 py-2 inline-block bg-gradient-to-br from-pink-500 to-purple-700 font-bold text-white rounded-lg shadow-lg hover:from-pink-600 hover:to-purple-800">Start free trial</a>
+                    <a href="{{ route('register') }}" class="px-4 py-2 inline-block bg-gradient-to-r from-pink-500 to-purple-700 font-bold text-white rounded-lg shadow-lg hover:from-pink-600 hover:to-purple-800">Start free trial</a>
                 </p>
                 <p class="mt-2 text-gray-700"><small>No credit card required</small></p>
             </div>
@@ -269,7 +269,7 @@
 
 
         <div class="mt-10 text-center">
-            <a href="{{ route('register') }}" class="px-6 py-3 inline-block bg-gradient-to-br from-pink-500 to-purple-700 text-xl font-bold text-white rounded-lg shadow-lg hover:from-pink-600 hover:to-purple-800">Unburden your mind</a>
+            <a href="{{ route('register') }}" class="px-6 py-3 inline-block bg-gradient-to-r from-pink-500 to-purple-700 text-xl font-bold text-white rounded-lg shadow-lg hover:from-pink-600 hover:to-purple-800">Unburden your mind</a>
         </div>
     </div>
 

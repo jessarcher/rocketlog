@@ -1,6 +1,6 @@
 <template>
     <input type="checkbox" :value="value" v-model="proxyChecked"
-           class="rounded bg-white dark:bg-gray-900 border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 dark:focus:border-indigo-700 focus:ring focus:ring-indigo-200 dark:focus:ring-indigo-700 focus:ring-opacity-50">
+           class="rounded bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-300 dark:text-gray-900 shadow-sm focus:border-gray-400 dark:focus:border-pink-700 focus:ring focus:ring-gray-200 dark:focus:ring-gray-700 focus:ring-opacity-50">
 </template>
 
 <script>

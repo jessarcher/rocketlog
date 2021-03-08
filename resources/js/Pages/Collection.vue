@@ -13,7 +13,7 @@
                         type="button"
                         @click="hideDone = ! hideDone"
                         class="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 transition duration-150 ease-in-out"
-                        :class="hideDone ? 'text-gray-400 hover:text-gray-500 focus:text-gray-500' : 'text-purple-600 hover:text-purple-700 focus:text-purple-700'"
+                        :class="hideDone ? 'text-gray-400 hover:text-gray-500 focus:text-gray-500' : 'text-pink-600 hover:text-pink-700 focus:text-pink-700'"
                         title="Show done"
                     >
                         <clipboard-check-icon class="w-6 h-6 md:w-5 md:h-5" />
@@ -47,11 +47,11 @@
                     <div class="flex flex-wrap gap-x-4 gap-y-4">
                         <div class="flex">
                             <label class="flex items-center">
-                                <input type="radio" v-model="type" name="type" value="bullet" class="h-5 w-5 border-gray-400 text-purple-700">
+                                <input type="radio" v-model="type" name="type" value="bullet" class="h-5 w-5 border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-700">
                                 <span class="ml-2 font-semibold text-gray-700 dark:text-gray-300">Bullets</span>
                             </label>
                             <label class="ml-4 flex items-center">
-                                <input type="radio" v-model="type" name="type" value="checklist" class="h-5 w-5 border-gray-400 text-purple-700">
+                                <input type="radio" v-model="type" name="type" value="checklist" class="h-5 w-5 border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-700">
                                 <span class="ml-2 font-semibold text-gray-700 dark:text-gray-300">Checklist</span>
                             </label>
                         </div>
