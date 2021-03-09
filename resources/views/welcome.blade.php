@@ -4,9 +4,9 @@
     @if (Route::has('login'))
         <div class="fixed top-0 right-0 px-6 py-4">
             @auth
-                <a href="{{ url('/daily-log') }}" class="text-sm text-gray-700 underline">Your Log</a>
+                <a href="{{ url('/daily-log') }}" class="text-sm text-gray-700 dark:text-gray-300 underline">Your Log</a>
             @else
-                <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Login</a>
+                <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-300 underline">Login</a>
 
                 {{-- @if (Route::has('register')) --}}
                 {{--         <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Register</a> --}}
@@ -19,7 +19,7 @@
         <h1>
             <span class="sr-only">RocketLog</span>
             <svg class="h-12" role="presentation" viewBox="0 0 142 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g class="fill-current text-gray-700 darkx:text-gray-300">
+                <g class="fill-current text-gray-700 dark:text-gray-300">
                     <path d="M37 23.2812V21.8047L38.9102 21.4766V12.418L37 12.0898V10.6016H40.9727L41.1719 12.2188L41.1953 12.4414C41.5547 11.793 41.9961 11.2852 42.5195 10.918C43.0508 10.5508 43.6562 10.3672 44.3359 10.3672C44.5781 10.3672 44.8242 10.3906 45.0742 10.4375C45.332 10.4766 45.5156 10.5156 45.625 10.5547L45.3203 12.6992L43.7148 12.6055C43.1055 12.5664 42.5938 12.707 42.1797 13.0273C41.7656 13.3398 41.4453 13.7617 41.2188 14.293V21.4766L43.1289 21.8047V23.2812H37Z" />
                     <path d="M52.5273 23.5273C51.3555 23.5273 50.3438 23.2539 49.4922 22.707C48.6484 22.1523 47.9961 21.3906 47.5352 20.4219C47.0742 19.4453 46.8438 18.332 46.8438 17.082V16.8242C46.8438 15.5742 47.0742 14.4648 47.5352 13.4961C47.9961 12.5195 48.6484 11.7539 49.4922 11.1992C50.3438 10.6445 51.3477 10.3672 52.5039 10.3672C53.6758 10.3672 54.6836 10.6445 55.5273 11.1992C56.3789 11.7539 57.0352 12.5156 57.4961 13.4844C57.957 14.4531 58.1875 15.5664 58.1875 16.8242V17.082C58.1875 18.3398 57.957 19.457 57.4961 20.4336C57.0352 21.4023 56.3828 22.1602 55.5391 22.707C54.6953 23.2539 53.6914 23.5273 52.5273 23.5273ZM52.5273 21.7227C53.6211 21.7227 54.4531 21.2852 55.0234 20.4102C55.5938 19.5352 55.8789 18.4258 55.8789 17.082V16.8242C55.8789 15.9336 55.75 15.1406 55.4922 14.4453C55.2422 13.7422 54.8672 13.1914 54.3672 12.793C53.8672 12.3867 53.2461 12.1836 52.5039 12.1836C51.7695 12.1836 51.1523 12.3867 50.6523 12.793C50.1523 13.1914 49.7773 13.7422 49.5273 14.4453C49.2773 15.1406 49.1523 15.9336 49.1523 16.8242V17.082C49.1523 18.4258 49.4336 19.5352 49.9961 20.4102C50.5664 21.2852 51.4102 21.7227 52.5273 21.7227Z" />
                     <path d="M66.1211 23.5273C64.9727 23.5273 63.9727 23.2617 63.1211 22.7305C62.2695 22.1914 61.6094 21.4453 61.1406 20.4922C60.6719 19.5391 60.4375 18.4375 60.4375 17.1875V16.6953C60.4375 15.4922 60.6641 14.4141 61.1172 13.4609C61.5703 12.5078 62.2227 11.7539 63.0742 11.1992C63.9258 10.6445 64.9414 10.3672 66.1211 10.3672C67.1445 10.3672 68.0391 10.5352 68.8047 10.8711C69.5781 11.207 70.2266 11.668 70.75 12.2539L70.8086 15.3008H69.0039L68.6055 13.0859C68.3398 12.8125 68.0078 12.5938 67.6094 12.4297C67.2109 12.2656 66.7422 12.1836 66.2031 12.1836C65.5156 12.1836 64.9102 12.3867 64.3867 12.793C63.8711 13.1992 63.4688 13.7422 63.1797 14.4219C62.8906 15.1016 62.7461 15.8594 62.7461 16.6953V17.1875C62.7461 18.5781 63.0469 19.6836 63.6484 20.5039C64.25 21.3164 65.0703 21.7227 66.1094 21.7227C66.8906 21.7227 67.5391 21.5078 68.0547 21.0781C68.5703 20.6484 68.8867 20.0586 69.0039 19.3086H71.0781L71.1016 19.3789C71.0625 20.1055 70.8477 20.7852 70.457 21.418C70.0664 22.0508 69.5078 22.5625 68.7812 22.9531C68.0625 23.3359 67.1758 23.5273 66.1211 23.5273Z" />
@@ -37,30 +37,29 @@
             </svg>
         </h1>
 
-        <h2 class="mt-10 font-bold text-3xl leading-snug text-gray-900">Is your todo list a guilt-trip of things you thought were important but haven't done?</h2>
-        <p class="mt-6 text-lg text-gray-500">We've been there too. You have lots of things you want to get done. You store them so you won't forget. But now you're facing a seemingly-insurmountable list of varying priorities that just causes more stress.</p>
+        <h2 class="mt-10 font-bold text-3xl leading-snug text-gray-900 dark:text-gray-300">Is your todo list a guilt-trip of things you thought were important but haven't done?</h2>
+        <p class="mt-6 text-lg text-gray-500 dark:text-gray-400">We've been there too. You have lots of things you want to get done. You store them so you won't forget. But now you're facing a seemingly-insurmountable list of varying priorities that just causes more stress.</p>
 
-        <h2 class="mt-10 font-bold text-2xl leading-snug text-gray-900">RocketLog helps you focus on the things you actually care about so your mind is free for creativity and deep work.</h2>
-
-        <p class="mt-6 text-lg text-gray-500">By following the well-established practices of <a href="https://bulletjournal.com/pages/learn" class="text-gray-900 underline font-medium" target="_blank" rel="noopener">rapid logging and migration</a>, you will always know what your priorities are, while the unimportant things just fade away, guilt-free.</p>
+        <h2 class="mt-10 font-bold text-2xl leading-snug text-gray-900 dark:text-gray-300">RocketLog helps you focus on the things you actually care about so your mind is free for creativity and deep work.</h2>
+        <p class="mt-6 text-lg text-gray-500 dark:text-gray-400">By following the well-established practices of <a href="https://bulletjournal.com/pages/learn" class="text-gray-300 dark:text-gray-200 underline font-medium" target="_blank" rel="noopener">rapid logging and migration</a>, you will always know what your priorities are, while the unimportant things just fade away, guilt-free.</p>
 
         <img class="mt-10 w-48 mx-auto" role="presentation" src="/images/to-the-stars.svg" />
 
         <div class="mt-6 max-w-xl mx-auto text-center">
             <a href="{{ route('register') }}" class="px-6 py-3 inline-block bg-gradient-to-r from-pink-500 to-purple-700 text-xl font-bold text-white rounded-lg shadow-lg hover:from-pink-600 hover:to-purple-800">Unburden your mind</a>
-            <p class="mt-6 text-base text-gray-500"><strong>Start your free 7 day trial with no upfront credit card.</strong></p>
-            <p class="mt-6 text-base text-gray-500">RocketLog is privacy-respecting open-source software with a premium hosted option for your convenience.</p>
+            <p class="mt-6 text-base text-gray-500 dark:text-gray-400"><strong>Start your free 7 day trial with no upfront credit card.</strong></p>
+            <p class="mt-6 text-base text-gray-500 dark:text-gray-400">RocketLog is privacy-respecting open-source software with a premium hosted option for your convenience.</p>
         </div>
 
-        <div class="mt-20 flex items-center px-4 py-6 border shadow-md rounded-md">
+        <div class="mt-20 flex items-center px-4 py-6 border dark:border-gray-700 dark:bg-gray-800 shadow-md rounded-md">
             <img src="/images/jess-archer.jpg" class="flex-shrink-0 block h-16 w-16 rounded-full" alt="Photo of Jess Archer" />
-            <div class="ml-4 text-base text-gray-500">
-            <p><strong>Created by <a class="underline font-medium text-gray-900" href="https://jessarcher.com" target="_blank">Jess Archer</a></strong></p>
-            <p>Digital maker, podcaster, speaker, and fan of bullet journalling.</p>
+            <div class="ml-4 text-base text-gray-500 dark:text-gray-300">
+                <p><strong>Created by <a class="underline font-medium text-gray-900 dark:text-gray-200" href="https://jessarcher.com" target="_blank">Jess Archer</a></strong></p>
+                <p>Digital maker, podcaster, speaker, and fan of bullet journalling.</p>
             </div>
         </div>
 
-        <div class="mt-20 prose prose-lg text-gray-500">
+        <div class="mt-20 prose prose-lg text-gray-500 dark:prose-dark dark:text-gray-400">
             <h3>Why another todo list?</h3>
             <p><strong>RocketLog is not your average todo list. It's a fan-letter to bullet-journalling, rapid-logging, and task migration.</strong></p>
             <p>Many of the limitations of a paper journal are what make them so good for focus and prioritisation.</p>
@@ -71,7 +70,7 @@
 
     <div class="px-4 md:p-10 max-w-3xl lg:max-w-5xl mx-auto">
         <div class="lg:flex">
-            <div class="lg:w-3/5 lg:pr-10 prose prose-lg text-gray-500">
+            <div class="lg:w-3/5 lg:pr-10 prose prose-lg text-gray-500 dark:prose-dark dark:text-gray-400">
                 <h3>How does it work?</h3>
                 <p>As you add new tasks to your todo list, the older incomplete tasks naturally fall out of view, unless you migrate them forward.</p>
                 <p><strong>This naturally causes you to reassess what's still important versus what only felt important at the time.</strong></p>
@@ -80,7 +79,7 @@
             </div>
 
             <div class="mt-10 lg:mt-0 lg:flex-1">
-                <div class="p-4 max-w-md mx-auto sm:p-6 md:p-12 bg-white darkx:bg-gray-800 overflow-hidden sm:rounded-lg md:shadow-xl">
+                <div class="p-4 max-w-md mx-auto sm:p-6 md:p-12 bg-white dark:bg-gray-800 overflow-hidden sm:rounded-lg md:shadow-xl">
                     <div
                         x-data="{
                             date: '{{ date('D, M j') }}',
@@ -94,46 +93,46 @@
                             }
                         }"
                         x-init="setCurrentDate"
-                        class="pb-3 font-bold border-b border-gray-200 darkx:border-gray-700 text-gray-800 darkx:text-gray-200"
+                        class="pb-3 font-bold border-b border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-200"
                     >
                         <span x-text="date">{{ date('D, M j') }}</span>
                     </div>
 
-                    <div class="py-1 md:py-2 border-b border-gray-200 darkx:border-gray-700 flex">
+                    <div class="py-1 md:py-2 border-b border-gray-200 dark:border-gray-700 flex">
                         <div class="relative flex-shrink-0 opacity-50">
                             <div class="border border-transparent">
-                                <div class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center rounded-full border border-transparent text-gray-900 darkx:text-gray-100">
+                                <div class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center rounded-full border border-transparent text-gray-900 dark:text-gray-100">
                                     <svg role="img" aria-label="Marked as complete" class="h-6 w-6 md:h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                         <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
                                     </svg>
                                 </div>
                             </div>
                         </div>
-                        <div class="w-full p-2 md:p-1 overflow-hidden bg-transparent border-none disabled:opacity-75 text-gray-900 darkx:text-gray-100 opacity-50">
+                        <div class="w-full p-2 md:p-1 overflow-hidden bg-transparent border-none disabled:opacity-75 text-gray-900 dark:text-gray-100 opacity-50">
                             Be awesome
                         </div>
                     </div>
 
-                    <div class="py-1 md:py-2 border-b border-gray-200 darkx:border-gray-700 flex">
+                    <div class="py-1 md:py-2 border-b border-gray-200 dark:border-gray-700 flex">
                         <div class="relative flex-shrink-0 opacity-50">
                             <div class="border border-transparent">
-                                <div class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center rounded-full border border-transparent text-gray-900 darkx:text-gray-100">
+                                <div class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center rounded-full border border-transparent text-gray-900 dark:text-gray-100">
                                     <svg role="img" aria-label="Marked as complete" class="h-6 w-6 md:h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                         <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
                                     </svg>
                                 </div>
                             </div>
                         </div>
-                        <div class="w-full p-2 md:p-1 overflow-hidden bg-transparent border-none disabled:opacity-75 text-gray-900 darkx:text-gray-100 opacity-50">
+                        <div class="w-full p-2 md:p-1 overflow-hidden bg-transparent border-none disabled:opacity-75 text-gray-900 dark:text-gray-100 opacity-50">
                             Read about a cool new app
                         </div>
                     </div>
 
-                    <div class="py-1 md:py-2 border-b border-gray-200 darkx:border-gray-700 flex">
+                    <div class="py-1 md:py-2 border-b border-gray-200 dark:border-gray-700 flex">
                         <div x-data="{ menu: false }" class="relative flex-shrink-0">
                             <div class="border border-transparent">
                                 <button
-                                    class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center rounded-full border border-transparent text-gray-900 darkx:text-gray-100 hover:border-gray-200 darkx:hover:border-gray-600 hover:shadow focus:outline-none focus:border-gray-200 darkx:focus:border-gray-600 focus:shadow-inner disabled:opacity-50"
+                                    class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center rounded-full border border-transparent text-gray-900 dark:text-gray-100 hover:border-gray-200 dark:hover:border-gray-600 hover:shadow focus:outline-none focus:border-gray-200 dark:focus:border-gray-600 focus:shadow-inner disabled:opacity-50"
                                     @click="menu = true"
                                 >
                                     <svg role="img" aria-label="Incomplete - press for actions" class="h-6 w-6 md:h-5" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -144,50 +143,50 @@
 
                             <div
                                 x-show.transition.opacity="menu"
-                                class="absolute top-0 left-0 -ml-2 inline-flex px-2 rounded-full text-gray-700 darkx:text-gray-300 border border-gray-200 darkx:border-gray-500 bg-white darkx:bg-gray-700 shadow-xl z-50 overflow-hidden"
+                                class="absolute top-0 left-0 -ml-2 inline-flex px-2 rounded-full text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-500 bg-white dark:bg-gray-700 shadow-xl z-50 overflow-hidden"
                                 @click.away="menu = false"
                             >
-                                <button @click="menu = false" class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center focus:bg-gray-100 darkx:focus:bg-gray-800 focus:outline-none">
+                                <button @click="menu = false" class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center focus:bg-gray-100 dark:focus:bg-gray-800 focus:outline-none">
                                     <svg class="h-6 w-6 md:h-5" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                         <path d="M7.8 10a2.2 2.2 0 0 0 4.4 0 2.2 2.2 0 0 0-4.4 0z"></path>
                                     </svg>
                                 </button>
-                                <div class="h-10 md:h-8 pr-4 flex items-center font-medium text-gray-800 whitespace-nowrap">10% off code: <code class="px-1 text-pink-600 font-semibold">IFOUNDIT</code></div>
+                                <div class="h-10 md:h-8 pr-4 flex items-center font-medium text-gray-800 dark:text-gray-200 whitespace-nowrap">10% off code: <code class="px-1 text-pink-600 font-semibold">IFOUNDIT</code></div>
                             </div>
                         </div>
-                        <div class="w-full p-2 md:p-1 overflow-hidden bg-transparent border-none disabled:opacity-75 text-gray-900 darkx:text-gray-100">
+                        <div class="w-full p-2 md:p-1 overflow-hidden bg-transparent border-none disabled:opacity-75 text-gray-900 dark:text-gray-100">
                             Check out RocketLog
                         </div>
                     </div>
 
-{{--                     <div class="py-1 md:py-2 border-b border-gray-200 darkx:border-gray-700 flex"> --}}
+{{--                     <div class="py-1 md:py-2 border-b border-gray-200 dark:border-gray-700 flex"> --}}
 {{--                         <div class="relative flex-shrink-0"> --}}
-{{--                             <a href="{{ route('register') }}" class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center rounded-full border border-transparent text-gray-200 darkx:text-gray-700 hover:border-gray-200 darkx:hover:border-gray-600 hover:shadow focus:outline-none focus:border-gray-200 darkx:focus:border-gray-600 focus:shadow-inner disabled:opacity-50"> --}}
+{{--                             <a href="{{ route('register') }}" class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center rounded-full border border-transparent text-gray-200 dark:text-gray-700 hover:border-gray-200 dark:hover:border-gray-600 hover:shadow focus:outline-none focus:border-gray-200 dark:focus:border-gray-600 focus:shadow-inner disabled:opacity-50"> --}}
 {{--                                 <svg class="h-6 w-6 md:h-5" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"> --}}
 {{--                                     <path d="M7.8 10a2.2 2.2 0 0 0 4.4 0 2.2 2.2 0 0 0-4.4 0z"></path> --}}
 {{--                                 </svg> --}}
 {{--                             </a> --}}
 {{--                         </div> --}}
-{{--                         <div class="w-full p-2 md:p-1 overflow-hidden bg-transparent border-none disabled:opacity-75 text-gray-300 darkx:text-gray-600"> --}}
+{{--                         <div class="w-full p-2 md:p-1 overflow-hidden bg-transparent border-none disabled:opacity-75 text-gray-300 dark:text-gray-600"> --}}
 {{--                             Unburden your mind... --}}
 {{--                         </div> --}}
 {{--                     </div> --}}
 
-                    <div class="mt-12 pb-3 font-bold border-b border-gray-200 darkx:border-gray-700 text-gray-800 darkx:text-gray-200 opacity-25">
+                    <div class="mt-12 pb-3 font-bold border-b border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-200 opacity-25">
                         {{ date('D, M j', strtotime('5 days ago')) }}
                     </div>
 
-                    <div class="py-1 md:py-2 border-b border-gray-200 darkx:border-gray-700 flex opacity-25">
+                    <div class="py-1 md:py-2 border-b border-gray-200 dark:border-gray-700 flex opacity-25">
                         <div class="relative flex-shrink-0">
                             <div class="border border-transparent">
-                                <div class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center rounded-full border border-transparent text-gray-900 darkx:text-gray-100">
+                                <div class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center rounded-full border border-transparent text-gray-900 dark:text-gray-100">
                                     <svg role="img" aria-label="Incomplete" class="h-6 w-6 md:h-5" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                         <path d="M7.8 10a2.2 2.2 0 0 0 4.4 0 2.2 2.2 0 0 0-4.4 0z"></path>
                                     </svg>
                                 </div>
                             </div>
                         </div>
-                        <div class="w-full p-2 md:p-1 overflow-hidden bg-transparent border-none disabled:opacity-75 text-gray-900 darkx:text-gray-100">
+                        <div class="w-full p-2 md:p-1 overflow-hidden bg-transparent border-none disabled:opacity-75 text-gray-900 dark:text-gray-100">
                             Paint the bike shed
                         </div>
                     </div>
@@ -197,31 +196,31 @@
     </div>
 
     <div class="p-4 md:p-10 max-w-3xl mx-auto">
-        <h3 class="mt-10 text-2xl font-semibold text-gray-900">One simple plan. All of the features.</h3>
+        <h3 class="mt-10 text-2xl font-semibold text-gray-900 dark:text-gray-300">One simple plan. All of the features.</h3>
         <div class="mt-10 grid sm:grid-cols-2 gap-6 max-w-xs sm:max-w-none mx-auto">
-            <div class="p-6 border rounded-md shadow-md text-center">
+            <div class="p-6 border dark:border-gray-700 dark:bg-gray-800 rounded-md shadow-md text-center">
                 <p class="tracking-tight">
                     <span class="font-semibold text-pink-600"><sup class="text-4xl">$</sup><span class="text-7xl">9</span></span> <span class="text-lg font-semibold text-gray-500">/month</span>
                 </p>
                 <p class="mt-4">
                     <a href="{{ route('register') }}" class="px-4 py-2 inline-block bg-gradient-to-r from-pink-500 to-purple-700 font-bold text-white rounded-lg shadow-lg hover:from-pink-600 hover:to-purple-800">Start free trial</a>
                 </p>
-                <p class="mt-2 text-gray-700"><small>No credit card required</small></p>
+                <p class="mt-2 text-gray-700 dark:text-gray-500"><small>No credit card required</small></p>
             </div>
 
-            <div class="p-6 border rounded-md shadow-md text-center">
+            <div class="p-6 border dark:border-gray-700 dark:bg-gray-800 rounded-md shadow-md text-center">
                 <p class="tracking-tight">
                     <span class="font-semibold text-pink-600"><sup class="text-4xl">$</sup><span class="text-7xl">90</span></span> <span class="text-lg font-semibold text-gray-500">/year</span>
                 </p>
                 <p class="mt-4">
                     <a href="{{ route('register') }}" class="px-4 py-2 inline-block bg-gradient-to-r from-pink-500 to-purple-700 font-bold text-white rounded-lg shadow-lg hover:from-pink-600 hover:to-purple-800">Start free trial</a>
                 </p>
-                <p class="mt-2 text-gray-700"><small>No credit card required</small></p>
+                <p class="mt-2 text-gray-700 dark:text-gray-500"><small>No credit card required</small></p>
             </div>
         </div>
 
-        <h3 class="mt-20 text-2xl font-semibold text-gray-900">Features</h3>
-        <ul class="mt-6 flex-wrap text-lg text-gray-500">
+        <h3 class="mt-20 text-2xl font-semibold text-gray-900 dark:text-gray-300">Features</h3>
+        <ul class="mt-6 flex-wrap text-lg text-gray-500 dark:text-gray-400">
             <li class="mt-0 flex">
                 <svg role="presentation" class="mr-2 h-6 flex-shrink-0 text-pink-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -256,11 +255,11 @@
                 <svg role="presentation" class="mr-2 h-6 flex-shrink-0 text-pink-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                Dark Mode 🕶
+                <span class="dark:hidden">Dark Mode 🕶</span><span class="hidden dark:inline">Light mode 🌞</span>
             </li>
         </ul>
 
-        <div class="mt-20 prose prose-lg text-gray-500">
+        <div class="mt-20 prose prose-lg text-gray-500 dark:prose-dark dark:text-gray-400">
             <h3>RocketLog respects your privacy and freedom</h3>
             <p>The RocketLog software project is open-source and free to self-host. We believe in maintaining the privacy of <em>your</em> data. We believe that you should be free to see "under the hood" of the software you use, and be able modify it if you see fit.</p>
 
@@ -296,19 +295,19 @@
 
             <nav class="mt-8 -mx-5 -my-2 flex flex-wrap justify-center" aria-label="Footer">
                 <div class="px-5 py-2">
-                    <a href="{{ route('terms.show') }}" class="text-sm text-gray-500 hover:text-gray-900">
+                    <a href="{{ route('terms.show') }}" class="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-300">
                         Terms of Service
                     </a>
                 </div>
 
                 <div class="px-5 py-2">
-                    <a href="{{ route('policy.show') }}" class="text-sm text-gray-500 hover:text-gray-900">
+                    <a href="{{ route('policy.show') }}" class="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-300">
                         Privacy Policy
                     </a>
                 </div>
             </nav>
 
-            <p class="mt-8 text-center text-sm text-gray-400">
+            <p class="mt-8 text-center text-sm text-gray-400 dark:text-gray-500">
                 &copy; {{ date('Y') }} Jess Archer. All rights reserved. RocketLog is not affiliated with Bullet Journal, just a big fan.
             </p>
         </div>
