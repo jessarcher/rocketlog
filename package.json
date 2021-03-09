@@ -28,6 +28,8 @@
     },
     "dependencies": {
         "@inertiajs/progress": "^0.2.4",
+        "@sentry/tracing": "^6.2.1",
+        "@sentry/vue": "^6.2.1",
         "autosize": "^4.0.2",
         "dayjs": "^1.10.4",
         "laravel-echo": "^1.9.0",

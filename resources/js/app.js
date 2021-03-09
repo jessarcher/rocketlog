@@ -7,6 +7,20 @@ import { InertiaProgress } from '@inertiajs/progress'
 import PortalVue from 'portal-vue';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
+import * as Sentry from '@sentry/vue';
+import {Integrations} from '@sentry/tracing';
+
+Sentry.init({
+    Vue,
+    dsn: process.env.MIX_SENTRY_VUE_DSN,
+    integrations: [new Integrations.BrowserTracing()],
+
+    // We recommend adjusting this value in production, or using tracesSampler
+    // for finer control
+    tracesSampleRate: 1.0,
+
+    logErrors: true,
+});
 
 InertiaProgress.init({
     color: '#8B5CF6',
