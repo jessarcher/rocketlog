@@ -22,6 +22,7 @@
         "laravel/tinker": "^2.5",
         "mtvs/eloquent-hashids": "^3.1",
         "pusher/pusher-php-server": "~4.1",
+        "sentry/sentry-laravel": "^2.4",
         "tightenco/ziggy": "^1.0"
     },
     "require-dev": {
