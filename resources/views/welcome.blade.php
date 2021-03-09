@@ -2,15 +2,15 @@
 
 @section('body')
     @if (Route::has('login'))
-        <div class="fixed top-0 right-0 px-6 py-4">
+        <div class="absolute sm:fixed flex items-center top-0 right-0 px-6 py-6 text-right">
             @auth
                 <a href="{{ url('/daily-log') }}" class="text-sm text-gray-700 dark:text-gray-300 underline">Your Log</a>
             @else
                 <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-300 underline">Login</a>
 
-                {{-- @if (Route::has('register')) --}}
-                {{--         <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Register</a> --}}
-                {{-- @endif --}}
+                @if (Route::has('register'))
+                    <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-300 underline">Free Trial</a>
+                @endif
             @endif
         </div>
     @endif
@@ -18,7 +18,7 @@
     <div class="p-4 md:p-10 max-w-3xl mx-auto">
         <h1>
             <span class="sr-only">RocketLog</span>
-            <svg class="h-12" role="presentation" viewBox="0 0 142 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg class="h-10 sm:h-12" role="presentation" viewBox="0 0 142 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g class="fill-current text-gray-700 dark:text-gray-300">
                     <path d="M37 23.2812V21.8047L38.9102 21.4766V12.418L37 12.0898V10.6016H40.9727L41.1719 12.2188L41.1953 12.4414C41.5547 11.793 41.9961 11.2852 42.5195 10.918C43.0508 10.5508 43.6562 10.3672 44.3359 10.3672C44.5781 10.3672 44.8242 10.3906 45.0742 10.4375C45.332 10.4766 45.5156 10.5156 45.625 10.5547L45.3203 12.6992L43.7148 12.6055C43.1055 12.5664 42.5938 12.707 42.1797 13.0273C41.7656 13.3398 41.4453 13.7617 41.2188 14.293V21.4766L43.1289 21.8047V23.2812H37Z" />
                     <path d="M52.5273 23.5273C51.3555 23.5273 50.3438 23.2539 49.4922 22.707C48.6484 22.1523 47.9961 21.3906 47.5352 20.4219C47.0742 19.4453 46.8438 18.332 46.8438 17.082V16.8242C46.8438 15.5742 47.0742 14.4648 47.5352 13.4961C47.9961 12.5195 48.6484 11.7539 49.4922 11.1992C50.3438 10.6445 51.3477 10.3672 52.5039 10.3672C53.6758 10.3672 54.6836 10.6445 55.5273 11.1992C56.3789 11.7539 57.0352 12.5156 57.4961 13.4844C57.957 14.4531 58.1875 15.5664 58.1875 16.8242V17.082C58.1875 18.3398 57.957 19.457 57.4961 20.4336C57.0352 21.4023 56.3828 22.1602 55.5391 22.707C54.6953 23.2539 53.6914 23.5273 52.5273 23.5273ZM52.5273 21.7227C53.6211 21.7227 54.4531 21.2852 55.0234 20.4102C55.5938 19.5352 55.8789 18.4258 55.8789 17.082V16.8242C55.8789 15.9336 55.75 15.1406 55.4922 14.4453C55.2422 13.7422 54.8672 13.1914 54.3672 12.793C53.8672 12.3867 53.2461 12.1836 52.5039 12.1836C51.7695 12.1836 51.1523 12.3867 50.6523 12.793C50.1523 13.1914 49.7773 13.7422 49.5273 14.4453C49.2773 15.1406 49.1523 15.9336 49.1523 16.8242V17.082C49.1523 18.4258 49.4336 19.5352 49.9961 20.4102C50.5664 21.2852 51.4102 21.7227 52.5273 21.7227Z" />
@@ -37,7 +37,7 @@
             </svg>
         </h1>
 
-        <h2 class="mt-10 font-bold text-3xl leading-snug text-gray-900 dark:text-gray-300">Is your todo list a guilt-trip of things you thought were important but haven't done?</h2>
+        <h2 class="mt-10 font-bold text-2xl sm:text-3xl leading-snug text-gray-900 dark:text-gray-300">Is your todo list a guilt-trip of things you thought were important but haven't done?</h2>
         <p class="mt-6 text-lg text-gray-500 dark:text-gray-400">We've been there too. You have lots of things you want to get done. You store them so you won't forget. But now you're facing a seemingly-insurmountable list of varying priorities that just causes more stress.</p>
 
         <h2 class="mt-10 font-bold text-2xl leading-snug text-gray-900 dark:text-gray-300">RocketLog helps you focus on the things you actually care about so your mind is free for creativity and deep work.</h2>
@@ -256,6 +256,12 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <span class="dark:hidden">Dark Mode 🕶</span><span class="hidden dark:inline">Light mode 🌞</span>
+            </li>
+            <li class="mt-4 flex">
+                <svg role="presentation" class="mr-2 h-6 flex-shrink-0 text-pink-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Open source - See under the hood and even propose features!
             </li>
         </ul>
 
