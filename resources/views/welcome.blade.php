@@ -196,31 +196,22 @@
     </div>
 
     <div class="p-4 md:p-10 max-w-3xl mx-auto">
-        <h3 class="mt-10 text-2xl font-semibold text-gray-900 dark:text-gray-300">One simple plan. All of the features.</h3>
-        <div class="mt-10 grid sm:grid-cols-2 gap-6 max-w-xs sm:max-w-none mx-auto">
-            <div class="p-6 border dark:border-gray-700 dark:bg-gray-800 rounded-md shadow-md text-center">
+        <h3 class="mt-10 text-2xl font-semibold text-gray-900 dark:text-gray-300 text-center">One simple plan. All of the features.</h3>
+        <div class="mt-10 max-w-xs sm:max-w-none mx-auto flex justify-center">
+            <div class="p-8 sm:p-12 mx-auto border dark:border-gray-700 dark:bg-gray-800 rounded-md shadow-md text-center">
                 <p class="tracking-tight">
-                    <span class="font-semibold text-pink-600"><sup class="text-4xl">$</sup><span class="text-7xl">9</span></span> <span class="text-lg font-semibold text-gray-500">/month</span>
+                    <span class="font-semibold text-pink-600"><sup class="text-4xl">$</sup><span class="text-8xl">9</span></span> <span class="text-xl font-semibold text-gray-600 dark:text-gray-400">/ month</span>
                 </p>
-                <p class="mt-4">
-                    <a href="{{ route('register') }}" class="px-4 py-2 inline-block bg-gradient-to-r from-pink-500 to-purple-700 font-bold text-white rounded-lg shadow-lg hover:from-pink-600 hover:to-purple-800">Start free trial</a>
-                </p>
-                <p class="mt-2 text-gray-700 dark:text-gray-500"><small>No credit card required</small></p>
-            </div>
+                <p class="mt-4 mx-4 sm:mx-8 text-base text-gray-600 dark:text-gray-400 font-semibold"><em>or</em> $90 / year (save $18)</p>
 
-            <div class="p-6 border dark:border-gray-700 dark:bg-gray-800 rounded-md shadow-md text-center">
-                <p class="tracking-tight">
-                    <span class="font-semibold text-pink-600"><sup class="text-4xl">$</sup><span class="text-7xl">90</span></span> <span class="text-lg font-semibold text-gray-500">/year</span>
+                <p class="mt-8">
+                    <a href="{{ route('register') }}" class="px-6 py-3 inline-block bg-gradient-to-r from-pink-500 to-purple-700 font-bold text-white text-xl rounded-lg shadow-lg hover:from-pink-600 hover:to-purple-800">Start free trial</a>
                 </p>
-                <p class="mt-4">
-                    <a href="{{ route('register') }}" class="px-4 py-2 inline-block bg-gradient-to-r from-pink-500 to-purple-700 font-bold text-white rounded-lg shadow-lg hover:from-pink-600 hover:to-purple-800">Start free trial</a>
-                </p>
-                <p class="mt-2 text-gray-700 dark:text-gray-500"><small>No credit card required</small></p>
+                <p class="mt-4 text-gray-700 dark:text-gray-500">No credit card required</p>
             </div>
         </div>
 
-        <h3 class="mt-20 text-2xl font-semibold text-gray-900 dark:text-gray-300">Features</h3>
-        <ul class="mt-6 flex-wrap text-lg text-gray-500 dark:text-gray-400">
+        <ul class="mt-20 flex-wrap text-lg text-gray-500 dark:text-gray-400">
             <li class="mt-0 flex">
                 <svg role="presentation" class="mr-2 h-6 flex-shrink-0 text-pink-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
