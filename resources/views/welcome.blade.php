@@ -143,6 +143,7 @@
 
                             <div
                                 x-show.transition.opacity="menu"
+                                x-cloak
                                 class="absolute top-0 left-0 -ml-2 inline-flex px-2 rounded-full text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-500 bg-white dark:bg-gray-700 shadow-xl z-50 overflow-hidden"
                                 @click.away="menu = false"
                             >
