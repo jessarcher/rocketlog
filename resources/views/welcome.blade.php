@@ -79,7 +79,7 @@
             </div>
 
             <div class="mt-10 lg:mt-0 lg:flex-1">
-                <div class="p-4 max-w-md mx-auto sm:p-6 md:p-12 bg-white dark:bg-gray-800 overflow-hidden sm:rounded-lg md:shadow-xl">
+                <div class="max-w-md mx-auto p-6 md:p-12 bg-white dark:bg-gray-800 overflow-hidden rounded-lg shadow-xl">
                     <div
                         x-data="{
                             date: '{{ date('D, M j') }}',
