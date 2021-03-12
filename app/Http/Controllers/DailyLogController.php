@@ -23,20 +23,22 @@ class DailyLogController extends Controller
             ->take(5)
             ->pluck('date');
 
-        $bulletsByDate = $request
-            ->user()
-            ->bullets()
-            ->oldest()
-            ->whereDate('date', '<=', $dates->first())
-            ->whereDate('date', '>=', $dates->last())
-            ->whereNull('collection_id')
-            ->get()
-            ->groupBy(fn ($bullet) => $bullet->date->format('Y-m-d'));
+        if ($dates->isNotEmpty()) {
+            $bulletsByDate = $request
+                ->user()
+                ->bullets()
+                ->oldest()
+                ->whereDate('date', '<=', $dates->first())
+                ->whereDate('date', '>=', $dates->last())
+                ->whereNull('collection_id')
+                ->get()
+                ->groupBy(fn ($bullet) => $bullet->date->format('Y-m-d'));
+        }
 
         return Inertia::render('DailyLog', [
             'days' => $dates->map(fn ($date) => (object) [
                 'date' => $date,
-                'bullets' => $bulletsByDate->get($date) ?? []
+                'bullets' => $bulletsByDate?->get($date) ?? []
             ]),
         ]);
     }

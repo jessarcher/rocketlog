@@ -48,7 +48,7 @@
 
         computed: {
             daysIncludingToday() {
-                if (! this.today.isAfter(this.$date(this.days[0].date))) {
+                if (this.days.length > 0 && ! this.today.isAfter(this.$date(this.days[0].date))) {
                     return this.days
                 }
 
