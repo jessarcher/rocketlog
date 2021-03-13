@@ -1,4 +1,4 @@
-@extends('base')
+@extends('base', ['bodyClass' => 'bg-gray-100 dark:bg-gray-900'])
 
 @section('body')
     @inertia

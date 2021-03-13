@@ -2,7 +2,7 @@
     <div>
         <jet-banner />
 
-        <div class="flex flex-col min-h-screen bg-gray-100 dark:bg-gray-900">
+        <div class="flex flex-col min-h-screen">
             <!-- Header spacer -->
             <div class="h-16"></div>
 
