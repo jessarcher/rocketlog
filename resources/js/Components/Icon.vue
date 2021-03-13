@@ -18,7 +18,7 @@ export default {
     iconComponent () {
       this.name // Trigger the name as a dependency for change detection
       return () => import(
-        /* webpackChunkName: "icon-[request]" */
+        /* webpackChunkName: "icons" */
         '!vue-svg-loader!@/../../public/icons/' + this.name + '.svg'
       )
     }
