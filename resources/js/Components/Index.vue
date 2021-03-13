@@ -2,23 +2,19 @@
     <div>
         <h2 class="pb-3 border-b font-bold border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-100">Index</h2>
 
-        <inertia-link
-            :href="route('daily-log.index')"
-            class="flex items-center py-3 border-b border-gray-200 dark:border-gray-700 font-medium text-gray-500 dark:text-gray-300 hover:text-gray-900 dark:hover:text-pink-500 focus:text-gray-900 dark:focus:text-pink-500"
-        >
-            <calendar-icon class="h-4 w-4" :class="route().current('daily-log.index') ? 'text-pink-500' : 'text-gray-500'" />
-            <span class="ml-2">Daily Log</span>
-        </inertia-link>
+        <index-link :href="route('daily-log.index')" :active="route().current('daily-log.index')" icon="medium/calendar">
+            Daily Log
+        </index-link>
 
-        <inertia-link
+        <index-link
             v-for="collection in $page.props.collections"
             :key="collection.hashid"
             :href="route('c.show', collection.hashid)"
-            class="flex items-center py-3 border-b border-gray-200 dark:border-gray-700 font-medium text-gray-500 dark:text-gray-300 hover:text-gray-900 dark:hover:text-pink-500 focus:text-gray-900 dark:focus:text-pink-500"
+            :active="route().current('c.show', collection.hashid)"
+            icon="medium/clipboard"
         >
-            <clipboard-icon class="h-4 w-4" :class="route().current('c.show', collection.hashid) ? 'text-pink-500' : 'text-gray-500'" />
-            <span class="ml-2">{{ collection.name }}</span>
-        </inertia-link>
+            {{ collection.name }}
+        </index-link>
 
         <div class="relative">
             <input type="text" v-model="newCollectionName" @keydown.enter="addCollection" class="py-3 px-2 border-t-0 border-l-0 border-r-0 border-b border-gray-200 dark:border-gray-700 w-full bg-transparent placeholder-gray-400 dark:placeholder-gray-700 text-gray-900 dark:text-gray-100" placeholder="New collection...">
@@ -27,15 +23,15 @@
         <template v-if="$page.props.sharedCollections.length > 0">
             <h2 class="mt-10 pb-3 border-b font-bold border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-100">Shared with you</h2>
 
-            <inertia-link
+            <index-link
                 v-for="collection in $page.props.sharedCollections"
                 :key="collection.hashid"
                 :href="route('c.show', collection.hashid)"
-                class="flex items-center py-3 border-b border-gray-200 dark:border-gray-700 font-medium text-gray-500 dark:text-gray-300 hover:text-gray-900 dark:hover:text-pink-500 focus:text-gray-900 dark:focus:text-pink-500"
+                :active="route().current('c.show', collection.hashid)"
+                icon="medium/clipboard"
             >
-                <clipboard-icon class="h-4 w-4" :class="route().current('c.show', collection.hashid) ? 'text-pink-500' : 'text-gray-500'" />
-                <span class="ml-2">{{ collection.name }}</span>
-            </inertia-link>
+                {{ collection.name }}
+            </index-link>
         </template>
     </div>
 </template>
@@ -43,11 +39,13 @@
 <script>
 import CalendarIcon from '@/Components/Icons/CalendarIcon'
 import ClipboardIcon from '@/Components/Icons/ClipboardIcon'
+import IndexLink from './IndexLink'
 
 export default {
     components: {
         CalendarIcon,
         ClipboardIcon,
+        IndexLink,
     },
 
     data() {
