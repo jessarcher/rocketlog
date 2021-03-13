@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Bullet;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Inertia\Inertia;
 
 class DailyLogController extends Controller
@@ -64,6 +63,19 @@ class DailyLogController extends Controller
         $bullet->update($request->only(['name', 'state', 'date']));
 
         return redirect(route('daily-log.index'));
+    }
+
+    public function move(Request $request)
+    {
+        $bullet = Bullet::find($request->id);
+        abort_if($bullet === null, 400, 'Invalid bullet');
+        $this->authorize('update', $bullet);
+
+        $bullet->collection_id = null;
+        $bullet->date = $request->input('date');
+        $bullet->save();
+
+        return back();
     }
 
     public function destroy(Request $request, Bullet $bullet)

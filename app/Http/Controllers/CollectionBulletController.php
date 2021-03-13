@@ -31,6 +31,21 @@ class CollectionBulletController extends Controller
         return redirect(route('c.show', $collection));
     }
 
+    public function move(Request $request, Collection $collection)
+    {
+        $this->authorize('update', $collection);
+
+        $bullet = Bullet::find($request->id);
+        abort_if($bullet === null, 400, 'Invalid bullet');
+        $this->authorize('update', $bullet);
+
+        $bullet->collection_id = $collection->id;
+        $bullet->date = null;
+        $bullet->save();
+
+        return back();
+    }
+
     public function destroy(Request $request, Collection $collection, Bullet $bullet)
     {
         $this->authorize('update', $collection);

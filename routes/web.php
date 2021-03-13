@@ -47,6 +47,8 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::put('daily-log', [DailyLogController::class, 'move'])->name('daily-log.move');
+
     Route::resource('daily-log', DailyLogController::class)
         ->only('index', 'store', 'update', 'destroy')
         ->parameters(['daily-log' => 'bullet']);
@@ -56,6 +58,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         ->parameters(['c' => 'collection']);
 
     Route::delete('c/{collection}/bullets/done', [CollectionBulletDoneController::class, 'destroy'])->name('c.destroy-done');
+
+    Route::put('c/{collection}/bullets', [CollectionBulletController::class, 'move'])->name('c.bullets.move');
 
     Route::resource('c.bullets', CollectionBulletController::class)
         ->only('store', 'update', 'destroy')

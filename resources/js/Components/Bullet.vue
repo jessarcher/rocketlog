@@ -8,12 +8,12 @@
                         @click="menu = true"
                         :disabled="processing"
                     >
-                        <incomplete-icon v-show="state === 'incomplete'" class="h-6 w-6 md:h-5" />
-                        <complete-icon v-show="state === 'complete'" class="h-6 w-6 md:h-5" />
+                        <incomplete-icon v-show="state === 'incomplete'" class="h-6 w-6 md:h-5 md:w-5" />
+                        <complete-icon v-show="state === 'complete'" class="h-6 w-6 md:h-5 md:w-5" />
                     </button>
                 </div>
 
-                <div v-if="menu" class="fixed inset-0 z-40" @click="menu = false">
+                <div v-if="menu" class="fixed inset-0 z-40" @click="menu = false; showingMigration = false">
                 </div>
 
                 <transition
@@ -26,30 +26,69 @@
                 >
                     <div
                         v-if="menu"
-                        class="absolute top-0 left-0 -ml-2 inline-flex px-2 rounded-full text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-500 bg-white dark:bg-gray-700 shadow-xl z-50 overflow-hidden"
-                        @blur="menu = false"
-                        @click="menu = false"
+                        class="absolute top-0 left-0 -ml-2 rounded-2xl text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-500 bg-white dark:bg-gray-700 shadow-xl z-50 overflow-hidden"
+                        @blur="menu = false; showingMigration = false"
+                        @xclick="menu = false; showingMigration = false"
                     >
-                        <button class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center focus:bg-gray-100 dark:focus:bg-gray-800 focus:outline-none" @click="menu = false">
-                            <complete-icon v-if="state === 'complete'" class="h-6 w-6 md:h-5" />
-                            <incomplete-icon v-if="state === 'incomplete'" class="h-6 w-6 md:h-5" />
-                        </button>
+                        <div class="px-2 flex items-center">
+                            <button class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center focus:bg-gray-100 dark:focus:bg-gray-800 focus:outline-none" @click="menu = false; showingMigration = false">
+                                <complete-icon v-if="state === 'complete'" class="h-6 w-6 md:h-5" />
+                                <incomplete-icon v-if="state === 'incomplete'" class="h-6 w-6 md:h-5" />
+                            </button>
 
-                        <button v-if="state !== 'incomplete'" class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 focus:bg-gray-100 dark:focus:bg-gray-800 focus:outline-none" @click="state = 'incomplete'">
-                            <incomplete-icon class="w-6 h-6 md:w-5 md:h-5" />
-                        </button>
+                            <button v-if="state !== 'incomplete'" class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 focus:bg-gray-100 dark:focus:bg-gray-800 focus:outline-none" @click="state = 'incomplete'; menu = false" title="Mark as incomplete">
+                                <incomplete-icon class="w-6 h-6 md:w-5 md:h-5" />
+                            </button>
 
-                        <button v-else-if="state !== 'complete'" class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 focus:bg-gray-100 dark:focus:bg-gray-800 focus:outline-none" @click="state = 'complete'">
-                            <complete-icon class="w-6 h-6 md:w-5 md:h-5" />
-                        </button>
+                            <button v-else-if="state !== 'complete'" class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 focus:bg-gray-100 dark:focus:bg-gray-800 focus:outline-none" @click="state = 'complete'; menu = false" title="Mark as complete">
+                                <complete-icon class="w-6 h-6 md:w-5 md:h-5" />
+                            </button>
 
-                        <button v-if="bullet.collection_id === null && $date(bullet.date).isBefore($today())" class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 focus:bg-gray-100 dark:focus:bg-gray-800 focus:outline-none" @click="migrate">
-                            <migrate-icon class="w-6 h-6 md:w-5 md:h-5" />
-                        </button>
+                            <button v-if="bullet.collection_id === null && $date(bullet.date).isBefore($today())" class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 focus:bg-gray-100 dark:focus:bg-gray-800 focus:outline-none" @click="migrate; menu = false" title="Migrate forward">
+                                <Icon name="small/chevron-up" class="h-6 w-6 md:h-5 md:w-5" />
+                            </button>
 
-                        <button class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 focus:bg-gray-100 dark:focus:bg-gray-800 focus:outline-none" @click="destroy">
-                            <trash-icon class="h-6 w-6 md:w-5 md:h-5" />
-                        </button>
+                            <button class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 focus:bg-gray-100 dark:focus:bg-gray-800 focus:outline-none" @click="showingMigration = ! showingMigration" title="Migrate to collection">
+                                <Icon name="small/chevron-right" class="h-6 w-6 md:h-5 md:w-5" />
+                            </button>
+
+                            <button class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 focus:bg-gray-100 dark:focus:bg-gray-800 focus:outline-none" @click="destroy; menu = false" title="Delete">
+                                <trash-icon class="h-6 w-6 md:w-5 md:h-5" />
+                            </button>
+                        </div>
+
+                        <div v-if="showingMigration" class="pb-1 border-t border-gray-200 dark:border-gray-600 overflow-y-auto" style="max-height: 200px;">
+                            <button
+                                v-if="bullet.collection_id !== null"
+                                class="block w-full text-left px-4 py-1 leading-loose font-medium whitespace-nowrap hover:bg-gray-100 dark:hover:bg-gray-800"
+                                @click="migrateToDailyLog(); menu = false"
+                            >
+                                <Icon name="small/chevron-right" class="w-5 h-5" />
+                                Daily Log
+                            </button>
+                            <template v-for="collection in $page.props.collections">
+                                <button
+                                    :key="collection.id"
+                                    v-if="collection.id !== bullet.collection_id"
+                                    class="block w-full text-left px-4 py-1 leading-loose font-medium whitespace-nowrap hover:bg-gray-100 dark:hover:bg-gray-800"
+                                    @click="migrateTo(collection); menu = false"
+                                >
+                                    <Icon name="small/chevron-right" class="w-5 h-5" />
+                                    {{ collection.name }}
+                                </button>
+                            </template>
+                            <template v-for="collection in $page.props.sharedCollections">
+                                <button
+                                    :key="collection.id"
+                                    v-if="collection.id !== bullet.collection_id"
+                                    class="block w-full text-left px-4 py-1 leading-loose font-medium whitespace-nowrap hover:bg-gray-100 dark:hover:bg-gray-800"
+                                    @click="migrateTo(collection); menu = false"
+                                >
+                                    <Icon name="small/chevron-right" class="w-5 h-5" />
+                                    {{ collection.name }}
+                                </button>
+                            </template>
+                        </div>
                     </div>
                 </transition>
             </template>
@@ -104,6 +143,7 @@ import CompleteIcon from './Icons/CompleteIcon'
 import IncompleteIcon from './Icons/IncompleteIcon'
 import MigrateIcon from './Icons/MigrateIcon'
 import TrashIcon from './Icons/TrashIcon'
+import Icon from '@/Components/Icon'
 
 export default {
     components: {
@@ -111,6 +151,7 @@ export default {
         CompleteIcon,
         MigrateIcon,
         TrashIcon,
+        Icon,
     },
 
     props: [
@@ -127,6 +168,7 @@ export default {
             name: this.bullet.name,
             state: this.bullet.state,
             menu: false,
+            showingMigration: false,
         }
     },
 
@@ -175,6 +217,22 @@ export default {
             this.processing = true;
 
             await this.$listeners.migrate(this.bullet)
+
+            this.processing = false;
+        },
+
+        async migrateTo(collection) {
+            this.processing = true;
+
+            await this.$listeners.migrateTo(this.bullet, collection)
+
+            this.processing = false;
+        },
+
+        async migrateToDailyLog() {
+            this.processing = true;
+
+            await this.$listeners.migrateToDailyLog(this.bullet)
 
             this.processing = false;
         },

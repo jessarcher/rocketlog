@@ -13,6 +13,7 @@
                 type="bullet"
                 @input="updateBullet"
                 @migrate="migrateBullet"
+                @migrateTo="migrateBulletTo"
                 @delete="deleteBullet"
             />
 
@@ -99,7 +100,15 @@
                     { date: this.$today().format('YYYY-MM-DD') },
                     { preserveScroll: true }
                 )
-            }
+            },
+
+            async migrateBulletTo(bullet, collection) {
+                await this.$inertia.put(
+                    route('c.bullets.move', collection.hashid),
+                    { id: bullet.id },
+                    { preserveScroll: true }
+                )
+            },
         },
     }
 </script>

@@ -141,6 +141,8 @@
                 :type="type"
                 @input="updateBullet"
                 @delete="deleteBullet"
+                @migrateTo="migrateBulletTo"
+                @migrateToDailyLog="migrateBulletToDailyLog"
             />
         </div>
 
@@ -297,6 +299,22 @@ export default {
             await this.$inertia.patch(
                 route('c.bullets.update', [this.collection.hashid, bullet.id]),
                 bullet,
+                { preserveScroll: true }
+            )
+        },
+
+        async migrateBulletTo(bullet, collection) {
+            await this.$inertia.put(
+                route('c.bullets.move', collection.hashid),
+                { id: bullet.id },
+                { preserveScroll: true }
+            )
+        },
+
+        async migrateBulletToDailyLog(bullet) {
+            await this.$inertia.put(
+                route('daily-log.move'),
+                { id: bullet.id, date: this.$today().format('YYYY-MM-DD') },
                 { preserveScroll: true }
             )
         },
