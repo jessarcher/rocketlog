@@ -8,11 +8,11 @@
             <p class="mt-4">Add the tasks you would like to get done.</p>
             <p class="mt-4">Your daily log only shows five days. Beyond that, tasks fade away, guilt free.</p>
             <p class="mt-4">If something important is about to fade, use the bullet menu to migrate it forward.</p>
-            <p class="mt-4">Empty days are ignored, so if you need to step away for a few days, everything will be there when you get back.</p>
+            <p class="mt-4">Empty days are ignored, so if you need to step away for a few days, everything will be here when you get back.</p>
         </div>
 
         <div v-for="(day, i) in daysIncludingToday" :key="day.date" :class="{ 'mt-12': i > 0 }">
-            <h2 class="pb-3 font-bold border-b border-gray-200 dark:border-gray-700" :class="[i >= 4 ? 'text-gray-400 dark:text-gray-600' : 'text-gray-800 dark:text-gray-200']">
+            <h2 class="pb-3 font-bold border-b border-gray-200 dark:border-gray-700" :class="[i >= 4 ? 'text-gray-400 dark:text-gray-600' : 'text-gray-700 dark:text-gray-200']">
                 {{ $date(day.date).format('ddd, MMM D') }}
             </h2>
 

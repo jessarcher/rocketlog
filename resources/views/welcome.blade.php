@@ -41,7 +41,7 @@
         <p class="mt-6 text-lg text-gray-500 dark:text-gray-400">We've been there too. You have lots of things you want to get done. You store them so you won't forget. But now you're facing a seemingly-insurmountable list of varying priorities that just causes more stress.</p>
 
         <h2 class="mt-10 font-bold text-2xl leading-snug text-gray-900 dark:text-gray-300">RocketLog helps you focus on the things you actually care about so your mind is free for creativity and deep work.</h2>
-        <p class="mt-6 text-lg text-gray-500 dark:text-gray-400">By following the well-established practices of <a href="https://bulletjournal.com/pages/learn" class="text-gray-300 dark:text-gray-200 underline font-medium" target="_blank" rel="noopener">rapid logging and migration</a>, you will always know what your priorities are, while the unimportant things just fade away, guilt-free.</p>
+        <p class="mt-6 text-lg text-gray-500 dark:text-gray-400">By following the well-established practices of <a href="https://bulletjournal.com/pages/learn" class="text-gray-800 dark:text-gray-200 underline font-medium" target="_blank" rel="noopener">rapid logging and migration</a>, you will always know what your priorities are, while the unimportant things just fade away, guilt-free.</p>
 
         <img class="mt-10 w-48 mx-auto" role="presentation" src="/images/to-the-stars.svg" />
 
@@ -63,7 +63,7 @@
             <h3>Why another todo list?</h3>
             <p><strong>RocketLog is not your average todo list. It's a fan-letter to bullet-journalling, rapid-logging, and task migration.</strong></p>
             <p>Many of the limitations of a paper journal are what make them so good for focus and prioritisation.</p>
-            <p>The process of <a href="https://bulletjournal.com/pages/learn" class="text-gray-900 underline font-medium" target="_blank" rel="noopener">bullet journalling</a> gives you an organisation system to manage this.</p>
+            <p>The process of <a href="https://bulletjournal.com/pages/learn" target="_blank" rel="noopener">bullet journalling</a> gives you an organisation system to manage this.</p>
             <p>RocketLog makes this digital, while also providing conveniences that aren't possible with paper.</p>
         </div>
     </div>
@@ -306,7 +306,11 @@
             </nav>
 
             <p class="mt-8 text-center text-sm text-gray-400 dark:text-gray-500">
-                &copy; {{ date('Y') }} Jess Archer. All rights reserved. RocketLog is not affiliated with Bullet Journal, just a big fan.
+                RocketLog is not affiliated with Bullet Journal, just a big fan.
+            </p>
+
+            <p class="mt-8 text-center text-sm text-gray-400 dark:text-gray-500">
+                &copy; {{ date('Y') }} Jess Archer.
             </p>
         </div>
     </footer>
