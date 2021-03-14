@@ -5,6 +5,7 @@ use App\Http\Controllers\CollectionBulletDoneController;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\CollectionUserController;
 use App\Http\Controllers\DailyLogController;
+use App\Http\Controllers\UserPreferenceController;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
@@ -47,6 +48,8 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::patch('user/preferences', [UserPreferenceController::class, 'update'])->name('user-preferences.update');
+
     Route::put('daily-log', [DailyLogController::class, 'move'])->name('daily-log.move');
 
     Route::resource('daily-log', DailyLogController::class)
