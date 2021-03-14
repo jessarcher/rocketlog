@@ -1,5 +1,25 @@
 <template>
     <journal-layout>
+        <div v-if="$page.props.collections.length === 1 && collection.bullets.length === 0" class="mb-10 leading-relaxed text-gray-500 dark:text-gray-400">
+            <h1 class="text-xl font-semibold">
+                <Icon name="medium/clipboard" class="text-gray-400 dark:text-gray-500" />
+                Collections
+            </h1>
+            <p class="mt-4">Collections can be used for all sorts of things, such as:</p>
+            <ul class="mt-4 list-disc ml-4">
+                <li>Project ideas</li>
+                <li>Books to read</li>
+                <li>Movies and TV shows to watch</li>
+                <li>Shopping lists</li>
+                <li>Menu</li>
+                <li>Meal plan</li>
+            </ul>
+            <p class="mt-4">Collections can also be shared with other users. Handy for a family shopping list!</p>
+            <p class="mt-4">You can also choose between a bulleted list, or a simple checklist. Also toggle between showing or hiding your completed items.</p>
+            <p class="mt-4">Unlike the daily log, nothing will fade away here, so try not to let things get out of hand.</p>
+            <p class="mt-4">Enter your first item to get started...</p>
+        </div>
+
         <div class="flex flex-col">
             <div class="-mt-3 flex items-center justify-between" :class="drawer ? '' : 'border-b border-gray-200 dark:border-gray-700'">
                 <input
@@ -219,6 +239,7 @@ import JetSecondaryButton from '@/Jetstream/SecondaryButton'
 import JetDangerButton from '@/Jetstream/DangerButton'
 import JetInputError from '@/Jetstream/InputError'
 import SubscriptionPromptModal from '@/Components/SubscriptionPromptModal'
+import Icon from '@/Components/Icon'
 
 export default {
     components: {
@@ -234,6 +255,7 @@ export default {
         JetDangerButton,
         JetInputError,
         SubscriptionPromptModal,
+        Icon,
     },
 
     props: ['collection'],

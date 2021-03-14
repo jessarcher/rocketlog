@@ -1,7 +1,7 @@
 <template>
     <app-layout>
-        <div v-if="showingWelcome" class="mt-4 md:mt-10 max-w-7xl w-full mx-auto px-4 sm:px-6">
-            <div class="p-1 bg-gradient-to-r from-pink-500 to-purple-500 dark:from-pink-700 dark:to-purple-700 rounded-md shadow-2xl">
+        <div v-if="showingWelcome" class="mb-4 md:mb-0 mt-4 md:mt-10 max-w-7xl w-full mx-auto px-4 sm:px-6">
+            <div class="p-1 bg-gradient-to-r from-pink-500 to-purple-500 dark:from-pink-700 dark:to-purple-700 rounded-md shadow-md md:shadow-xl">
                 <div class="p-6 sm:flex bg-opacity-10 dark:bg-opacity-25 bg-black dark:bg-black text-white rounded">
                     <div class="sm:flex-1 md:text-lg">
                         <h2 class="font-bold text-lg md:text-xl">Welcome to RocketLog, fellow traveller 👋</h2>

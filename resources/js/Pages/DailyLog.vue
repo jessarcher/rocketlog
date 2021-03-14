@@ -1,14 +1,15 @@
 <template>
     <journal-layout>
-        <div v-if="days.length === 0" class="mb-10 leading-relaxed text-gray-500">
-            <h1 class="text-2xl font-semibold">
-                <Icon name="medium/calendar" class="text-gray-400 dark:text-gray-600" />
+        <div v-if="days.length === 0" class="mb-10 leading-relaxed text-gray-500 dark:text-gray-400">
+            <h1 class="text-xl font-semibold">
+                <Icon name="medium/calendar" class="text-gray-400 dark:text-gray-500" />
                 Daily Log
             </h1>
             <p class="mt-4">Add the tasks you would like to get done.</p>
             <p class="mt-4">Your daily log only shows five days. Beyond that, tasks fade away, guilt free.</p>
             <p class="mt-4">If something important is about to fade, use the bullet menu to migrate it forward.</p>
             <p class="mt-4">Empty days are ignored, so if you need to step away for a few days, everything will be here when you get back.</p>
+            <p class="mt-4">Enter your first task to get started...</p>
         </div>
 
         <div v-for="(day, i) in daysIncludingToday" :key="day.date" :class="{ 'mt-12': i > 0 }">
