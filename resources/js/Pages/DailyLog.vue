@@ -1,8 +1,8 @@
 <template>
     <journal-layout>
         <div v-if="days.length === 0" class="mb-10 leading-relaxed text-gray-500 dark:text-gray-400">
-            <h1 class="text-xl font-semibold">
-                <Icon name="medium/calendar" class="text-gray-400 dark:text-gray-500" />
+            <h1 class="text-xl font-semibold text-gray-600 dark:text-gray-300">
+                <Icon name="medium/calendar" class="mr-1 text-gray-500 dark:text-gray-400" />
                 Daily Log
             </h1>
             <p class="mt-4">Add the tasks you would like to get done.</p>
