@@ -44,7 +44,7 @@ return [
 
     'brand' =>  [
         'logo' => realpath(__DIR__ . '/../public/images/billing-logo.svg'),
-        'color' => 'bg-pink-600',
+        'color' => 'bg-purple-500',
     ],
 
     /*
