@@ -2,6 +2,7 @@
   <component
     :is="iconComponent"
     class="inline-block"
+    style="height: 1em; width: 1em; vertical-align: -0.125em"
     role="img"
   />
 </template>
