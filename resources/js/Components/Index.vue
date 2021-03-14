@@ -56,9 +56,13 @@ export default {
 
     methods: {
         async addCollection() {
-            this.$inertia.post(route('c.store'), {
-                name: this.newCollectionName,
-            })
+            await this.$inertia.post(
+                route('c.store'),
+                { name: this.newCollectionName },
+                { preserveState: false }
+            )
+
+            this.newCollectionName = '';
         }
     }
 }
