@@ -1,5 +1,16 @@
 <template>
     <journal-layout>
+        <div v-if="days.length === 0" class="mb-10 leading-relaxed">
+            <h1 class="mt-4 text-2xl font-semibold text-gray-500 dark:text-gray-600">
+                <Icon name="medium/calendar" class="text-gray-400 dark:text-gray-700" />
+                Daily Log
+            </h1>
+            <p class="mt-4 text-gray-500">Add the tasks you would like to get done.</p>
+            <p class="mt-4 text-gray-500">Your daily log only shows five days. Beyond that, tasks fade away, guilt free.</p>
+            <p class="mt-4 text-gray-500">If something important is about to fade, use the bullet menu to migrate it forward.</p>
+            <p class="mt-4 text-gray-500">Empty days are ignored, so if you need to step away for a few days, everything will be there when you get back.</p>
+        </div>
+
         <div v-for="(day, i) in daysIncludingToday" :key="day.date" :class="{ 'mt-12': i > 0 }">
             <h2 class="pb-3 font-bold border-b border-gray-200 dark:border-gray-700" :class="[i >= 4 ? 'text-gray-400 dark:text-gray-600' : 'text-gray-800 dark:text-gray-200']">
                 {{ $date(day.date).format('ddd, MMM D') }}
@@ -29,6 +40,7 @@
     import Bullet from '@/Components/Bullet'
     import NewBullet from '@/Components/NewBullet'
     import SubscriptionPromptModal from '@/Components/SubscriptionPromptModal'
+    import Icon from '@/Components/Icon'
 
     export default {
         components: {
@@ -36,6 +48,7 @@
             JournalLayout,
             NewBullet,
             SubscriptionPromptModal,
+            Icon,
         },
 
         props: ['days'],
