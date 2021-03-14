@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2 class="pb-3 border-b font-bold border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-100">Index</h2>
+        <h2 class="pb-3 border-b font-bold border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200">Index</h2>
 
         <index-link :href="route('daily-log.index')" :active="route().current('daily-log.index')" icon="medium/calendar">
             Daily Log
@@ -21,7 +21,7 @@
         </div>
 
         <template v-if="$page.props.sharedCollections.length > 0">
-            <h2 class="mt-10 pb-3 border-b font-bold border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-100">Shared with you</h2>
+            <h2 class="mt-10 pb-3 border-b font-bold border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200">Shared with you</h2>
 
             <index-link
                 v-for="collection in $page.props.sharedCollections"
