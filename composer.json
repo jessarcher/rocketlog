@@ -23,6 +23,7 @@
         "mtvs/eloquent-hashids": "^3.1",
         "pusher/pusher-php-server": "~4.1",
         "sentry/sentry-laravel": "^2.4",
+        "spatie/laravel-backup": "^7.3",
         "tightenco/ziggy": "^1.0"
     },
     "require-dev": {
