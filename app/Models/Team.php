@@ -44,6 +44,7 @@ class Team extends JetstreamTeam
 
     public function collections()
     {
-        return $this->hasMany(Collection::class);
+        return $this->hasMany(Collection::class)
+            ->orderBy('name');
     }
 }
