@@ -132,7 +132,7 @@
                                         </jet-dropdown-link>
 
                                         <jet-dropdown-link as="button" @click.native="showingSupportModal = true">
-                                            Support &amp; Feature Requests
+                                            Support &amp; Requests
                                         </jet-dropdown-link>
 
                                         <jet-dropdown-link :href="route('api-tokens.index')" v-if="$page.props.jetstream.hasApiFeatures">
