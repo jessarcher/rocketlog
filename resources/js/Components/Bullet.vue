@@ -115,7 +115,7 @@
                 ref="name"
                 v-model="name"
                 :disabled="processing"
-                class="w-full p-2 md:p-1 overflow-hidden bg-transparent border-none disabled:opacity-75"
+                class="w-full p-2 md:p-1 overflow-hidden bg-transparent border-none disabled:opacity-75 focus:ring-0"
                 :class="[
                     fade,
                     complete ? 'text-gray-500 dark:text-gray-500' : 'text-gray-900 dark:text-gray-100'
