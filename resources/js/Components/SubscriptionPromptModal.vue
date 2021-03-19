@@ -32,7 +32,8 @@
             <defs>
             </defs>
             </svg>
-            <p class="mt-4">Hey there! Your free trial period is up so it's time to subscribe if you'd like to keep enjoying RocketLog.</p>
+            <p class="mt-4">Hey there! I hope you've been enjoying RocketLog!</p>
+            <p class="mt-4">Your free trial is up so it's time to subscribe if you'd like to keep enjoying RocketLog.</p>
             <p class="mt-4">You can still access and create new bullets, but you will continue to see this notification until you subscribe.</p>
         </template>
         <template #footer>

@@ -80,7 +80,7 @@ return [
         'user' => [
             'model' => User::class,
 
-            'trial_days' => 7,
+            'trial_days' => 14,
 
             'plans' => [
                 [

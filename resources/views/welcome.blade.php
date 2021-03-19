@@ -47,7 +47,7 @@
 
         <div class="mt-6 max-w-xl mx-auto text-center">
             <a href="{{ route('register') }}" class="px-6 py-3 inline-block bg-gradient-to-r from-pink-500 to-purple-700 text-xl font-bold text-white rounded-lg shadow-lg hover:from-pink-600 hover:to-purple-800">Unburden your mind</a>
-            <p class="mt-6 text-base text-gray-500 dark:text-gray-400"><strong>Start your free 7 day trial with no upfront credit card.</strong></p>
+            <p class="mt-6 text-base text-gray-500 dark:text-gray-400"><strong>Start your free trial with no upfront credit card.</strong></p>
             <p class="mt-6 text-base text-gray-500 dark:text-gray-400">RocketLog is privacy-respecting open-source software with a premium hosted option for your convenience.</p>
         </div>
 
