@@ -26,6 +26,7 @@
                     type="text"
                     v-model.lazy="name"
                     class="flex-1 px-0 py-3 font-bold border-none bg-transparent text-gray-700 dark:text-gray-200 focus:ring-0"
+                    spellcheck="false"
                 />
 
                 <div class="-mr-2 flex gap-2 text-gray-400">

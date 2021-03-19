@@ -131,6 +131,7 @@
                 @keydown.up="up"
                 @keydown.down="down"
                 @blur="$event.target.value.length > 0 ? save() : destroy()"
+                spellcheck="false"
             ></textarea>
         </div>
 
