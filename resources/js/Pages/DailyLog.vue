@@ -6,14 +6,20 @@
                 Daily Log
             </h1>
             <p class="mt-4">Add the tasks you would like to get done.</p>
-            <p class="mt-4">Your daily log only shows five days. Beyond that, tasks fade away, guilt free.</p>
+            <p class="mt-4">Your daily log only shows seven days. Beyond that, tasks fade away, guilt free.</p>
             <p class="mt-4">If something important is about to fade, use the bullet menu to migrate it forward.</p>
             <p class="mt-4">Empty days are ignored, so if you need to step away for a few days, everything will be here when you get back.</p>
             <p class="mt-4">Enter your first task to get started...</p>
         </div>
 
         <div v-for="(day, i) in daysIncludingToday" :key="day.date" :class="{ 'mt-12': i > 0 }">
-            <h2 class="pb-3 font-bold border-b border-gray-200 dark:border-gray-700" :class="[i >= 4 ? 'text-gray-400 dark:text-gray-600' : 'text-gray-700 dark:text-gray-200']">
+            <h2
+                class="pb-3 font-bold border-b border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200"
+                :class="{
+                    'opacity-50': i === 5,
+                    'opacity-30': i === 6,
+                }"
+            >
                 {{ $date(day.date).format('ddd, MMM D') }}
             </h2>
 
@@ -21,7 +27,10 @@
                 v-for="bullet in day.bullets"
                 :key="bullet.id"
                 :bullet="bullet"
-                :fade="i >= 4"
+                :fade="{
+                    'opacity-50': i === 5,
+                    'opacity-30': i === 6,
+                }"
                 type="bullet"
                 @input="updateBullet"
                 @migrate="migrateBullet"
@@ -75,9 +84,11 @@
         },
 
         mounted() {
-            setInterval(() => {
+            const todayInterval = setInterval(() => {
                 this.today = this.$today()
             }, 1000)
+
+            this.$once('hook:destroyed', () => clearInterval(todayInterval))
         },
 
         methods: {

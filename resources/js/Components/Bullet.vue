@@ -2,9 +2,12 @@
     <div class="py-1 md:py-2 border-b border-gray-200 dark:border-gray-700 flex">
         <div class="relative flex-shrink-0">
             <template v-if="type === 'bullet'">
-                <div class="border border-transparent" :class="state === 'complete' || fade ? 'opacity-50' : ''">
+                <div class="border border-transparent" :class="fade">
                     <button
-                        class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center rounded-full border border-transparent text-2xl text-gray-900 dark:text-gray-100 hover:border-gray-200 dark:hover:border-gray-600 hover:shadow focus:outline-none focus:border-gray-200 dark:focus:border-gray-600 focus:shadow-inner disabled:opacity-50"
+                        class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center rounded-full border border-transparent text-2xl hover:border-gray-200 dark:hover:border-gray-600 hover:shadow focus:outline-none focus:border-gray-200 dark:focus:border-gray-600 focus:shadow-inner disabled:opacity-50"
+                        :class="
+                            complete ? 'text-gray-500 dark:text-gray-500' : 'text-gray-900 dark:text-gray-100'
+                        "
                         @click="menu = true"
                         :disabled="processing"
                     >
@@ -108,25 +111,27 @@
         </div>
 
         <div class="w-full mx-1">
-            <div :class="state === 'complete' || fade ? 'opacity-50' : ''">
-                <textarea
-                    ref="name"
-                    v-model="name"
-                    :disabled="processing"
-                    class="w-full p-2 md:p-1 overflow-hidden bg-transparent border-none disabled:opacity-75 text-gray-900 dark:text-gray-100"
-                    style="resize: none;"
-                    rows="1"
-                    @keydown.enter="
-                        if (! $event.shiftKey && $event.target.value.length) {
-                            $event.preventDefault()
-                            save()
-                        }
-                    "
-                    @keydown.up="up"
-                    @keydown.down="down"
-                    @blur="$event.target.value.length > 0 ? save() : destroy()"
-                ></textarea>
-            </div>
+            <textarea
+                ref="name"
+                v-model="name"
+                :disabled="processing"
+                class="w-full p-2 md:p-1 overflow-hidden bg-transparent border-none disabled:opacity-75"
+                :class="[
+                    fade,
+                    complete ? 'text-gray-500 dark:text-gray-500' : 'text-gray-900 dark:text-gray-100'
+                ]"
+                style="resize: none;"
+                rows="1"
+                @keydown.enter="
+                    if (! $event.shiftKey && $event.target.value.length) {
+                        $event.preventDefault()
+                        save()
+                    }
+                "
+                @keydown.up="up"
+                @keydown.down="down"
+                @blur="$event.target.value.length > 0 ? save() : destroy()"
+            ></textarea>
         </div>
 
         <div class="w-10 h-10 md:w-8 md:h-8 border border-transparent flex items-center justify-center">
