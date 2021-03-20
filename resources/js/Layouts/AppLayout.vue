@@ -318,6 +318,11 @@
             }
         },
 
+        mounted() {
+            window.addEventListener('orientationchange', this.handleOrientationChange);
+            this.$once('hook:destroyed', () => window.removeEventListener(this.handleOrientationChange))
+        },
+
         methods: {
             switchToTeam(team) {
                 this.$inertia.put(route('current-team.update'), {
@@ -326,6 +331,10 @@
                     preserveState: false
                 })
             },
+
+            handleOrientationChange() {
+                this.showingNavigationDropdown = false;
+            }
         }
     }
 </script>
