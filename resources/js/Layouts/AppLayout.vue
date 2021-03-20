@@ -319,8 +319,8 @@
         },
 
         mounted() {
-            window.addEventListener('orientationchange', this.handleOrientationChange);
-            this.$once('hook:destroyed', () => window.removeEventListener(this.handleOrientationChange))
+            window.addEventListener('resize', this.handleOrientationChange);
+            this.$once('hook:destroyed', () => window.removeEventListener('resize', this.handleOrientationChange))
         },
 
         methods: {
