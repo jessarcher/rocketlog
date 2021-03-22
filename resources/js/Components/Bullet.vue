@@ -17,7 +17,7 @@
                         </button>
                     </div>
 
-                    <div v-if="menu" class="fixed inset-0 z-40" @click="menu = false; showingMigration = false">
+                    <div v-show="menu" class="fixed inset-0 z-40" @click="menu = false; showingMigration = false">
                     </div>
 
                     <transition
@@ -29,7 +29,7 @@
                         leave-to-class="transform opacity-0 scale-95"
                     >
                         <div
-                            v-if="menu"
+                            v-show="menu"
                             class="absolute top-0 left-0 -ml-2 rounded-2xl text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-500 bg-white dark:bg-gray-700 shadow-xl z-50 overflow-hidden"
                             @blur="menu = false; showingMigration = false"
                             @xclick="menu = false; showingMigration = false"
