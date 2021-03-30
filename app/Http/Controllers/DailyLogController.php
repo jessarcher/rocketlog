@@ -19,7 +19,7 @@ class DailyLogController extends Controller
             ->whereNotNull('date')
             ->whereNull('collection_id')
             ->latest('date')
-            ->take(7)
+            ->take(6)
             ->pluck('date');
 
         if ($dates->isNotEmpty()) {

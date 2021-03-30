@@ -6,7 +6,7 @@
                 Daily Log
             </h1>
             <p class="mt-4">Add the tasks you would like to get done.</p>
-            <p class="mt-4">Your daily log only shows seven days. Beyond that, tasks fade away, guilt free.</p>
+            <p class="mt-4">Your daily log only shows six days. Beyond that, tasks fade away, guilt free.</p>
             <p class="mt-4">If something important is about to fade, use the bullet menu to migrate it forward.</p>
             <p class="mt-4">Empty days are ignored, so if you need to step away for a few days, everything will be here when you get back.</p>
             <p class="mt-4">Enter your first task to get started...</p>
@@ -16,8 +16,8 @@
             <h2
                 class="pb-3 font-bold border-b border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200"
                 :class="{
-                    'opacity-50': i === 5,
-                    'opacity-30': i === 6,
+                    'opacity-50': i === 4,
+                    'opacity-30': i === 5,
                 }"
             >
                 {{ $date(day.date).format('ddd, MMM D') }}
@@ -28,8 +28,8 @@
                 :key="bullet.id"
                 :bullet="bullet"
                 :fade="{
-                    'opacity-50': i === 5,
-                    'opacity-30': i === 6,
+                    'opacity-50': i === 4,
+                    'opacity-30': i === 5,
                 }"
                 type="bullet"
                 @input="updateBullet"
