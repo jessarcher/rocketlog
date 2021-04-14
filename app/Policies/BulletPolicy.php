@@ -38,10 +38,6 @@ class BulletPolicy
             return false;
         }
 
-        if ($user->belongsToTeam($bullet->collection->team)) {
-            return true;
-        }
-
         if ($bullet->collection->users()->where('id', $user->id)->exists()) {
             return true;
         }

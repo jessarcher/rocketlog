@@ -8,7 +8,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
-use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
 use Spark\Billable;
 
@@ -18,7 +17,6 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasApiTokens;
     use HasFactory;
     use HasProfilePhoto;
-    use HasTeams;
     use Notifiable;
     use TwoFactorAuthenticatable;
 
@@ -72,6 +70,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function bullets()
     {
         return $this->hasMany(Bullet::class);
+    }
+
+    public function collections()
+    {
+        return $this->hasMany(Collection::class);
     }
 
     public function sharedCollections()

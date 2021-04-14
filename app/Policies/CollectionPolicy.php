@@ -30,7 +30,7 @@ class CollectionPolicy
      */
     public function view(User $user, Collection $collection)
     {
-        if ($user->belongsToTeam($collection->team)) {
+        if ($collection->user_id === $user->id) {
             return true;
         }
 
@@ -71,7 +71,7 @@ class CollectionPolicy
      */
     public function delete(User $user, Collection $collection)
     {
-        if ($user->belongsToTeam($collection->team)) {
+        if ($collection->user_id === $user->id) {
             return true;
         }
     }
@@ -109,7 +109,7 @@ class CollectionPolicy
      */
     public function share(User $user, Collection $collection)
     {
-        if ($user->belongsToTeam($collection->team)) {
+        if ($collection->user_id === $user->id) {
             return true;
         }
     }

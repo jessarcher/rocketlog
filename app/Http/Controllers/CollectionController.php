@@ -10,7 +10,7 @@ class CollectionController extends Controller
 {
     public function store(Request $request)
     {
-        $collection = $request->user()->currentTeam->collections()->create([
+        $collection = $request->user()->collections()->create([
             'name' => $request->name,
             'type' => 'bullet',
         ]);

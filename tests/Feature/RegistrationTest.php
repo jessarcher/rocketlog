@@ -2,11 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\Models\User;
-use App\Notifications\NewUserNotification;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Notification;
 use Laravel\Jetstream\Jetstream;
 use Tests\TestCase;
 
@@ -23,9 +20,6 @@ class RegistrationTest extends TestCase
 
     public function test_new_users_can_register()
     {
-        $admin = User::factory()->create();
-        Notification::fake();
-
         $response = $this->post('/register', [
             'name' => 'Test User',
             'email' => 'test@example.com',
@@ -36,6 +30,5 @@ class RegistrationTest extends TestCase
 
         $this->assertAuthenticated();
         $response->assertRedirect(RouteServiceProvider::HOME);
-        Notification::assertSentTo($admin, NewUserNotification::class, fn ($notification) => $notification->user->name === 'Test User');
     }
 }
