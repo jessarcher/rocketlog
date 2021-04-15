@@ -168,7 +168,7 @@
                 <!-- Responsive Navigation Menu -->
                 <div :class="{'flex': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden justify-end fixed inset-0 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 bg-opacity-75 mt-16">
                     <div class="absolute inset-0" @click="showingNavigationDropdown = false"></div>
-                    <div class="w-2/3 bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700 overflow-y-auto shadow-lg z-10">
+                    <div class="relative w-2/3 bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700 overflow-y-auto shadow-lg z-10">
                         <!-- <div class="pt-2 pb-3 space-y-1"> -->
                         <!--     <jet-responsive-nav-link :href="route('daily-log.index')" :active="route().current('daily-log.index')"> -->
                         <!--         Daily Log -->
