@@ -14,7 +14,7 @@
                 v-model="name"
                 ref="name"
                 :disabled="creating"
-                class="w-full p-2 md:p-1 text-gray-900 dark:text-gray-100 overflow-hidden bg-transparent border-none disabled:opacity-50 placeholder-gray-300 dark:placeholder-gray-600"
+                class="w-full p-2 md:p-1 text-gray-900 dark:text-gray-100 overflow-hidden bg-transparent border-none disabled:opacity-50 placeholder-gray-300 dark:placeholder-gray-600 focus:ring-0"
                 style="resize: none; height: 1em;"
                 rows="1"
                 placeholder="Unburden your mind..."

@@ -16,8 +16,8 @@
             {{ collection.name }}
         </index-link>
 
-        <div class="relative">
-            <input type="text" v-model="newCollectionName" @keydown.enter="addCollection" class="py-3 px-2 border-t-0 border-l-0 border-r-0 border-b border-gray-200 dark:border-gray-700 w-full bg-transparent placeholder-gray-400 dark:placeholder-gray-700 text-gray-900 dark:text-gray-100 focus:ring-0" placeholder="New collection...">
+        <div class="relative border-t-0 border-l-0 border-r-0 border-b border-gray-200 dark:border-gray-700">
+            <input type="text" v-model="newCollectionName" @keydown.enter="addCollection" class="py-3 px-2 w-full border-none bg-transparent placeholder-gray-400 dark:placeholder-gray-700 text-gray-900 dark:text-gray-100 focus:ring-0" placeholder="New collection...">
         </div>
 
         <template v-if="$page.props.sharedCollections.length > 0">
