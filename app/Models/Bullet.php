@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Bullet extends Model
 {
@@ -27,5 +28,10 @@ class Bullet extends Model
     public function setCompleteAttribute($value)
     {
         $this->attributes['state'] = $value ? 'complete' : 'incomplete';
+    }
+
+    public function collection(): BelongsTo
+    {
+        return $this->belongsTo(Collection::class);
     }
 }

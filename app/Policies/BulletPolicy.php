@@ -38,6 +38,10 @@ class BulletPolicy
             return false;
         }
 
+        if ($bullet->collection->user_id === $user->id) {
+            return true;
+        }
+
         if ($bullet->collection->users()->where('id', $user->id)->exists()) {
             return true;
         }
