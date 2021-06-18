@@ -9,3 +9,7 @@ While you're free to give this a go, it will currently be a bit of pain due to t
 I will try to improve this in the future, especially if there is demand.
 
 In the mean time, you can still view and learn from the source code, and even PR bugfixes and features to the hosted version!
+
+## Security
+
+If you discover any security related issues, please email jess@jessarcher.com instead of using the issue tracker.
