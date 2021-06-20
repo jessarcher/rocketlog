@@ -23,7 +23,7 @@ class CollectionTest extends TestCase
         $this
             ->actingAs($user = User::factory()->create())
             ->post('/c', ['name' => 'Test collection'])
-            ->assertRedirect('/c/' . Hashids::encode(1));
+            ->assertRedirect('/c/'.Hashids::encode(1));
 
         $this->assertDatabaseHas('collections', [
             'user_id' => $user->id,
@@ -97,7 +97,7 @@ class CollectionTest extends TestCase
 
         $this
             ->delete("/c/{$collection->hashid}")
-            ->assertRedirect("/daily-log");
+            ->assertRedirect('/daily-log');
     }
 
     public function test_only_the_owner_can_delete_the_collection()

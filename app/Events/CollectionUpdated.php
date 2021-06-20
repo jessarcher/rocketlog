@@ -34,6 +34,6 @@ class CollectionUpdated implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('collection.' . $this->collection->id);
+        return new PrivateChannel('collection.'.$this->collection->id);
     }
 }

@@ -14,7 +14,7 @@ class Controller extends BaseController
 
     public function invalidIf($condition, $field, $message)
     {
-        if (!$condition) {
+        if (! $condition) {
             return;
         }
 

@@ -37,7 +37,7 @@ class DailyLogController extends Controller
         return Inertia::render('DailyLog', [
             'days' => $dates->map(fn ($date) => (object) [
                 'date' => $date,
-                'bullets' => $bulletsByDate?->get($date) ?? []
+                'bullets' => $bulletsByDate?->get($date) ?? [],
             ]),
         ]);
     }
