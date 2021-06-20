@@ -85,7 +85,9 @@
 
         mounted() {
             const todayInterval = setInterval(() => {
-                this.today = this.$today()
+                if (! this.today.isSame(this.$today())) {
+                    this.today = this.$today()
+                }
             }, 1000)
 
             this.$once('hook:destroyed', () => clearInterval(todayInterval))
