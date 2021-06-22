@@ -123,6 +123,7 @@
                     ]"
                     style="resize: none;"
                     rows="1"
+                    maxlength="255"
                     @keydown.enter="
                         if (! $event.shiftKey && $event.target.value.length) {
                             $event.preventDefault()
