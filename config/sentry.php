@@ -18,7 +18,7 @@ return [
         'sql_queries' => true,
 
         // Capture bindings on SQL queries logged in breadcrumbs
-        'sql_bindings' => true,
+        'sql_bindings' => false,
 
         // Capture queue job information in breadcrumbs
         'queue_info' => true,
@@ -28,7 +28,7 @@ return [
     ],
 
     // @see: https://docs.sentry.io/platforms/php/configuration/options/#send-default-pii
-    'send_default_pii' => false,
+    'send_default_pii' => true,
 
     'traces_sample_rate' => (float) (env('SENTRY_TRACES_SAMPLE_RATE', 0.0)),
 
