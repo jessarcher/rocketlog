@@ -76,6 +76,12 @@
                                 <span class="ml-2 font-semibold text-gray-700 dark:text-gray-300">Checklist</span>
                             </label>
                         </div>
+                        <div class="flex">
+                            <label class="ml-4 flex items-center">
+                                <input type="checkbox" v-model="inDailyLog" name="in_daily_log" class="h-5 w-5 border-gray-300 dark:border-gray-600  dark:bg-gray-800 dark:text-gray-700">
+                                <span class="ml-2 font-semibold text-gray-700 dark:text-gray-300">Show in daily log</span>
+                            </label>
+                        </div>
                     </div>
 
                     <div class="-mx-2 flex flex-wrap gap-x-2 gap-y-2">
@@ -266,6 +272,7 @@ export default {
             processing: false,
             name: this.collection.name,
             type: this.collection.type,
+            inDailyLog: this.collection.in_daily_log,
             hideDone: this.collection.hide_done,
             drawer: false,
             confirmingClearDone: false,
@@ -288,6 +295,9 @@ export default {
         type() {
             this.update()
         },
+        inDailyLog() {
+            this.update()
+        },
         hideDone() {
             this.update()
         }
@@ -300,6 +310,7 @@ export default {
                 {
                     name: this.name,
                     type: this.type,
+                    in_daily_log: this.inDailyLog,
                     hide_done: this.hideDone,
                 },
                 { preserveScroll: true }
@@ -309,7 +320,7 @@ export default {
         async storeBullet(bullet) {
             await this.$inertia.post(
                 route('c.bullets.store', this.collection.hashid),
-                bullet,
+                { ...bullet, date: this.$today().format('YYYY-MM-DD') },
                 { preserveScroll: true }
             )
 
@@ -321,7 +332,7 @@ export default {
         async updateBullet(bullet) {
             await this.$inertia.patch(
                 route('c.bullets.update', [this.collection.hashid, bullet.id]),
-                bullet,
+                { ...bullet, date: this.$today().format('YYYY-MM-DD') },
                 { preserveScroll: true }
             )
         },

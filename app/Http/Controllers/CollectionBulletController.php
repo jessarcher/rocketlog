@@ -13,6 +13,7 @@ class CollectionBulletController extends Controller
         $this->authorize('update', $collection);
 
         $collection->bullets()->create([
+            'date' => $request->date,
             'name' => $request->name,
             'type' => 'task',
             'state' => 'incomplete',
@@ -26,7 +27,7 @@ class CollectionBulletController extends Controller
     {
         $this->authorize('update', $collection);
 
-        $bullet->update($request->only(['name', 'state']));
+        $bullet->update($request->only(['name', 'date', 'state']));
 
         return redirect(route('c.show', $collection));
     }
@@ -40,7 +41,7 @@ class CollectionBulletController extends Controller
         $this->authorize('update', $bullet);
 
         $bullet->collection_id = $collection->id;
-        $bullet->date = null;
+        $bullet->date = $request->date;
         $bullet->save();
 
         return back();

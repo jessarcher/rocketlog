@@ -16,8 +16,10 @@ class DailyLogController extends Controller
             ->toBase()
             ->select('date')
             ->distinct()
+            ->leftJoin('collections as c', 'bullets.collection_id', '=', 'c.id')
             ->whereNotNull('date')
             ->whereNull('collection_id')
+            ->orWhere('c.in_daily_log', 1)
             ->latest('date')
             ->take(6)
             ->pluck('date');
@@ -30,6 +32,8 @@ class DailyLogController extends Controller
                 ->whereDate('date', '<=', $dates->first())
                 ->whereDate('date', '>=', $dates->last())
                 ->whereNull('collection_id')
+                ->orWhereHas('collection', fn($q)=>$q->where('in_daily_log', 1))
+                ->with('collection')
                 ->get()
                 ->groupBy(fn ($bullet) => $bullet->date->format('Y-m-d'));
         }

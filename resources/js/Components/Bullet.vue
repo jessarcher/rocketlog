@@ -111,7 +111,7 @@
                 </template>
             </div>
 
-            <div class="w-full mx-1">
+            <div class="relative w-full mx-1">
                 <textarea
                     ref="name"
                     v-model="name"
@@ -135,6 +135,9 @@
                     @blur="$event.target.value.length > 0 ? save() : destroy()"
                     spellcheck="false"
                 ></textarea>
+                <span v-if="collectionName" class="sm:absolute sm:right-0 sm:border sm:rounded sm:py-1 px-3 text-gray-500 text-xs">
+                    {{ collectionName }}
+                </span>
             </div>
 
             <div class="w-10 h-10 md:w-8 md:h-8 border border-transparent flex items-center justify-center">
@@ -178,6 +181,7 @@ export default {
             dirty: false,
             processing: false,
             name: this.bullet.name,
+            collectionName: this.getCollectionName(this.bullet),
             state: this.bullet.state,
             menu: false,
             showingMigration: false,
@@ -272,6 +276,10 @@ export default {
         focus() {
             this.$refs.name.focus()
         },
+
+        getCollectionName(bullet) {
+            return (bullet.collection) ? bullet.collection.name : '';
+        }
     },
 }
 </script>
