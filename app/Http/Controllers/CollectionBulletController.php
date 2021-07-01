@@ -41,7 +41,6 @@ class CollectionBulletController extends Controller
         $this->authorize('update', $bullet);
 
         $bullet->collection_id = $collection->id;
-        $bullet->date = $request->date;
         $bullet->save();
 
         return back();

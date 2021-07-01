@@ -168,6 +168,7 @@
                 :type="type"
                 @input="updateBullet"
                 @delete="deleteBullet"
+                @migrate="migrateBullet"
                 @migrateTo="migrateBulletTo"
                 @migrateToDailyLog="migrateBulletToDailyLog"
             />
@@ -348,7 +349,7 @@ export default {
         async migrateBulletToDailyLog(bullet) {
             await this.$inertia.put(
                 route('daily-log.move'),
-                { id: bullet.id, date: this.$today().format('YYYY-MM-DD') },
+                { id: bullet.id },
                 { preserveScroll: true }
             )
         },

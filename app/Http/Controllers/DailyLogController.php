@@ -76,7 +76,6 @@ class DailyLogController extends Controller
         $this->authorize('update', $bullet);
 
         $bullet->collection_id = null;
-        $bullet->date = $request->input('date');
         $bullet->save();
 
         return back();

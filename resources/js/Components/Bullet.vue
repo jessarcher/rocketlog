@@ -48,7 +48,7 @@
                                     <complete-icon class="w-6 h-6 md:w-5 md:h-5" />
                                 </button>
 
-                                <button v-if="bullet.collection_id === null && $date(bullet.date).isBefore($today())" class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 focus:bg-gray-100 dark:focus:bg-gray-800 focus:outline-none" @click="migrate(); menu = false" title="Migrate forward">
+                                <button v-if="$date(bullet.date).isBefore($today())" class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 focus:bg-gray-100 dark:focus:bg-gray-800 focus:outline-none" @click="migrate(); menu = false" title="Migrate forward">
                                     <Icon name="small/chevron-up" class="h-6 w-6 md:h-5 md:w-5" />
                                 </button>
 
@@ -135,7 +135,7 @@
                     @blur="$event.target.value.length > 0 ? save() : destroy()"
                     spellcheck="false"
                 ></textarea>
-                <span v-if="collectionName" class="sm:absolute sm:right-0 sm:border sm:rounded sm:py-1 px-3 text-gray-500 text-xs">
+                <span v-show="collectionName" class="sm:absolute sm:right-0 sm:border sm:rounded sm:py-1 px-3 text-gray-500 text-xs">
                     {{ collectionName }}
                 </span>
             </div>
@@ -181,7 +181,6 @@ export default {
             dirty: false,
             processing: false,
             name: this.bullet.name,
-            collectionName: this.getCollectionName(this.bullet),
             state: this.bullet.state,
             menu: false,
             showingMigration: false,
@@ -195,6 +194,14 @@ export default {
             },
             set(newValue) {
                 this.state = newValue ? 'complete' : 'incomplete'
+            }
+        },
+        collectionName: {
+            get() {
+                return this.getCollectionName(this.bullet)
+            },
+            set(newValue) {
+                this.bullet.collection.name = newValue;
             }
         }
     },
