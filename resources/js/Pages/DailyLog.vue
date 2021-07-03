@@ -78,7 +78,7 @@
 
                 return [
                     { date: this.today.format('YYYY-MM-DD'), bullets: [] },
-                    ...this.days.slice(0, 6)
+                    ...this.days.slice(0, 5)
                 ]
             }
         },
