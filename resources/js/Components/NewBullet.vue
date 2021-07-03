@@ -4,12 +4,18 @@
         class="py-1 md:py-2 border-b border-gray-200 dark:border-gray-700 flex"
     >
         <div class="border border-transparent flex-shrink-0">
-            <div class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center">
+            <div class="relative h-10 w-10 md:h-8 md:w-8 flex items-center justify-center">
+                <div v-show="creating" class="absolute inset-0 border border-transparent flex items-center justify-center">
+                    <svg class="h-10 w-10 md:h-8 md:w-8 animate-spin text-gray-500 opacity-50" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path class="opacity-25" d="M15.0387 28.5C22.4733 28.5 28.5002 22.473 28.5002 15.0384C28.5002 7.60384 22.4733 1.5769 15.0387 1.5769C7.60408 1.5769 1.57715 7.60384 1.57715 15.0384C1.57715 22.473 7.60408 28.5 15.0387 28.5Z" stroke-width="1" stroke="currentColor" />
+                        <path class="opacity-75" fill-rule="evenodd" clip-rule="evenodd" d="M5.69235 23.281C3.75356 21.0843 2.57715 18.1987 2.57715 15.0384C2.57715 8.15613 8.15637 2.5769 15.0387 2.5769V0.576904C7.0518 0.576904 0.577148 7.05156 0.577148 15.0384C0.577148 18.7061 1.94249 22.0549 4.19264 24.6042L5.69235 23.281Z" fill="currentColor" />
+                    </svg>
+                </div>
                 <incomplete-icon class="h-5 w-5 text-gray-200 dark:text-gray-700" />
             </div>
         </div>
 
-        <div class="w-full mx-1">
+        <div class="flex-1 mx-1">
             <textarea
                 v-model="name"
                 ref="name"
@@ -33,13 +39,6 @@
                     }
                 "
             ></textarea>
-        </div>
-
-        <div class="w-10 h-10 md:w-8 md:h-8 border border-transparent flex items-center justify-center">
-            <svg v-show="creating" class="animate-spin h-6 w-6 md:h-5 md:w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
         </div>
     </form>
 </template>
