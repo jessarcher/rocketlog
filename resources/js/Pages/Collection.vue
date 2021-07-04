@@ -29,7 +29,7 @@
                     spellcheck="false"
                 />
 
-                <div class="-mr-2 flex gap-2 text-gray-400">
+                <div class="flex gap-2 text-gray-400">
                     <button
                         type="button"
                         @click="hideDone = ! hideDone"
