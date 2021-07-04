@@ -19,8 +19,8 @@
                                     <path class="opacity-75" fill-rule="evenodd" clip-rule="evenodd" d="M5.69235 23.281C3.75356 21.0843 2.57715 18.1987 2.57715 15.0384C2.57715 8.15613 8.15637 2.5769 15.0387 2.5769V0.576904C7.0518 0.576904 0.577148 7.05156 0.577148 15.0384C0.577148 18.7061 1.94249 22.0549 4.19264 24.6042L5.69235 23.281Z" fill="currentColor" />
                                 </svg>
                             </div>
-                            <incomplete-icon v-show="state === 'incomplete'" class="h-6 w-6 md:h-5 md:w-5" />
-                            <complete-icon v-show="state === 'complete'" class="h-6 w-6 md:h-5 md:w-5" />
+                            <Icon name="small/bullet" v-show="state === 'incomplete'" class="h-6 w-6 md:h-5 md:w-5" />
+                            <Icon name="small/x" v-show="state === 'complete'" class="h-6 w-6 md:h-5 md:w-5" />
                         </button>
                     </div>
 
@@ -43,16 +43,16 @@
                         >
                             <div class="px-2 flex items-center text-2xl">
                                 <button class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center focus:bg-gray-100 dark:focus:bg-gray-800 focus:outline-none" @click="menu = false; showingMigration = false">
-                                    <complete-icon v-if="state === 'complete'" class="h-6 w-6 md:h-5" />
-                                    <incomplete-icon v-if="state === 'incomplete'" class="h-6 w-6 md:h-5" />
+                                    <Icon name="small/x" v-if="state === 'complete'" class="h-6 w-6 md:h-5" />
+                                    <Icon name="small/bullet" v-if="state === 'incomplete'" class="h-6 w-6 md:h-5" />
                                 </button>
 
                                 <button v-if="state !== 'incomplete'" class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 focus:bg-gray-100 dark:focus:bg-gray-800 focus:outline-none" @click="state = 'incomplete'; menu = false" title="Mark as incomplete">
-                                    <incomplete-icon class="w-6 h-6 md:w-5 md:h-5" />
+                                    <Icon name="small/bullet" class="w-6 h-6 md:w-5 md:h-5" />
                                 </button>
 
                                 <button v-else-if="state !== 'complete'" class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 focus:bg-gray-100 dark:focus:bg-gray-800 focus:outline-none" @click="state = 'complete'; menu = false" title="Mark as complete">
-                                    <complete-icon class="w-6 h-6 md:w-5 md:h-5" />
+                                    <Icon name="small/x" class="w-6 h-6 md:w-5 md:h-5" />
                                 </button>
 
                                 <button v-if="bullet.collection_id === null && $date(bullet.date).isBefore($today())" class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 focus:bg-gray-100 dark:focus:bg-gray-800 focus:outline-none" @click="migrate(); menu = false" title="Migrate forward">
@@ -64,7 +64,7 @@
                                 </button>
 
                                 <button class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 focus:bg-gray-100 dark:focus:bg-gray-800 focus:outline-none" @click="destroy(); menu = false" title="Delete">
-                                    <trash-icon class="h-6 w-6 md:w-5 md:h-5" />
+                                    <Icon name="small/trash" class="h-6 w-6 md:w-5 md:h-5" />
                                 </button>
                             </div>
 
@@ -151,18 +151,10 @@
 
 <script>
 import autosize from 'autosize'
-import CompleteIcon from './Icons/CompleteIcon'
-import IncompleteIcon from './Icons/IncompleteIcon'
-import MigrateIcon from './Icons/MigrateIcon'
-import TrashIcon from './Icons/TrashIcon'
 import Icon from '@/Components/Icon'
 
 export default {
     components: {
-        IncompleteIcon,
-        CompleteIcon,
-        MigrateIcon,
-        TrashIcon,
         Icon,
     },
 

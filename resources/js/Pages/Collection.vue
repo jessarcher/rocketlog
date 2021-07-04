@@ -37,7 +37,7 @@
                         :class="hideDone ? 'text-gray-400 hover:text-gray-500 focus:text-gray-500' : 'text-pink-600 hover:text-pink-700 focus:text-pink-700'"
                         title="Show done"
                     >
-                        <clipboard-check-icon class="w-6 h-6 md:w-5 md:h-5" />
+                        <Icon name="medium/clipboard-check" class="w-6 h-6 md:w-5 md:h-5" />
                     </button>
 
                     <button
@@ -46,7 +46,7 @@
                         class="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 transition duration-150 ease-in-out"
                         :class="drawer === 'share' ? 'bg-gray-100 dark:bg-gray-900 text-gray-500 dark:text-gray-300' : 'text-gray-400'"
                     >
-                        <share-icon class="w-6 h-6 md:w-5 md:h-5" />
+                        <Icon name="medium/share" class="w-6 h-6 md:w-5 md:h-5" />
                     </button>
 
                     <button
@@ -55,7 +55,7 @@
                         class="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 transition duration-150 ease-in-out"
                         :class="drawer === 'settings' ? 'bg-gray-100 dark:bg-gray-900 text-gray-500 dark:text-gray-300' : 'text-gray-400'"
                     >
-                        <adjustments-icon class="w-6 h-6 md:w-5 md:h-5" />
+                        <Icon name="medium/adjustments" class="w-6 h-6 md:w-5 md:h-5" />
                     </button>
                 </div>
             </div>
@@ -142,7 +142,7 @@
                                 class="px-4 py-2 flex items-center border border-gray-300 dark:border-gray-500 rounded font-medium text-gray-900 dark:text-gray-100"
                                 :disabled="addUserForm.processing"
                             >
-                                <user-add-icon class="mr-1 text-gray-400" style="height: 1em; width: 1em;" />
+                                <Icon name="small/user-add" class="mr-1 text-gray-400" style="height: 1em; width: 1em;" />
                                 Add
                             </button>
                         </div>
@@ -231,10 +231,6 @@
 import JournalLayout from '@/Layouts/JournalLayout'
 import Bullet from '@/Components/Bullet'
 import NewBullet from '@/Components/NewBullet'
-import ClipboardCheckIcon from '@/Components/Icons/ClipboardCheckIcon'
-import UserAddIcon from '@/Components/Icons/UserAddIcon'
-import ShareIcon from '@/Components/Icons/ShareIcon'
-import AdjustmentsIcon from '@/Components/Icons/AdjustmentsIcon'
 import JetConfirmationModal from '@/Jetstream/ConfirmationModal'
 import JetSecondaryButton from '@/Jetstream/SecondaryButton'
 import JetDangerButton from '@/Jetstream/DangerButton'
@@ -247,10 +243,6 @@ export default {
         Bullet,
         JournalLayout,
         NewBullet,
-        ClipboardCheckIcon,
-        UserAddIcon,
-        ShareIcon,
-        AdjustmentsIcon,
         JetConfirmationModal,
         JetSecondaryButton,
         JetDangerButton,

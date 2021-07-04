@@ -11,7 +11,7 @@
                         <path class="opacity-75" fill-rule="evenodd" clip-rule="evenodd" d="M5.69235 23.281C3.75356 21.0843 2.57715 18.1987 2.57715 15.0384C2.57715 8.15613 8.15637 2.5769 15.0387 2.5769V0.576904C7.0518 0.576904 0.577148 7.05156 0.577148 15.0384C0.577148 18.7061 1.94249 22.0549 4.19264 24.6042L5.69235 23.281Z" fill="currentColor" />
                     </svg>
                 </div>
-                <incomplete-icon class="h-5 w-5 text-gray-200 dark:text-gray-700" />
+                <icon name="small/bullet" class="h-5 w-5 text-gray-200 dark:text-gray-700" />
             </div>
         </div>
 
@@ -45,11 +45,11 @@
 
 <script>
 import autosize from 'autosize'
-import IncompleteIcon from '@/Components/Icons/IncompleteIcon'
+import Icon from '@/Components/Icon'
 
 export default {
     components: {
-        IncompleteIcon,
+        Icon,
     },
 
     data() {
