@@ -25,11 +25,11 @@
                 <input
                     type="text"
                     v-model.lazy="name"
-                    class="flex-1 px-0 py-3 font-bold border-none bg-transparent text-gray-700 dark:text-gray-200 focus:ring-0"
+                    class="w-full flex-1 px-0 py-3 font-bold border-none bg-transparent text-gray-700 dark:text-gray-200 focus:ring-0"
                     spellcheck="false"
                 />
 
-                <div class="flex gap-2 text-gray-400">
+                <div class="flex flex-shrink-0 gap-2 text-gray-400">
                     <button
                         type="button"
                         @click="hideDone = ! hideDone"
