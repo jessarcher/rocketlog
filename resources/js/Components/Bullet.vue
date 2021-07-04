@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="py-1 md:py-2 flex">
-            <div class="relative flex-shrink-0">
+            <div class="relative flex-shrink-0" :class="$slots.tags ? 'pt-3 lg:pt-0' : ''">
                 <template v-if="type === 'bullet'">
                     <div class="border border-transparent" :class="fade">
                         <button
@@ -135,6 +135,9 @@
             </div>
 
             <div class="flex-1 ml-1 lg:flex">
+                <div v-if="$slots.tags" class="mt-1 -mb-1 md:mb-0 lg:hidden ml-2 md:ml-1 lg:flex-shrink-0">
+                    <slot name="tags" />
+                </div>
                 <div class="lg:flex-1">
                     <textarea
                         ref="name"
@@ -160,7 +163,7 @@
                         spellcheck="false"
                     ></textarea>
                 </div>
-                <div v-if="$slots.tags" class="-mt-1 mb-2 lg:mb-0 ml-2 md:ml-1 lg:mt-1 lg:flex-shrink-0">
+                <div v-if="$slots.tags" class="hidden lg:block -mt-1 mb-2 lg:mb-0 ml-2 md:ml-1 lg:mt-1 lg:flex-shrink-0">
                     <slot name="tags" />
                 </div>
             </div>
