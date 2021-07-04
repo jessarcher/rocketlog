@@ -74,11 +74,11 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function collections()
     {
-        return $this->hasMany(Collection::class);
+        return $this->hasMany(Collection::class)->orderBy('name');
     }
 
     public function sharedCollections()
     {
-        return $this->belongsToMany(Collection::class);
+        return $this->belongsToMany(Collection::class)->orderBy('name');
     }
 }
