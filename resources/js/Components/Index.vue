@@ -6,6 +6,10 @@
             Daily Log
         </index-link>
 
+        <index-link :href="route('future-log.index')" :active="route().current('future-log.index')" icon="medium/clock">
+            Future Log
+        </index-link>
+
         <index-link
             v-for="collection in $page.props.collections"
             :key="collection.hashid"
