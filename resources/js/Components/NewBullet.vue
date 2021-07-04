@@ -24,7 +24,7 @@
                 style="resize: none; height: 1em;"
                 rows="1"
                 maxlength="255"
-                placeholder="Unburden your mind..."
+                :placeholder="placeholder"
                 @keydown.up="up"
                 @keydown.down="down"
                 @keydown.enter="
@@ -50,6 +50,13 @@ import IncompleteIcon from '@/Components/Icons/IncompleteIcon'
 export default {
     components: {
         IncompleteIcon,
+    },
+
+    props: {
+        placeholder: {
+            type: String,
+            default: 'Unburden your mind...',
+        },
     },
 
     data() {
