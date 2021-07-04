@@ -60,7 +60,7 @@
                                 </button>
 
                                 <button class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 focus:bg-gray-100 dark:focus:bg-gray-800 focus:outline-none" @click="showingMigration = ! showingMigration" title="Migrate to collection">
-                                    <Icon name="small/chevron-right" />
+                                    <Icon name="small/chevron-right" class="h-6 w-6 md:h-5 md:w-5" />
                                 </button>
 
                                 <button class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 focus:bg-gray-100 dark:focus:bg-gray-800 focus:outline-none" @click="destroy(); menu = false" title="Delete">

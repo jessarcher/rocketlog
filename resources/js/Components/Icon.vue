@@ -2,7 +2,7 @@
   <component
     :is="iconComponent"
     class="inline-block"
-    style="height: 1em; width: 1em; vertical-align: -0.125em"
+    :style="styleObject"
     role="img"
   />
 </template>
@@ -13,6 +13,11 @@ export default {
     name: {
       type: String,
       required: true
+    },
+
+    autoSize: {
+      type: Boolean,
+      default: false,
     }
   },
   computed: {
@@ -22,7 +27,15 @@ export default {
         /* webpackChunkName: "icons" */
         '!vue-svg-loader!@/../../public/icons/' + this.name + '.svg'
       )
-    }
+    },
+
+    styleObject() {
+      return this.autoSize ? {
+        height: '1em',
+        width: '1em',
+        verticalAlign: '-0.125em',
+      } : {}
+    },
   }
 }
 </script>
