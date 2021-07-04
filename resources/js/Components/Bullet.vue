@@ -104,11 +104,16 @@
 
                 <template v-else-if="type === 'checklist'">
                     <div class="border border-transparent">
-                        <div class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center">
+                        <div class="relative h-10 w-10 md:h-8 md:w-8 flex items-center justify-center">
+                            <div v-show="processing" class="absolute inset-0 border border-transparent flex items-center justify-center">
+                                <Icon name="medium/spinner" class="h-10 w-10 md:h-8 md:w-8 animate-spin text-gray-400" />
+                            </div>
                             <input
                                 type="checkbox"
-                                class="h-5 w-5 rounded border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-900"
+                                class="relative h-5 w-5 rounded border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-900"
+                                :class="{ 'opacity-0': processing }"
                                 v-model="complete"
+                                :disabled="processing"
                             />
                         </div>
                     </div>
