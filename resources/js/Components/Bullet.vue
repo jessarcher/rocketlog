@@ -52,7 +52,7 @@
                                     <Icon name="small/x" class="w-6 h-6 md:w-5 md:h-5" />
                                 </button>
 
-                                <button v-if="bullet.collection_id === null && $date(bullet.date).isBefore($today())" class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 focus:bg-gray-100 dark:focus:bg-gray-800 focus:outline-none" @click="migrate(); menu = false" title="Migrate forward">
+                                <button v-if="enableMigrateForward && bullet.date && $date(bullet.date).isBefore($today())" class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 focus:bg-gray-100 dark:focus:bg-gray-800 focus:outline-none" @click="migrate(); menu = false" title="Migrate forward">
                                     <Icon name="small/chevron-up" class="h-6 w-6 md:h-5 md:w-5" />
                                 </button>
 
@@ -190,6 +190,7 @@ export default {
         'type',
         'props',
         'fade',
+        'enableMigrateForward',
     ],
 
     data() {

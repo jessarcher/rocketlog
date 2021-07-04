@@ -32,6 +32,7 @@
                     'opacity-30': i === 5,
                 }"
                 type="bullet"
+                :enable-migrate-forward="true"
                 @input="updateBullet"
                 @migrate="migrateBullet"
                 @migrateTo="migrateBulletTo"
