@@ -62,7 +62,7 @@
 
             <div
                 v-show="drawer"
-                class="-mx-12 px-12 py-6 bg-gray-100 dark:bg-gray-900 shadow-inner"
+                class="-mx-12 px-12 py-6 bg-gray-100 dark:bg-black dark:bg-opacity-20 shadow-inner"
             >
                 <div v-show="drawer === 'settings'" class="flex items-center justify-between flex-wrap gap-x-20 gap-y-6">
                     <div class="flex flex-wrap gap-x-4 gap-y-4">
