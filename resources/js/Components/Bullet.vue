@@ -69,7 +69,7 @@
                                     ]"
                                     :disabled="! mine"
                                     @click="toggleInDailyLog(); menu = false"
-                                    :title="mine ? 'Show in daily log' : 'Unable to show in daily log'"
+                                    :title="mine ? (bullet.date ? 'Hide in daily log' : 'Show in daily log') : 'Unable to show in daily log'"
                                 >
                                     <Icon name="medium/calendar" class="h-6 w-6 md:h-5 md:w-5" />
                                 </button>
