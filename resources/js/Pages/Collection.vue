@@ -164,7 +164,18 @@
                 @delete="deleteBullet"
                 @migrateTo="migrateBulletTo"
                 @migrateToDailyLog="migrateBulletToDailyLog"
-            />
+            >
+                <template #status>
+                    <inertia-link
+                        v-if="bullet.date"
+                        :href="route('daily-log.index')"
+                        title="Appears in daily log"
+                        class="inline-block ml-2 md:-mt-1 -mb-1 p-2 rounded-md text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 transition duration-150 ease-in-out"
+                    >
+                        <Icon name="medium/calendar" class="h-6 w-6 md:h-5 md:w-5" />
+                    </inertia-link>
+                </template>
+            </bullet>
         </div>
 
         <new-bullet @input="storeBullet" />

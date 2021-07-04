@@ -60,6 +60,16 @@
                                     <Icon name="small/chevron-right" class="h-6 w-6 md:h-5 md:w-5" />
                                 </button>
 
+                                <button
+                                    v-if="bullet.collection_id !== null"
+                                    class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 focus:bg-gray-100 dark:focus:bg-gray-800 focus:outline-none"
+                                    :class="bullet.date ? 'text-pink-600' : ''"
+                                    @click="toggleInDailyLog(); menu = false"
+                                    title="Show in daily log"
+                                >
+                                    <Icon name="medium/calendar" class="h-6 w-6 md:h-5 md:w-5" />
+                                </button>
+
                                 <button class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 focus:bg-gray-100 dark:focus:bg-gray-800 focus:outline-none" @click="destroy(); menu = false" title="Delete">
                                     <Icon name="small/trash" class="h-6 w-6 md:w-5 md:h-5" />
                                 </button>
@@ -120,30 +130,38 @@
                 </template>
             </div>
 
-            <div class="flex-1 mx-1">
-                <textarea
-                    ref="name"
-                    v-model="name"
-                    :disabled="processing"
-                    class="w-full p-2 md:p-1 overflow-hidden bg-transparent border-none disabled:opacity-75 focus:ring-0"
-                    :class="[
-                        fade,
-                        complete ? 'text-gray-500 dark:text-gray-500' : 'text-gray-900 dark:text-gray-100'
-                    ]"
-                    style="resize: none;"
-                    rows="1"
-                    maxlength="255"
-                    @keydown.enter="
-                        if (! $event.shiftKey && $event.target.value.length) {
-                            $event.preventDefault()
-                            save()
-                        }
-                    "
-                    @keydown.up="up"
-                    @keydown.down="down"
-                    @blur="$event.target.value.length > 0 ? save() : destroy()"
-                    spellcheck="false"
-                ></textarea>
+            <div class="flex-1 ml-1 lg:flex">
+                <div class="lg:flex-1">
+                    <textarea
+                        ref="name"
+                        v-model="name"
+                        :disabled="processing"
+                        class="w-full p-2 md:p-1 overflow-hidden bg-transparent border-none disabled:opacity-75 focus:ring-0"
+                        :class="[
+                            fade,
+                            complete ? 'text-gray-500 dark:text-gray-500' : 'text-gray-900 dark:text-gray-100'
+                        ]"
+                        style="resize: none;"
+                        rows="1"
+                        maxlength="255"
+                        @keydown.enter="
+                            if (! $event.shiftKey && $event.target.value.length) {
+                                $event.preventDefault()
+                                save()
+                            }
+                        "
+                        @keydown.up="up"
+                        @keydown.down="down"
+                        @blur="$event.target.value.length > 0 ? save() : destroy()"
+                        spellcheck="false"
+                    ></textarea>
+                </div>
+                <div v-if="$slots.tags" class="-mt-1 mb-2 lg:mb-0 ml-2 md:ml-1 lg:mt-1 lg:flex-shrink-0">
+                    <slot name="tags" />
+                </div>
+            </div>
+            <div class="flex-shrink-0">
+                <slot name="status" />
             </div>
         </div>
 
@@ -217,6 +235,18 @@ export default {
 
             this.processing = false;
             this.dirty = false;
+        },
+
+        async toggleInDailyLog() {
+            if (this.bullet.collection_id === null) {
+                return;
+            }
+
+            this.processing = true;
+
+            await this.$listeners.input({ id: this.bullet.id, date: this.bullet.date ? null : this.$today().format('YYYY-MM-DD') })
+
+            this.processing = false;
         },
 
         async migrate() {

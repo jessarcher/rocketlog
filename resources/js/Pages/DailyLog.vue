@@ -36,7 +36,18 @@
                 @migrate="migrateBullet"
                 @migrateTo="migrateBulletTo"
                 @delete="deleteBullet"
-            />
+            >
+                <template #tags>
+                    <inertia-link
+                        v-if="bullet.collection_id"
+                        :href="route('c.show', $page.props.collections.find(collection => collection.id === bullet.collection_id).hashid)"
+                        title="Appears in collection"
+                        class="inline-block px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded text-gray-500 dark:text-gray-300 text-xs hover:bg-gray-200 dark:hover:bg-gray-600 focus:outline-none focus:bg-gray-200 dark:focus:bg-gray-600 transition duration-150 ease-in-out"
+                    >
+                        {{ $page.props.collections.find(collection => collection.id === bullet.collection_id).name }}
+                    </inertia-link>
+                </template>
+            </bullet>
 
             <new-bullet v-if="i == 0" @input="storeBullet" />
         </div>
