@@ -14,10 +14,7 @@
                             :disabled="processing"
                         >
                             <div v-show="processing" class="absolute inset-0 border border-transparent flex items-center justify-center">
-                                <svg class="h-10 w-10 md:h-8 md:w-8 animate-spin text-gray-400" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path class="opacity-25" d="M15.0387 28.5C22.4733 28.5 28.5002 22.473 28.5002 15.0384C28.5002 7.60384 22.4733 1.5769 15.0387 1.5769C7.60408 1.5769 1.57715 7.60384 1.57715 15.0384C1.57715 22.473 7.60408 28.5 15.0387 28.5Z" stroke-width="1" stroke="currentColor" />
-                                    <path class="opacity-75" fill-rule="evenodd" clip-rule="evenodd" d="M5.69235 23.281C3.75356 21.0843 2.57715 18.1987 2.57715 15.0384C2.57715 8.15613 8.15637 2.5769 15.0387 2.5769V0.576904C7.0518 0.576904 0.577148 7.05156 0.577148 15.0384C0.577148 18.7061 1.94249 22.0549 4.19264 24.6042L5.69235 23.281Z" fill="currentColor" />
-                                </svg>
+                                <Icon name="medium/spinner" class="h-10 w-10 md:h-8 md:w-8 animate-spin text-gray-400" />
                             </div>
                             <Icon name="small/bullet" v-show="state === 'incomplete'" class="h-6 w-6 md:h-5 md:w-5" />
                             <Icon name="small/x" v-show="state === 'complete'" class="h-6 w-6 md:h-5 md:w-5" />
