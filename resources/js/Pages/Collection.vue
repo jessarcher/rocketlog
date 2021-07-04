@@ -2,7 +2,7 @@
     <journal-layout>
         <div v-if="$page.props.collections.length === 1 && collection.bullets.length === 0" class="mb-10 leading-relaxed text-gray-500 dark:text-gray-400">
             <h1 class="text-xl font-semibold text-gray-600 dark:text-gray-300">
-                <Icon name="medium/clipboard" class="mr-1 text-gray-500 dark:text-gray-400" />
+                <Icon name="medium/clipboard" auto-size class="mr-1 text-gray-500 dark:text-gray-400" />
                 Collections
             </h1>
             <p class="mt-4">Collections can be used for all sorts of things, such as:</p>
