@@ -60,6 +60,8 @@ class DailyLogController extends Controller
 
     public function update(Request $request, Bullet $bullet)
     {
+        $this->authorize($bullet);
+
         $bullet->update($request->only(['name', 'state', 'date']));
 
         return redirect(route('daily-log.index'));
@@ -69,6 +71,7 @@ class DailyLogController extends Controller
     {
         $bullet = Bullet::find($request->id);
         abort_if($bullet === null, 400, 'Invalid bullet');
+
         $this->authorize('update', $bullet);
 
         $bullet->collection_id = null;
@@ -80,6 +83,8 @@ class DailyLogController extends Controller
 
     public function destroy(Request $request, Bullet $bullet)
     {
+        $this->authorize($bullet);
+
         $bullet->delete();
 
         return redirect(route('daily-log.index'));

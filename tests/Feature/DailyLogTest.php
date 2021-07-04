@@ -208,4 +208,30 @@ class DailyLogTest extends TestCase
 
         $this->assertDatabaseMissing('bullets', ['id' => $bullet->id]);
     }
+
+    public function test_a_user_cant_update_others_bullets()
+    {
+        $otherUser = User::factory()->create();
+        $bullet = Bullet::factory()->create(['user_id' => $otherUser->id, 'date' => '2021-04-07', 'collection_id' => null]);
+
+        $response = $this
+            ->actingAs(User::factory()->create())
+            ->put("/daily-log/{$bullet->id}", [
+                'date' => now()->format('Y-m-d'),
+            ]);
+
+        $response->assertForbidden();
+    }
+
+    public function test_a_user_cant_delete_others_bullets()
+    {
+        $otherUser = User::factory()->create();
+        $bullet = Bullet::factory()->create(['user_id' => $otherUser->id, 'date' => '2021-04-07', 'collection_id' => null]);
+
+        $response = $this
+            ->actingAs(User::factory()->create())
+            ->delete("/daily-log/{$bullet->id}");
+
+        $response->assertForbidden();
+    }
 }
