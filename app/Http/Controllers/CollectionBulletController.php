@@ -41,8 +41,10 @@ class CollectionBulletController extends Controller
         abort_if($bullet === null, 400, 'Invalid bullet');
         $this->authorize('update', $bullet);
 
+        if ($bullet->collection_id === null) {
+            $bullet->date = null;
+        }
         $bullet->collection_id = $collection->id;
-        $bullet->date = null;
         $bullet->save();
 
         return back();
