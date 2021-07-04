@@ -62,10 +62,14 @@
 
                                 <button
                                     v-if="bullet.collection_id !== null"
-                                    class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 focus:bg-gray-100 dark:focus:bg-gray-800 focus:outline-none"
-                                    :class="bullet.date ? 'text-pink-600' : ''"
+                                    class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center"
+                                    :class="[
+                                        bullet.date && mine ? 'text-pink-600' : '',
+                                        mine ? 'hover:bg-gray-100 dark:hover:bg-gray-800 focus:bg-gray-100 dark:focus:bg-gray-800 focus:outline-none' : 'text-gray-600 cursor-pointer',
+                                    ]"
+                                    :disabled="! mine"
                                     @click="toggleInDailyLog(); menu = false"
-                                    title="Show in daily log"
+                                    :title="mine ? 'Show in daily log' : 'Unable to show in daily log'"
                                 >
                                     <Icon name="medium/calendar" class="h-6 w-6 md:h-5 md:w-5" />
                                 </button>
@@ -204,7 +208,11 @@ export default {
             set(newValue) {
                 this.state = newValue ? 'complete' : 'incomplete'
             }
-        }
+        },
+
+        mine() {
+            return this.bullet.user_id === this.$page.props.user.id
+        },
     },
 
     watch: {

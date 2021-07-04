@@ -26,7 +26,9 @@ class CollectionBulletController extends Controller
     {
         $this->authorize('update', $collection);
 
-        $bullet->update($request->only(['name', 'date', 'state']));
+        $bullet->update($request->only(
+            array_merge(['name', 'state'], $bullet->user_id === $request->user()->id ? ['date'] : [])
+        ));
 
         return redirect(route('c.show', $collection));
     }

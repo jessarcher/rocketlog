@@ -110,4 +110,45 @@ class CollectionTest extends TestCase
             ->delete("/c/{$collection->hashid}")
             ->assertForbidden();
     }
+
+    public function test_users_can_add_bullets_to_the_daily_log()
+    {
+        $user = User::factory()->create();
+        $collection = Collection::factory()->create();
+        $collection->users()->attach($user);
+        $bullet = Bullet::factory()->create([
+            'date' => null,
+        ]);
+        $collection->bullets()->save($bullet);
+        $user->bullets()->save($bullet);
+
+        $response = $this
+            ->actingAs($user)
+            ->patch("/c/{$collection->hashid}/bullets/{$bullet->id}", [
+                'date' => '2021-02-03'
+            ]);
+
+        $response->assertRedirect("/c/{$collection->hashid}");
+        $this->assertEquals('2021-02-03', $bullet->fresh()->date->format('Y-m-d'));
+    }
+
+    public function test_other_users_cant_add_bullets_to_the_owners_daily_log()
+    {
+        $user = User::factory()->create();
+        $collection = Collection::factory()->create();
+        $collection->users()->attach($user);
+        $bullet = Bullet::factory()->create([
+            'date' => null,
+        ]);
+        $collection->bullets()->save($bullet);
+
+        $response = $this
+            ->actingAs($user)
+            ->patch("/c/{$collection->hashid}/bullets/{$bullet->id}", [
+                'date' => '2021-02-03'
+            ]);
+
+        $response->assertRedirect("/c/{$collection->hashid}");
+        $this->assertNull($bullet->fresh()->date);
+    }
 }
