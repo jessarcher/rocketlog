@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="py-1 md:py-2 flex">
-            <div class="relative flex-shrink-0" :class="$slots.tags ? 'pt-3 lg:pt-0' : ''">
+            <div class="relative flex-shrink-0" :class="$slots.tags ? 'mt-3 lg:mt-0' : ''">
                 <template v-if="type === 'bullet'">
                     <div class="border border-transparent" :class="fade">
                         <button
