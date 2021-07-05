@@ -134,10 +134,7 @@
                 </template>
             </div>
 
-            <div class="flex-1 ml-1 lg:flex">
-                <div v-if="$slots.tags" class="mt-1 -mb-1 md:mb-0 lg:hidden ml-2 md:ml-1 lg:flex-shrink-0">
-                    <slot name="tags" />
-                </div>
+            <div class="flex-1 ml-1 flex flex-col flex-col-reverse lg:flex-row">
                 <div class="lg:flex-1">
                     <textarea
                         ref="name"
@@ -163,7 +160,7 @@
                         spellcheck="false"
                     ></textarea>
                 </div>
-                <div v-if="$slots.tags" class="hidden lg:block -mt-1 mb-2 lg:mb-0 ml-2 md:ml-1 lg:mt-1 lg:flex-shrink-0">
+                <div v-if="$slots.tags" class="mt-1 -mb-1 md:mb-0 lg:mb-0 ml-2 md:ml-1 lg:flex-shrink-0">
                     <slot name="tags" />
                 </div>
             </div>
