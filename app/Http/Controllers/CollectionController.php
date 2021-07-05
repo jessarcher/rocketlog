@@ -36,10 +36,11 @@ class CollectionController extends Controller
         $this->validate($request, [
             'name' => 'required|string',
             'type' => 'in:bullet,checklist',
+            'in_daily_log' => 'boolean',
             'hide_done' => 'boolean',
         ]);
 
-        $collection->update($request->only(['name', 'type', 'hide_done']));
+        $collection->update($request->only(['name', 'type', 'in_daily_log', 'hide_done']));
 
         return redirect(route('c.show', $collection));
     }

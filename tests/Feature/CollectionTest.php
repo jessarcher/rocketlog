@@ -110,4 +110,29 @@ class CollectionTest extends TestCase
             ->delete("/c/{$collection->hashid}")
             ->assertForbidden();
     }
+
+    public function test_collection_is_not_in_daily_log_by_default()
+    {
+        $this->actingAs($user = User::factory()->create());
+        $collection = Collection::factory()->create(['user_id' => $user->id]);
+        $bullet = Bullet::factory()->create(['collection_id' => $collection->id]);
+
+        $this
+            ->get("/daily-log")
+            ->assertDontSee($bullet->name);
+    }
+
+    public function test_collection_can_be_shown_in_daily_log()
+    {
+        $this->actingAs($user = User::factory()->create());
+        $collection = Collection::factory()->create(['user_id' => $user->id]);
+        $bullet = Bullet::factory()->create(['collection_id' => $collection->id]);
+
+        $collection->in_daily_log = 1;
+        $collection->save();
+
+        $this
+            ->get("/daily-log")
+            ->assertSee($bullet->name);
+    }
 }
