@@ -13,3 +13,12 @@ In the mean time, you can still view and learn from the source code, and even PR
 ## Security
 
 If you discover any security related issues, please email jess@jessarcher.com instead of using the issue tracker.
+
+## A note on code style
+
+One of my hopes for this project is that it can show others what a working application looks like. However there are a few important things to note:
+
+* I believe in the ["rule of three"](https://javascript.plainenglish.io/the-rule-of-three-refactoring-rule-every-great-developer-knows-6e910a8b02d8). The project is still early days so there is a lot of duplicate code that hasn't yet earned an abstraction.
+* This is my first real application using Inertia.js so there are potentially many things that aren't idiomatic.
+* My front-end testing needs work!
+* Some of the front-end component design doesn't (yet) follow best practices.

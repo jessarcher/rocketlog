@@ -37,14 +37,10 @@
 </template>
 
 <script>
-import CalendarIcon from '@/Components/Icons/CalendarIcon'
-import ClipboardIcon from '@/Components/Icons/ClipboardIcon'
 import IndexLink from './IndexLink'
 
 export default {
     components: {
-        CalendarIcon,
-        ClipboardIcon,
         IndexLink,
     },
 

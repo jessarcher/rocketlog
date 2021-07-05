@@ -1,8 +1,8 @@
 <template>
     <journal-layout>
-        <div v-if="$page.props.collections.length === 1 && collection.bullets.length === 0" class="mb-10 leading-relaxed text-gray-500 dark:text-gray-400">
-            <h1 class="text-xl font-semibold text-gray-600 dark:text-gray-300">
-                <Icon name="medium/clipboard" class="mr-1 text-gray-500 dark:text-gray-400" />
+        <div v-if="$page.props.collections.length === 1 && collection.bullets.length === 0" class="mb-10 leading-relaxed text-gray-600 dark:text-gray-300">
+            <h1 class="text-xl font-semibold text-gray-700 dark:text-gray-300">
+                <Icon name="medium/clipboard" auto-size class="mr-1 text-gray-600 dark:text-gray-400" />
                 Collections
             </h1>
             <p class="mt-4">Collections can be used for all sorts of things, such as:</p>
@@ -11,8 +11,8 @@
                 <li>Books to read</li>
                 <li>Movies and TV shows to watch</li>
                 <li>Shopping lists</li>
-                <li>Menu</li>
-                <li>Meal plan</li>
+                <li>A menu of things you like to eat</li>
+                <li>A meal plan</li>
             </ul>
             <p class="mt-4">Collections can also be shared with other users. Handy for a family shopping list!</p>
             <p class="mt-4">You can also choose between a bulleted list, or a simple checklist. Also toggle between showing or hiding your completed items.</p>
@@ -37,7 +37,7 @@
                         :class="hideDone ? 'text-gray-400 hover:text-gray-500 focus:text-gray-500' : 'text-pink-600 hover:text-pink-700 focus:text-pink-700'"
                         title="Show done"
                     >
-                        <clipboard-check-icon class="w-6 h-6 md:w-5 md:h-5" />
+                        <Icon name="medium/clipboard-check" class="w-6 h-6 md:w-5 md:h-5" />
                     </button>
 
                     <button
@@ -46,7 +46,7 @@
                         class="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 transition duration-150 ease-in-out"
                         :class="drawer === 'share' ? 'bg-gray-100 dark:bg-gray-900 text-gray-500 dark:text-gray-300' : 'text-gray-400'"
                     >
-                        <share-icon class="w-6 h-6 md:w-5 md:h-5" />
+                        <Icon name="medium/share" class="w-6 h-6 md:w-5 md:h-5" />
                     </button>
 
                     <button
@@ -55,14 +55,14 @@
                         class="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 transition duration-150 ease-in-out"
                         :class="drawer === 'settings' ? 'bg-gray-100 dark:bg-gray-900 text-gray-500 dark:text-gray-300' : 'text-gray-400'"
                     >
-                        <adjustments-icon class="w-6 h-6 md:w-5 md:h-5" />
+                        <Icon name="medium/adjustments" class="w-6 h-6 md:w-5 md:h-5" />
                     </button>
                 </div>
             </div>
 
             <div
                 v-show="drawer"
-                class="-mx-12 px-12 py-6 bg-gray-100 dark:bg-gray-900 shadow-inner"
+                class="-mx-12 px-12 py-6 bg-gray-100 dark:bg-black dark:bg-opacity-20 shadow-inner"
             >
                 <div v-show="drawer === 'settings'" class="flex items-center justify-between flex-wrap gap-x-20 gap-y-6">
                     <div class="flex flex-wrap gap-x-4 gap-y-4">
@@ -148,7 +148,7 @@
                                 class="px-4 py-2 flex items-center border border-gray-300 dark:border-gray-500 rounded font-medium text-gray-900 dark:text-gray-100"
                                 :disabled="addUserForm.processing"
                             >
-                                <user-add-icon class="mr-1 text-gray-400" style="height: 1em; width: 1em;" />
+                                <Icon name="small/user-add" class="mr-1 text-gray-400" style="height: 1em; width: 1em;" />
                                 Add
                             </button>
                         </div>
@@ -238,10 +238,6 @@
 import JournalLayout from '@/Layouts/JournalLayout'
 import Bullet from '@/Components/Bullet'
 import NewBullet from '@/Components/NewBullet'
-import ClipboardCheckIcon from '@/Components/Icons/ClipboardCheckIcon'
-import UserAddIcon from '@/Components/Icons/UserAddIcon'
-import ShareIcon from '@/Components/Icons/ShareIcon'
-import AdjustmentsIcon from '@/Components/Icons/AdjustmentsIcon'
 import JetConfirmationModal from '@/Jetstream/ConfirmationModal'
 import JetSecondaryButton from '@/Jetstream/SecondaryButton'
 import JetDangerButton from '@/Jetstream/DangerButton'
@@ -254,10 +250,6 @@ export default {
         Bullet,
         JournalLayout,
         NewBullet,
-        ClipboardCheckIcon,
-        UserAddIcon,
-        ShareIcon,
-        AdjustmentsIcon,
         JetConfirmationModal,
         JetSecondaryButton,
         JetDangerButton,

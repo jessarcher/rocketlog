@@ -5,15 +5,19 @@
                 <template v-if="type === 'bullet'">
                     <div class="border border-transparent" :class="fade">
                         <button
-                            class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center rounded-full border border-transparent text-2xl hover:border-gray-200 dark:hover:border-gray-600 hover:shadow focus:outline-none focus:border-gray-200 dark:focus:border-gray-600 focus:shadow-inner disabled:opacity-50"
-                            :class="
-                                complete ? 'text-gray-500 dark:text-gray-500' : 'text-gray-900 dark:text-gray-100'
-                            "
+                            class="relative h-10 w-10 md:h-8 md:w-8 flex items-center justify-center rounded-full border border-transparent text-2xl disabled:opacity-50"
+                            :class="[
+                                complete ? 'text-gray-500 dark:text-gray-500' : 'text-gray-900 dark:text-gray-100',
+                                processing ? 'cursor-default' : 'hover:border-gray-200 dark:hover:border-gray-600 hover:shadow focus:outline-none focus:border-gray-200 dark:focus:border-gray-600 focus:shadow-inner'
+                            ]"
                             @click="menu = true"
                             :disabled="processing"
                         >
-                            <incomplete-icon v-show="state === 'incomplete'" class="h-6 w-6 md:h-5 md:w-5" />
-                            <complete-icon v-show="state === 'complete'" class="h-6 w-6 md:h-5 md:w-5" />
+                            <div v-show="processing" class="absolute inset-0 border border-transparent flex items-center justify-center">
+                                <Icon name="medium/spinner" class="h-10 w-10 md:h-8 md:w-8 animate-spin text-gray-400" />
+                            </div>
+                            <Icon name="small/bullet" v-show="state === 'incomplete'" class="h-6 w-6 md:h-5 md:w-5" />
+                            <Icon name="small/x" v-show="state === 'complete'" class="h-6 w-6 md:h-5 md:w-5" />
                         </button>
                     </div>
 
@@ -36,16 +40,16 @@
                         >
                             <div class="px-2 flex items-center text-2xl">
                                 <button class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center focus:bg-gray-100 dark:focus:bg-gray-800 focus:outline-none" @click="menu = false; showingMigration = false">
-                                    <complete-icon v-if="state === 'complete'" class="h-6 w-6 md:h-5" />
-                                    <incomplete-icon v-if="state === 'incomplete'" class="h-6 w-6 md:h-5" />
+                                    <Icon name="small/x" v-if="state === 'complete'" class="h-6 w-6 md:h-5" />
+                                    <Icon name="small/bullet" v-if="state === 'incomplete'" class="h-6 w-6 md:h-5" />
                                 </button>
 
                                 <button v-if="state !== 'incomplete'" class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 focus:bg-gray-100 dark:focus:bg-gray-800 focus:outline-none" @click="state = 'incomplete'; menu = false" title="Mark as incomplete">
-                                    <incomplete-icon class="w-6 h-6 md:w-5 md:h-5" />
+                                    <Icon name="small/bullet" class="w-6 h-6 md:w-5 md:h-5" />
                                 </button>
 
                                 <button v-else-if="state !== 'complete'" class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 focus:bg-gray-100 dark:focus:bg-gray-800 focus:outline-none" @click="state = 'complete'; menu = false" title="Mark as complete">
-                                    <complete-icon class="w-6 h-6 md:w-5 md:h-5" />
+                                    <Icon name="small/x" class="w-6 h-6 md:w-5 md:h-5" />
                                 </button>
 
                                 <button v-if="$date(bullet.date).isBefore($today())" class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 focus:bg-gray-100 dark:focus:bg-gray-800 focus:outline-none" @click="migrate(); menu = false" title="Migrate forward">
@@ -53,11 +57,11 @@
                                 </button>
 
                                 <button class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 focus:bg-gray-100 dark:focus:bg-gray-800 focus:outline-none" @click="showingMigration = ! showingMigration" title="Migrate to collection">
-                                    <Icon name="small/chevron-right" />
+                                    <Icon name="small/chevron-right" class="h-6 w-6 md:h-5 md:w-5" />
                                 </button>
 
                                 <button class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 focus:bg-gray-100 dark:focus:bg-gray-800 focus:outline-none" @click="destroy(); menu = false" title="Delete">
-                                    <trash-icon class="h-6 w-6 md:w-5 md:h-5" />
+                                    <Icon name="small/trash" class="h-6 w-6 md:w-5 md:h-5" />
                                 </button>
                             </div>
 
@@ -100,11 +104,16 @@
 
                 <template v-else-if="type === 'checklist'">
                     <div class="border border-transparent">
-                        <div class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center">
+                        <div class="relative h-10 w-10 md:h-8 md:w-8 flex items-center justify-center">
+                            <div v-show="processing" class="absolute inset-0 border border-transparent flex items-center justify-center">
+                                <Icon name="medium/spinner" class="h-10 w-10 md:h-8 md:w-8 animate-spin text-gray-400" />
+                            </div>
                             <input
                                 type="checkbox"
-                                class="h-5 w-5 rounded border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-900"
+                                class="relative h-5 w-5 rounded border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-900"
+                                :class="{ 'opacity-0': processing }"
                                 v-model="complete"
+                                :disabled="processing"
                             />
                         </div>
                     </div>
@@ -139,13 +148,6 @@
                     {{ collectionName }}
                 </span>
             </div>
-
-            <div class="w-10 h-10 md:w-8 md:h-8 border border-transparent flex items-center justify-center">
-                <svg v-if="processing" class="animate-spin h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-            </div>
         </div>
 
         <div class="border-b border-gray-200 dark:border-gray-700" :class="fade"></div>
@@ -154,18 +156,10 @@
 
 <script>
 import autosize from 'autosize'
-import CompleteIcon from './Icons/CompleteIcon'
-import IncompleteIcon from './Icons/IncompleteIcon'
-import MigrateIcon from './Icons/MigrateIcon'
-import TrashIcon from './Icons/TrashIcon'
 import Icon from '@/Components/Icon'
 
 export default {
     components: {
-        IncompleteIcon,
-        CompleteIcon,
-        MigrateIcon,
-        TrashIcon,
         Icon,
     },
 

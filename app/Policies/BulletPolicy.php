@@ -79,7 +79,7 @@ class BulletPolicy
      */
     public function delete(User $user, Bullet $bullet)
     {
-        //
+        return $this->view($user, $bullet);
     }
 
     /**
