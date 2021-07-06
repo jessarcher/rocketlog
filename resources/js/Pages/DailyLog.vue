@@ -32,11 +32,26 @@
                     'opacity-30': i === 5,
                 }"
                 type="bullet"
+                :enable-migrate-forward="true"
                 @input="updateBullet"
                 @migrate="migrateBullet"
                 @migrateTo="migrateBulletTo"
                 @delete="deleteBullet"
-            />
+            >
+                <template #tags>
+                    <inertia-link
+                        v-if="bullet.collection_id"
+                        :href="route('c.show', $page.props.collections.find(collection => collection.id === bullet.collection_id).hashid)"
+                        title="Appears in collection"
+                        class="inline-block lg:px-2 lg:py-1 lg:bg-gray-100 lg:dark:bg-gray-700 rounded text-gray-500 dark:text-gray-500 lg:dark:text-gray-300 text-xs lg:hover:bg-gray-200 lg:dark:hover:bg-gray-600 focus:outline-none lg:focus:bg-gray-200 lg:dark:focus:bg-gray-600 transition duration-150 ease-in-out"
+                        :class="[
+                            bullet.complete ? 'opacity-50' : ''
+                        ]"
+                    >
+                        {{ $page.props.collections.find(collection => collection.id === bullet.collection_id).name }}
+                    </inertia-link>
+                </template>
+            </bullet>
 
             <new-bullet v-if="i == 0" @input="storeBullet" />
         </div>

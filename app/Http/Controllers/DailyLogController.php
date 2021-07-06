@@ -17,7 +17,6 @@ class DailyLogController extends Controller
             ->select('date')
             ->distinct()
             ->whereNotNull('date')
-            ->whereNull('collection_id')
             ->latest('date')
             ->take(6)
             ->pluck('date');
@@ -29,7 +28,6 @@ class DailyLogController extends Controller
                 ->oldest()
                 ->whereDate('date', '<=', $dates->first())
                 ->whereDate('date', '>=', $dates->last())
-                ->whereNull('collection_id')
                 ->get()
                 ->groupBy(fn ($bullet) => $bullet->date->format('Y-m-d'));
         }

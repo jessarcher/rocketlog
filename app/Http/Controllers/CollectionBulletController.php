@@ -26,7 +26,9 @@ class CollectionBulletController extends Controller
     {
         $this->authorize('update', $collection);
 
-        $bullet->update($request->only(['name', 'state']));
+        $bullet->update($request->only(
+            array_merge(['name', 'state'], $bullet->user_id === $request->user()->id ? ['date'] : [])
+        ));
 
         return redirect(route('c.show', $collection));
     }
@@ -39,8 +41,10 @@ class CollectionBulletController extends Controller
         abort_if($bullet === null, 400, 'Invalid bullet');
         $this->authorize('update', $bullet);
 
+        if ($bullet->collection_id === null) {
+            $bullet->date = null;
+        }
         $bullet->collection_id = $collection->id;
-        $bullet->date = null;
         $bullet->save();
 
         return back();

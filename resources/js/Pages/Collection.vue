@@ -25,11 +25,11 @@
                 <input
                     type="text"
                     v-model.lazy="name"
-                    class="flex-1 px-0 py-3 font-bold border-none bg-transparent text-gray-700 dark:text-gray-200 focus:ring-0"
+                    class="w-full flex-1 px-0 py-3 font-bold border-none bg-transparent text-gray-700 dark:text-gray-200 focus:ring-0"
                     spellcheck="false"
                 />
 
-                <div class="-mr-2 flex gap-2 text-gray-400">
+                <div class="flex flex-shrink-0 gap-2 text-gray-400">
                     <button
                         type="button"
                         @click="hideDone = ! hideDone"
@@ -164,7 +164,21 @@
                 @delete="deleteBullet"
                 @migrateTo="migrateBulletTo"
                 @migrateToDailyLog="migrateBulletToDailyLog"
-            />
+            >
+                <template #status>
+                    <inertia-link
+                        v-if="bullet.date && bullet.user_id === $page.props.user.id"
+                        :href="route('daily-log.index')"
+                        title="Appears in daily log"
+                        class="inline-block ml-2 md:-mt-1 -mb-1 p-2 rounded-md text-gray-400 dark:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 transition duration-150 ease-in-out"
+                        :class="[
+                            bullet.complete ? 'opacity-50' : ''
+                        ]"
+                    >
+                        <Icon name="medium/calendar" class="h-6 w-6 md:h-5 md:w-5" />
+                    </inertia-link>
+                </template>
+            </bullet>
         </div>
 
         <new-bullet @input="storeBullet" />
