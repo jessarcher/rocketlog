@@ -141,6 +141,21 @@
 
                                         <div class="border-t border-gray-100 dark:border-gray-600"></div>
 
+                                        <jet-dropdown-link as="button" @click.native="toggleTheme">
+                                            <div class="flex items-center">
+                                                <template v-if="theme === 'light'">
+                                                    <Icon name="small/moon" class="h-4 w-4" />
+                                                    <span class="ml-1">Dark mode</span>
+                                                </template>
+                                                <template v-else>
+                                                    <Icon name="small/sun" class="h-4 w-4" />
+                                                    <span class="ml-1">Light mode</span>
+                                                </template>
+                                            </div>
+                                        </jet-dropdown-link>
+
+                                        <div class="border-t border-gray-100 dark:border-gray-600"></div>
+
                                         <!-- Authentication -->
                                         <form method="post" action="/logout">
                                             <input type="hidden" name="_token" :value="$page.props.csrf_token" />
@@ -166,7 +181,7 @@
                 </div>
 
                 <!-- Responsive Navigation Menu -->
-                <div :class="{'flex': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden justify-end fixed inset-0 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 bg-opacity-75 mt-16">
+                <div :class="{'flex': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden justify-end fixed inset-0 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 bg-opacity-75 dark:bg-opacity-75 mt-16">
                     <div class="absolute inset-0" @click="showingNavigationDropdown = false"></div>
                     <div class="relative w-2/3 bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700 overflow-y-auto shadow-lg z-10">
                         <!-- <div class="pt-2 pb-3 space-y-1"> -->
@@ -202,6 +217,19 @@
 
                                 <jet-responsive-nav-link :href="route('api-tokens.index')" :active="route().current('api-tokens.index')" v-if="$page.props.jetstream.hasApiFeatures">
                                     API Tokens
+                                </jet-responsive-nav-link>
+
+                                <jet-responsive-nav-link as="button" @click.native="toggleTheme">
+                                    <div class="flex items-center">
+                                        <template v-if="theme === 'light'">
+                                            <Icon name="small/moon" class="h-4 w-4" />
+                                            <span class="ml-1">Dark mode</span>
+                                        </template>
+                                        <template v-else>
+                                            <Icon name="small/sun" class="h-4 w-4" />
+                                            <span class="ml-1">Light mode</span>
+                                        </template>
+                                    </div>
                                 </jet-responsive-nav-link>
 
                                 <!-- Authentication -->
@@ -284,6 +312,7 @@
     import JetDropdownLink from '@/Jetstream/DropdownLink'
     import JetNavLink from '@/Jetstream/NavLink'
     import JetResponsiveNavLink from '@/Jetstream/ResponsiveNavLink'
+    import Icon from '@/Components/Icon'
     import Index from '@/Components/Index'
     import SupportModal from '@/Components/SupportModal'
 
@@ -294,6 +323,7 @@
             JetDropdownLink,
             JetNavLink,
             JetResponsiveNavLink,
+            Icon,
             Index,
             SupportModal,
         },
@@ -302,6 +332,7 @@
             return {
                 showingNavigationDropdown: false,
                 showingSupportModal: false,
+                theme: localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light',
             }
         },
 
@@ -326,6 +357,20 @@
                     preserveState: false
                 })
             },
+
+            toggleTheme() {
+                this.setTheme(this.theme === 'dark' ? 'light' : 'dark');
+            },
+
+            setTheme(theme) {
+                this.theme = theme
+                window.localStorage.theme = theme
+                if (theme === 'dark') {
+                    document.documentElement.classList.add('dark')
+                } else {
+                    document.documentElement.classList.remove('dark')
+                }
+            }
         }
     }
 </script>
