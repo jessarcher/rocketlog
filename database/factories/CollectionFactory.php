@@ -25,8 +25,8 @@ class CollectionFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
-            'name' => $this->faker->sentence(7, true),
-            'type' => 'bullets',
+            'name' => $this->faker->words(rand(1, 5), true),
+            'type' => 'bullet',
         ];
     }
 }

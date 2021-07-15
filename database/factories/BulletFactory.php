@@ -30,9 +30,6 @@ class BulletFactory extends Factory
             'state' => $this->faker->randomElement([
                 'incomplete',
                 'complete',
-                // 'migrated',
-                'note',
-                // 'scheduled',
             ]),
             'created_at' => $this->faker->dateTimeBetween(now()->subDays(10)),
         ];
