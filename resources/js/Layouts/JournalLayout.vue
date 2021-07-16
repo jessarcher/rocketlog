@@ -21,15 +21,18 @@
             </div>
         </transition>
 
-        <div class="md:py-12 flex-1 flex flex-col">
-            <div class="flex-1 max-w-7xl w-full mx-auto md:px-6 flex flex-col md:flex-row-reverse">
-                <aside class="hidden md:block md:ml-12 md:pt-12 lg:w-80">
-                    <index />
-                </aside>
-
-                <div class="flex-1 p-4 sm:p-6 md:p-12 bg-white dark:bg-gray-800 sm:rounded-lg md:shadow-xl">
+        <div class="flex-1 flex flex-col">
+            <div class="flex-1 max-w-7xl w-full mx-auto md:px-6 flex">
+                <div class="flex-1 p-4 sm:p-6 md:p-12 md:my-12 bg-white dark:bg-gray-800 sm:rounded-lg md:shadow-xl">
                     <slot></slot>
                 </div>
+
+                <aside class="hidden md:block md:ml-12 lg:w-80">
+                    <div class="fixed top-16 h-24 w-80 border-t border-transparent bg-gradient-to-b from-gray-900 to-transparent z-10 pointer-events-none"></div>
+                    <div class="sticky top-16 pt-24 pb-12 overflow-y-auto" style="height: calc(100vh - 4rem); scrollbar-width: none;">
+                        <index />
+                    </div>
+                </aside>
             </div>
         </div>
     </app-layout>
