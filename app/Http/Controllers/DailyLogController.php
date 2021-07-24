@@ -4,12 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Models\Bullet;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Inertia\Inertia;
 
 class DailyLogController extends Controller
 {
     public function index(Request $request)
     {
+        if ($request->has('utc_offset')) {
+            $request->session()->put('utc_offset', $request->input('utc_offset'));
+            return redirect($request->url());
+        } elseif (! $request->session()->has('utc_offset')) {
+            return view('set-utc-offset');
+        }
+
+        $date = Carbon::now();
+        $date->utcOffset($request->session()->get('utc_offset'));
+
         $dates = $request
             ->user()
             ->bullets()
