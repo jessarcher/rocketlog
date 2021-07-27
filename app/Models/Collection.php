@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Mtvs\EloquentHashids\HasHashid;
 use Mtvs\EloquentHashids\HashidRouting;
@@ -52,5 +53,19 @@ class Collection extends Model
             'state' => 'incomplete',
             'user_id' => $this->user_id,
         ], $attributes));
+    }
+
+    public function resolveRouteBinding($value, $field = null)
+    {
+        return Cache::remember(
+            "collections.{$value}",
+            now()->addDay(),
+            fn () => self::with('bullets', 'users')->findByHashidOrFail($value)
+        );
+    }
+
+    public function clearCache()
+    {
+        Cache::forget("collections.{$this->hashid()}");
     }
 }

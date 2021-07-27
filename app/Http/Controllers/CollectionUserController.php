@@ -11,6 +11,7 @@ class CollectionUserController extends Controller
     public function store(InviteUserToCollectionRequest $request, Collection $collection)
     {
         $collection->users()->attach($request->invitedUser);
+        $collection->clearCache();
 
         return redirect(route('c.show', $collection));
     }
@@ -20,6 +21,7 @@ class CollectionUserController extends Controller
         $this->authorize('update', $collection);
 
         $collection->users()->detach($user);
+        $collection->clearCache();
 
         return redirect(route('c.show', $collection));
     }

@@ -24,9 +24,7 @@ class CollectionController extends Controller
     {
         $this->authorize($collection);
 
-        return Inertia::render('Collection', [
-            'collection' => $collection->load('bullets', 'users'),
-        ]);
+        return Inertia::render('Collection', ['collection' => $collection]);
     }
 
     public function update(Collection $collection, Request $request)
@@ -41,14 +39,19 @@ class CollectionController extends Controller
 
         $collection->update($request->only(['name', 'type', 'hide_done']));
 
+        $collection->clearCache();
+
         return redirect(route('c.show', $collection));
     }
 
-    public function destroy(Collection $collection)
+    public function destroy(Request $request, Collection $collection)
     {
         $this->authorize($collection);
 
+        $collection->clearCache();
         $collection->delete();
+
+        $request->user()->clearDailyLogCache();
 
         return redirect(route('daily-log.index'));
     }

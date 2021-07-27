@@ -19,6 +19,8 @@ class CollectionBulletController extends Controller
             'user_id' => $request->user()->id,
         ]);
 
+        $collection->clearCache();
+
         return redirect(route('c.show', $collection));
     }
 
@@ -26,9 +28,15 @@ class CollectionBulletController extends Controller
     {
         $this->authorize('update', $collection);
 
+        if ($request->has('date') || $bullet->date) {
+            $request->user()->clearDailyLogCache();
+        }
+
         $bullet->update($request->only(
             array_merge(['name', 'state'], $bullet->user_id === $request->user()->id ? ['date'] : [])
         ));
+
+        $collection->clearCache();
 
         return redirect(route('c.show', $collection));
     }
@@ -41,11 +49,17 @@ class CollectionBulletController extends Controller
         abort_if($bullet === null, 400, 'Invalid bullet');
         $this->authorize('update', $bullet);
 
+        if ($bullet->date) {
+            $request->user()->clearDailyLogCache();
+        }
+
         if ($bullet->collection_id === null) {
             $bullet->date = null;
         }
         $bullet->collection_id = $collection->id;
         $bullet->save();
+
+        $collection->clearCache();
 
         return back();
     }
@@ -54,7 +68,12 @@ class CollectionBulletController extends Controller
     {
         $this->authorize('update', $collection);
 
+        if ($bullet->date) {
+            $request->user()->clearDailyLogCache();
+        }
+
         $bullet->delete();
+        $collection->clearCache();
 
         return redirect(route('c.show', $collection));
     }

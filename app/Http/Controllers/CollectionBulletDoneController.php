@@ -7,11 +7,19 @@ use Illuminate\Http\Request;
 
 class CollectionBulletDoneController extends Controller
 {
-    public function destroy(Collection $collection)
+    public function destroy(Request $request, Collection $collection)
     {
         $this->authorize('update', $collection);
 
-        $collection->bullets()->whereState('complete')->delete();
+        $bullets = $collection->bullets()->whereState('complete')->get();
+
+        if ($bullets->contains(fn ($bullet) => $bullet->date)) {
+            $request->user()->clearDailyLogCache();
+        }
+
+        $bullets->each->delete();
+
+        $collection->clearCache();
 
         return redirect(route('c.show', $collection));
     }

@@ -4,33 +4,42 @@ namespace App\Http\Controllers;
 
 use App\Models\Bullet;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Inertia\Inertia;
 
 class DailyLogController extends Controller
 {
     public function index(Request $request)
     {
-        $dates = $request
-            ->user()
-            ->bullets()
-            ->toBase()
-            ->select('date')
-            ->distinct()
-            ->whereNotNull('date')
-            ->latest('date')
-            ->take(6)
-            ->pluck('date');
+        [$dates, $bulletsByDate] = Cache::remember(
+            "users.{$request->user()->id}.daily-log",
+            now()->addDays(1),
+            function () use ($request) {
+                $dates = $request
+                    ->user()
+                    ->bullets()
+                    ->toBase()
+                    ->select('date')
+                    ->distinct()
+                    ->whereNotNull('date')
+                    ->latest('date')
+                    ->take(6)
+                    ->pluck('date');
 
-        if ($dates->isNotEmpty()) {
-            $bulletsByDate = $request
-                ->user()
-                ->bullets()
-                ->oldest()
-                ->whereDate('date', '<=', $dates->first())
-                ->whereDate('date', '>=', $dates->last())
-                ->get()
-                ->groupBy(fn ($bullet) => $bullet->date->format('Y-m-d'));
-        }
+                if ($dates->isNotEmpty()) {
+                    $bulletsByDate = $request
+                        ->user()
+                        ->bullets()
+                        ->oldest()
+                        ->whereDate('date', '<=', $dates->first())
+                        ->whereDate('date', '>=', $dates->last())
+                        ->get()
+                        ->groupBy(fn ($bullet) => $bullet->date->format('Y-m-d'));
+                }
+
+                return [$dates, $bulletsByDate ?? null];
+            }
+        );
 
         return Inertia::render('DailyLog', [
             'days' => $dates->map(fn ($date) => (object) [
@@ -53,6 +62,8 @@ class DailyLogController extends Controller
             'state' => 'incomplete',
         ]);
 
+        $request->user()->clearDailyLogCache();
+
         return redirect(route('daily-log.index'));
     }
 
@@ -61,6 +72,12 @@ class DailyLogController extends Controller
         $this->authorize($bullet);
 
         $bullet->update($request->only(['name', 'state', 'date']));
+
+        $request->user()->clearDailyLogCache();
+
+        if ($bullet->collection_id) {
+            $bullet->collection->clearCache();
+        }
 
         return redirect(route('daily-log.index'));
     }
@@ -72,9 +89,15 @@ class DailyLogController extends Controller
 
         $this->authorize('update', $bullet);
 
+        if ($bullet->collection_id) {
+            $bullet->collection->clearCache();
+        }
+
         $bullet->collection_id = null;
         $bullet->date = $request->input('date');
         $bullet->save();
+
+        $request->user()->clearDailyLogCache();
 
         return back();
     }
@@ -83,7 +106,13 @@ class DailyLogController extends Controller
     {
         $this->authorize($bullet);
 
+        if ($bullet->collection_id) {
+            $bullet->collection->clearCache();
+        }
+
         $bullet->delete();
+
+        $request->user()->clearDailyLogCache();
 
         return redirect(route('daily-log.index'));
     }
