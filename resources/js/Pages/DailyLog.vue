@@ -1,5 +1,5 @@
 <template>
-    <journal-layout>
+    <journal-layout :key="hash">
         <div v-if="days.length === 0" class="mb-10 leading-relaxed text-gray-600 dark:text-gray-300">
             <h1 class="text-xl font-semibold text-gray-700 dark:text-gray-300">
                 <Icon name="medium/calendar" auto-size class="mr-1 text-gray-600 dark:text-gray-400" />
@@ -56,6 +56,25 @@
             <new-bullet v-if="i == 0" @input="storeBullet" />
         </div>
 
+        <transition
+            enter-active-class="transition ease-out duration-200"
+            enter-class="transform opacity-0 scale-95"
+            enter-to-class="transform opacity-100 scale-100"
+            leave-active-class="transition ease-in duration-75"
+            leave-class="transform opacity-100 scale-100"
+            leave-to-class="transform opacity-0 scale-95"
+        >
+            <div v-if="contentUpdateAvailable" class="fixed bottom-0 left-0 right-0 mb-4 flex justify-center pointer-events-none">
+                <button
+                    type="button"
+                    class="px-4 py-2 bg-gray-900 bg-opacity-70 text-gray-200 text-base rounded-full pointer-events-auto hover:bg-opacity-100 hover:text-white"
+                    @click="reload"
+                >
+                    <Icon name="small/refresh" auto-size :class="{ 'animate-spin': reloading }" /> Reload
+                </button>
+            </div>
+        </transition>
+
         <subscription-prompt-modal :show="showingSubscriptionPrompt" @close="showingSubscriptionPrompt = false" />
     </journal-layout>
 </template>
@@ -76,12 +95,14 @@
             Icon,
         },
 
-        props: ['days'],
+        props: ['days', 'hash'],
 
         data() {
             return {
                 today: this.$today(),
                 showingSubscriptionPrompt: false,
+                contentUpdateAvailable: false,
+                reloading: false,
             }
         },
 
@@ -106,6 +127,8 @@
             }, 1000)
 
             this.$once('hook:destroyed', () => clearInterval(todayInterval))
+
+            this.pollForContentUpdates();
         },
 
         methods: {
@@ -151,6 +174,32 @@
                     { preserveScroll: true }
                 )
             },
+
+            pollForContentUpdates() {
+                console.log('Polling for content updates')
+
+                const contentUpdateCheckInterval = setInterval(async () => {
+                    const response = await axios.get(route('daily-log.index', { hashonly: true }))
+                    this.contentUpdateAvailable = response.data !== this.hash
+                    if (this.contentUpdateAvailable) {
+                        clearInterval(contentUpdateCheckInterval)
+                    }
+                }, 5000)
+
+                this.$once('hook:destroyed', () => clearInterval(contentUpdateCheckInterval))
+            },
+
+            reload() {
+                this.reloading = true
+
+                this.$inertia.reload({
+                    onFinish: () => {
+                        this.reloading = false
+                        this.contentUpdateAvailable = false
+                        this.pollForContentUpdates()
+                    }
+                })
+            }
         },
     }
 </script>

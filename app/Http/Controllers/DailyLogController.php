@@ -11,7 +11,7 @@ class DailyLogController extends Controller
 {
     public function index(Request $request)
     {
-        [$dates, $bulletsByDate] = Cache::remember(
+        [$dates, $bulletsByDate, $hash] = Cache::remember(
             "users.{$request->user()->id}.daily-log",
             now()->addDays(1),
             function () use ($request) {
@@ -37,15 +37,24 @@ class DailyLogController extends Controller
                         ->groupBy(fn ($bullet) => $bullet->date->format('Y-m-d'));
                 }
 
-                return [$dates, $bulletsByDate ?? null];
+                return [
+                    $dates,
+                    $bulletsByDate ?? null,
+                    isset($bulletsByDate) ? md5($bulletsByDate->toJson()) : null
+                ];
             }
         );
+
+        if ($request->query('hashonly')) {
+            return $hash;
+        }
 
         return Inertia::render('DailyLog', [
             'days' => $dates->map(fn ($date) => (object) [
                 'date' => $date,
                 'bullets' => $bulletsByDate?->get($date) ?? [],
             ]),
+            'hash' => $hash,
         ]);
     }
 
