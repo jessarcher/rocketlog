@@ -23,12 +23,16 @@ class DailyLogTest extends TestCase
 
     public function test_it_only_shows_my_bullets()
     {
-        $this->actingAs($user = User::factory()->create());
+        /** @var \App\Models\User */
+        $user = User::factory()->create();
+        $myBullet = $user->bullets()->save(
+            Bullet::factory()->make(['date' => now()->format('Y-m-d')])
+        );
+        $otherBullet = Bullet::factory()->create(['date' => now()->format('Y-m-d')]);
 
-        $myBullet = Bullet::factory()->create(['user_id' => $user->id, 'date' => now()]);
-        $otherBullet = Bullet::factory()->create(['date' => now()]);
-
-        $response = $this->get('/daily-log');
+        $response = $this
+            ->actingAs($user)
+            ->get('/daily-log');
 
         $response->assertOk();
         $response->assertSee($myBullet->name);
@@ -37,32 +41,35 @@ class DailyLogTest extends TestCase
 
     public function test_it_only_shows_six_days_of_bullets()
     {
-        $this->actingAs($user = User::factory()->create());
+        /** @var \App\Models\User */
+        $user = User::factory()->create();
 
         $this->travelTo(now()->subDays(7));
-        $oldBullet = Bullet::factory()->create(['user_id' => $user->id, 'date' => now()]);
+        $oldBullet = $user->bullets()->save(Bullet::factory()->make(['date' => now()]));
 
         $this->travelTo(now()->addDay());
-        $recentBullet1 = Bullet::factory()->create(['user_id' => $user->id, 'date' => now()]);
+        $recentBullet1 = $user->bullets()->save(Bullet::factory()->make(['date' => now()]));
 
         $this->travelTo(now()->addDay());
-        $recentBullet2 = Bullet::factory()->create(['user_id' => $user->id, 'date' => now()]);
+        $recentBullet2 = $user->bullets()->save(Bullet::factory()->make(['date' => now()]));
 
         $this->travelTo(now()->addDay());
-        $recentBullet3 = Bullet::factory()->create(['user_id' => $user->id, 'date' => now()]);
+        $recentBullet3 = $user->bullets()->save(Bullet::factory()->make(['date' => now()]));
 
         $this->travelTo(now()->addDay());
-        $recentBullet4 = Bullet::factory()->create(['user_id' => $user->id, 'date' => now()]);
+        $recentBullet4 = $user->bullets()->save(Bullet::factory()->make(['date' => now()]));
 
         $this->travelTo(now()->addDay());
-        $recentBullet5 = Bullet::factory()->create(['user_id' => $user->id, 'date' => now()]);
+        $recentBullet5 = $user->bullets()->save(Bullet::factory()->make(['date' => now()]));
 
         $this->travelTo(now()->addDay());
-        $recentBullet6 = Bullet::factory()->create(['user_id' => $user->id, 'date' => now()]);
+        $recentBullet6 = $user->bullets()->save(Bullet::factory()->make(['date' => now()]));
 
         $this->travelBack();
 
-        $response = $this->get('/daily-log');
+        $response = $this
+            ->actingAs($user)
+            ->get('/daily-log');
 
         $response->assertSee($recentBullet1->name);
         $response->assertSee($recentBullet2->name);
@@ -75,12 +82,15 @@ class DailyLogTest extends TestCase
 
     public function test_it_stores_bullets()
     {
-        $this->actingAs($user = User::factory()->create());
+        /** @var \App\Models\User */
+        $user = User::factory()->create();
 
-        $response = $this->post('/daily-log', [
-            'date' => now()->format('Y-m-d'),
-            'name' => $name = $this->faker->text,
-        ]);
+        $response = $this
+            ->actingAs($user)
+            ->post('/daily-log', [
+                'date' => now()->format('Y-m-d'),
+                'name' => $name = $this->faker->text,
+            ]);
 
         $response->assertRedirect('/daily-log');
 
@@ -95,17 +105,19 @@ class DailyLogTest extends TestCase
 
     public function test_it_updates_bullets()
     {
-        $this->actingAs($user = User::factory()->create());
+        /** @var \App\Models\User */
+        $user = User::factory()->create();
         $bullet = $user->bullets()->save(Bullet::factory()->make(['date' => now()->subDays(2)]));
 
-        $response = $this->patch("/daily-log/{$bullet->id}", [
-            'date' => now()->format('Y-m-d'),
-            'name' => $name = $this->faker->text,
-            'state' => 'complete',
-        ]);
+        $response = $this
+            ->actingAs($user)
+            ->patch("/daily-log/{$bullet->id}", [
+                'date' => now()->format('Y-m-d'),
+                'name' => $name = $this->faker->text,
+                'state' => 'complete',
+            ]);
 
         $response->assertRedirect('/daily-log');
-
         $this->assertDatabaseHas('bullets', [
             'id' => $bullet->id,
             'date' => now()->format('Y-m-d'),
@@ -116,11 +128,13 @@ class DailyLogTest extends TestCase
 
     public function test_it_moves_bullets()
     {
-        $this->actingAs($user = User::factory()->create());
-        $collection = Collection::factory()->create(['user_id' => $user->id]);
+        /** @var \App\Models\User */
+        $user = User::factory()->create();
+        $collection = $user->collections()->save(Collection::factory()->make());
         $bullet = $user->bullets()->save(Bullet::factory()->make(['date' => null, 'collection_id' => $collection->id]));
 
         $response = $this
+            ->actingAs($user)
             ->from("/c/{$collection->slug}")
             ->put('/daily-log', [
                 'id' => $bullet->id,
@@ -128,7 +142,6 @@ class DailyLogTest extends TestCase
             ]);
 
         $response->assertRedirect("/c/{$collection->slug}");
-
         $this->assertDatabaseHas('bullets', [
             'id' => $bullet->id,
             'date' => now()->format('Y-m-d'),
@@ -138,11 +151,13 @@ class DailyLogTest extends TestCase
 
     public function test_a_user_cant_move_others_bullets()
     {
-        $this->actingAs(User::factory()->create());
+        /** @var \App\Models\User */
+        $user = User::factory()->create();
         $collection = Collection::factory()->create();
-        $bullet = Bullet::factory()->create(['date' => null, 'collection_id' => $collection->id]);
+        $bullet = $collection->bullets()->save(Bullet::factory()->make(['date' => null]));
 
         $response = $this
+            ->actingAs($user)
             ->put('/daily-log', [
                 'id' => $bullet->id,
                 'date' => now()->format('Y-m-d'),
@@ -153,11 +168,13 @@ class DailyLogTest extends TestCase
 
     public function test_a_user_can_move_others_bullets_if_they_own_the_collection()
     {
-        $this->actingAs($user = User::factory()->create());
+        /** @var \App\Models\User */
+        $user = User::factory()->create();
         $collection = Collection::factory()->create(['user_id' => $user->id]);
         $bullet = Bullet::factory()->create(['date' => null, 'collection_id' => $collection->id]);
 
         $response = $this
+            ->actingAs($user)
             ->from("/c/{$collection->slug}")
             ->put('/daily-log', [
                 'id' => $bullet->id,
@@ -165,7 +182,6 @@ class DailyLogTest extends TestCase
             ]);
 
         $response->assertRedirect("/c/{$collection->slug}");
-
         $this->assertDatabaseHas('bullets', [
             'id' => $bullet->id,
             'date' => now()->format('Y-m-d'),
@@ -175,12 +191,14 @@ class DailyLogTest extends TestCase
 
     public function test_a_user_can_move_others_bullets_if_they_have_access_to_the_collection()
     {
-        $this->actingAs($user = User::factory()->create());
+        /** @var \App\Models\User */
+        $user = User::factory()->create();
         $collection = Collection::factory()->create();
         $collection->users()->attach($user);
         $bullet = Bullet::factory()->create(['date' => null, 'collection_id' => $collection->id]);
 
         $response = $this
+            ->actingAs($user)
             ->from("/c/{$collection->slug}")
             ->put('/daily-log', [
                 'id' => $bullet->id,
@@ -188,7 +206,6 @@ class DailyLogTest extends TestCase
             ]);
 
         $response->assertRedirect("/c/{$collection->slug}");
-
         $this->assertDatabaseHas('bullets', [
             'id' => $bullet->id,
             'date' => now()->format('Y-m-d'),
@@ -198,11 +215,13 @@ class DailyLogTest extends TestCase
 
     public function test_it_destroys_bullets()
     {
-        $this->actingAs($user = User::factory()->create());
-        $collection = Collection::factory()->create(['user_id' => $user->id]);
+        /** @var \App\Models\User */
+        $user = User::factory()->create();
+        $collection = $user->collections()->save(Collection::factory()->make());
         $bullet = $user->bullets()->save(Bullet::factory()->make(['date' => null, 'collection_id' => $collection->id]));
 
         $this
+            ->actingAs($user)
             ->delete("/daily-log/{$bullet->id}")
             ->assertRedirect('/daily-log');
 
@@ -211,11 +230,15 @@ class DailyLogTest extends TestCase
 
     public function test_a_user_cant_update_others_bullets()
     {
+        /** @var \App\Models\User */
+        $user = User::factory()->create();
         $otherUser = User::factory()->create();
-        $bullet = Bullet::factory()->create(['user_id' => $otherUser->id, 'date' => '2021-04-07', 'collection_id' => null]);
+        $bullet = $otherUser->bullets()->save(
+            Bullet::factory()->make(['date' => '2021-04-07', 'collection_id' => null])
+        );
 
         $response = $this
-            ->actingAs(User::factory()->create())
+            ->actingAs($user)
             ->put("/daily-log/{$bullet->id}", [
                 'date' => now()->format('Y-m-d'),
             ]);
@@ -225,11 +248,15 @@ class DailyLogTest extends TestCase
 
     public function test_a_user_cant_delete_others_bullets()
     {
+        /** @var \App\Models\User */
+        $user = User::factory()->create();
         $otherUser = User::factory()->create();
-        $bullet = Bullet::factory()->create(['user_id' => $otherUser->id, 'date' => '2021-04-07', 'collection_id' => null]);
+        $bullet = $otherUser->bullets()->save(
+            Bullet::factory()->make(['date' => '2021-04-07', 'collection_id' => null])
+        );
 
         $response = $this
-            ->actingAs(User::factory()->create())
+            ->actingAs($user)
             ->delete("/daily-log/{$bullet->id}");
 
         $response->assertForbidden();

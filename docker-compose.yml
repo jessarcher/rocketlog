@@ -19,15 +19,7 @@ services:
             - sail
         depends_on:
             - mysql
-            # - pgsql
             - redis
-            # - selenium
-    # selenium:
-    #     image: 'selenium/standalone-chrome'
-    #     volumes:
-    #         - '/dev/shm:/dev/shm'
-    #     networks:
-    #         - sail
     mysql:
         image: 'mysql:8.0'
         ports:
@@ -40,25 +32,13 @@ services:
             MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
         volumes:
             - 'sailmysql:/var/lib/mysql'
+            - './database/create-testing-database.sql:/docker-entrypoint-initdb.d/zz-create-testing-database.sql'
         networks:
             - sail
         healthcheck:
-          test: ["CMD", "mysqladmin", "ping"]
-#    pgsql:
-#        image: postgres:13
-#        ports:
-#            - '${FORWARD_DB_PORT:-5432}:5432'
-#        environment:
-#            PGPASSWORD: '${DB_PASSWORD:-secret}'
-#            POSTGRES_DB: '${DB_DATABASE}'
-#            POSTGRES_USER: '${DB_USERNAME}'
-#            POSTGRES_PASSWORD: '${DB_PASSWORD:-secret}'
-#        volumes:
-#            - 'sailpostgresql:/var/lib/postgresql/data'
-#        networks:
-#            - sail
-#        healthcheck:
-#          test: ["CMD", "pg_isready", "-q", "-d", "${DB_DATABASE}", "-U", "${DB_USERNAME}"]
+          test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
+          retries: 3
+          timeout: 5s
     redis:
         image: 'redis:alpine'
         ports:
@@ -69,12 +49,8 @@ services:
             - sail
         healthcheck:
           test: ["CMD", "redis-cli", "ping"]
-    # memcached:
-    #     image: 'memcached:alpine'
-    #     ports:
-    #         - '11211:11211'
-    #     networks:
-    #         - sail
+          retries: 3
+          timeout: 5s
     mailhog:
         image: 'mailhog/mailhog:latest'
         ports:
@@ -88,7 +64,5 @@ networks:
 volumes:
     sailmysql:
         driver: local
-#    sailpostgresql:
-#        driver: local
     sailredis:
         driver: local
