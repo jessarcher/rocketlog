@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      DB_DATABASE: rocketlog
+      DB_DATABASE: testing
       DB_USER: sail
       DB_PASSWORD: password
 
@@ -34,6 +34,6 @@ jobs:
     - name: Setup Database
       run: |
         sudo /etc/init.d/mysql start
-        mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }}
+        mysql -e "CREATE DATABASE ${{ env.DB_DATABASE }}; CREATE USER '${{ env.DB_USER }}'@'%' IDENTIFIED WITH mysql_native_password BY '${{ env.DB_PASSWORD }}'; GRANT ALL PRIVILEGES ON ${{ env.DB_DATABASE }}.* TO '${{ env.DB_USER }}'@'%'" -uroot -proot
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       run: vendor/bin/phpunit
