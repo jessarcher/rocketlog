@@ -114,13 +114,13 @@ class CollectionTest extends TestCase
     public function test_users_can_add_bullets_to_the_daily_log()
     {
         $user = User::factory()->create();
-        $collection = Collection::factory()->create();
-        $collection->users()->attach($user);
-        $bullet = Bullet::factory()->create([
-            'date' => null,
-        ]);
-        $collection->bullets()->save($bullet);
-        $user->bullets()->save($bullet);
+        $collection = $user->collections()->save(Collection::factory()->make());
+        $bullet = $collection->bullets()->save(
+            Bullet::factory()->make([
+                'user_id' => $user->id,
+                'date' => null,
+            ])
+        );
 
         $response = $this
             ->actingAs($user)

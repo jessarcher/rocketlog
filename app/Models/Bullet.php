@@ -18,6 +18,7 @@ class Bullet extends Model
 
     protected $casts = [
         'date' => 'date',
+        'user_id' => 'integer',
     ];
 
     public function getCompleteAttribute()
