@@ -12,9 +12,9 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      DB_DATABASE: testing
-      DB_USER: root
-      DB_PASSWORD: root
+      DB_DATABASE: rocketlog
+      DB_USER: sail
+      DB_PASSWORD: password
 
     steps:
     - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
@@ -36,12 +36,4 @@ jobs:
         sudo /etc/init.d/mysql start
         mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }}
     - name: Execute tests (Unit and Feature tests) via PHPUnit
-      run: |
-        echo $DB_USER
-        echo $DB_PASSWORD
-        echo $DB_DATABASE
-        env
-        cat .env
-        cat .env.testing
-        cat .phpunit.xml
-        vendor/bin/phpunit
+      run: vendor/bin/phpunit
