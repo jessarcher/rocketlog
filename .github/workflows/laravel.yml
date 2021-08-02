@@ -36,4 +36,12 @@ jobs:
         sudo /etc/init.d/mysql start
         mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }}
     - name: Execute tests (Unit and Feature tests) via PHPUnit
-      run: vendor/bin/phpunit
+      run: |
+        echo $DB_USER
+        echo $DB_PASSWORD
+        echo $DB_DATABASE
+        env
+        cat .env
+        cat .env.testing
+        cat .phpunit.xml
+        vendor/bin/phpunit
