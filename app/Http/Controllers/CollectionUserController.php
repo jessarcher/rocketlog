@@ -2,22 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\InviteUserToCollectionRequest;
 use App\Models\Collection;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class CollectionUserController extends Controller
 {
-    public function store(Request $request, Collection $collection)
+    public function store(InviteUserToCollectionRequest $request, Collection $collection)
     {
-        $this->authorize('update', $collection);
-
-        $user = User::where('email', $request->email)->first();
-
-        $this->invalidIf($user === null, 'email', 'A user with this email address was not found.');
-        $this->invalidIf($collection->users->contains($user), 'email', 'This user has already been added to this collection.');
-
-        $collection->users()->attach($user);
+        $collection->users()->attach($request->invitedUser);
 
         return redirect(route('c.show', $collection));
     }

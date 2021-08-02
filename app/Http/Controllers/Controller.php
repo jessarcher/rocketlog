@@ -11,13 +11,4 @@ use Illuminate\Validation\ValidationException;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-
-    public function invalidIf($condition, $field, $message)
-    {
-        if (! $condition) {
-            return;
-        }
-
-        throw ValidationException::withMessages([$field => $message]);
-    }
 }

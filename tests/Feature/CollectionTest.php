@@ -152,6 +152,21 @@ class CollectionTest extends TestCase
         $this->assertNull($bullet->fresh()->date);
     }
 
+    public function test_only_an_authorized_user_can_invite_someone_to_a_collection()
+    {
+        $user = User::factory()->create();
+        $collection = Collection::factory()->create();
+        $friend = User::factory()->create();
+
+        $response = $this
+            ->actingAs($user)
+            ->postJson("/c/{$collection->hashid}/users", [
+                'email' => $friend->email,
+            ]);
+
+        $response->assertForbidden();
+    }
+
     public function test_users_can_be_invited_to_a_collection()
     {
         $user = User::factory()->create();
