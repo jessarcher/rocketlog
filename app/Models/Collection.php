@@ -18,6 +18,7 @@ class Collection extends Model
 
     protected $casts = [
         'hide_done' => 'boolean',
+        'user_id' => 'integer',
     ];
 
     protected $appends = [

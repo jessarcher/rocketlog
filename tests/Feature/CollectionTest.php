@@ -151,4 +151,51 @@ class CollectionTest extends TestCase
         $response->assertRedirect("/c/{$collection->hashid}");
         $this->assertNull($bullet->fresh()->date);
     }
+
+    public function test_users_can_be_invited_to_a_collection()
+    {
+        $user = User::factory()->create();
+        $collection = $user->collections()->save(Collection::factory()->make());
+        $friend = User::factory()->create();
+
+        $response = $this
+            ->actingAs($user)
+            ->postJson("/c/{$collection->hashid}/users", [
+                'email' => $friend->email,
+            ]);
+
+        $response->assertRedirect("/c/{$collection->hashid}");
+
+        $this->assertTrue($collection->users->contains($friend));
+    }
+
+    public function test_a_user_must_exist_to_be_invited_to_a_collection()
+    {
+        $user = User::factory()->create();
+        $collection = $user->collections()->save(Collection::factory()->make());
+
+        $response = $this
+            ->actingAs($user)
+            ->postJson("/c/{$collection->hashid}/users", [
+                'email' => 'doesntexist@example.com',
+            ]);
+
+        $response->assertJsonValidationErrors(['email' => 'A user with this email address was not found.']);
+    }
+
+    public function test_a_user_cannot_be_invited_to_a_collection_twice()
+    {
+        $user = User::factory()->create();
+        $collection = $user->collections()->save(Collection::factory()->make());
+        $friend = User::factory()->create();
+        $collection->users()->attach($friend);
+
+        $response = $this
+            ->actingAs($user)
+            ->postJson("/c/{$collection->hashid}/users", [
+                'email' => $friend->email,
+            ]);
+
+        $response->assertJsonValidationErrors(['email' => 'This user has already been added to this collection.']);
+    }
 }
