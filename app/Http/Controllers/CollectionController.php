@@ -20,11 +20,15 @@ class CollectionController extends Controller
         return redirect(route('c.show', $collection));
     }
 
-    public function show(Collection $collection)
+    public function show(Request $request, Collection $collection)
     {
         $this->authorize($collection);
 
-        return Inertia::render('Collection', ['collection' => $collection]);
+        if ($request->query('hashonly')) {
+            return $collection->hash;
+        }
+
+        return Inertia::render('Collection', ['collection' => $collection, 'hash' => $collection->hash]);
     }
 
     public function update(Collection $collection, Request $request)

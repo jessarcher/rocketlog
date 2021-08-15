@@ -1,5 +1,9 @@
 <template>
-    <journal-layout>
+    <journal-layout :key="hash">
+        <ContentUpdateNotification v-if="contentUpdateAvailable" :reloading="reloading" @reload="reload">
+            Collection updated
+        </ContentUpdateNotification>
+
         <div v-if="$page.props.collections.length === 1 && collection.bullets.length === 0" class="mb-10 leading-relaxed text-gray-600 dark:text-gray-300">
             <h1 class="text-xl font-semibold text-gray-700 dark:text-gray-300">
                 <Icon name="medium/clipboard" auto-size class="mr-1 text-gray-600 dark:text-gray-400" />
@@ -244,6 +248,7 @@
 <script>
 import JournalLayout from '@/Layouts/JournalLayout'
 import Bullet from '@/Components/Bullet'
+import ContentUpdateNotification from '@/Components/ContentUpdateNotification'
 import NewBullet from '@/Components/NewBullet'
 import JetConfirmationModal from '@/Jetstream/ConfirmationModal'
 import JetSecondaryButton from '@/Jetstream/SecondaryButton'
@@ -255,6 +260,7 @@ import Icon from '@/Components/Icon'
 export default {
     components: {
         Bullet,
+        ContentUpdateNotification,
         JournalLayout,
         NewBullet,
         JetConfirmationModal,
@@ -265,7 +271,7 @@ export default {
         Icon,
     },
 
-    props: ['collection'],
+    props: ['collection', 'hash'],
 
     data() {
         return {
@@ -284,6 +290,8 @@ export default {
 
             userBeingRemoved: null,
             removeUserForm: this.$inertia.form(),
+            contentUpdateAvailable: false,
+            reloading: false,
         }
     },
 
@@ -297,6 +305,10 @@ export default {
         hideDone() {
             this.update()
         }
+    },
+
+    mounted() {
+        this.pollForContentUpdates();
     },
 
     methods: {
@@ -395,6 +407,30 @@ export default {
                 preserveScroll: true,
                 preserveState: true,
                 onSuccess: () => (this.userBeingRemoved = null),
+            })
+        },
+
+        pollForContentUpdates() {
+            const contentUpdateCheckInterval = setInterval(async () => {
+                const response = await axios.get(route('c.show', { collection: this.collection.hashid, hashonly: true }))
+                this.contentUpdateAvailable = response.data !== this.hash
+                if (this.contentUpdateAvailable) {
+                    clearInterval(contentUpdateCheckInterval)
+                }
+            }, 5000)
+
+            this.$once('hook:destroyed', () => clearInterval(contentUpdateCheckInterval))
+        },
+
+        reload() {
+            this.reloading = true
+
+            this.$inertia.reload({
+                onFinish: () => {
+                    this.reloading = false
+                    this.contentUpdateAvailable = false
+                    this.pollForContentUpdates()
+                }
             })
         }
     }

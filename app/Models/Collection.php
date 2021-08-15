@@ -15,6 +15,8 @@ class Collection extends Model
     use HasHashid;
     use HashidRouting;
 
+    public string $hash;
+
     protected $guarded = [];
 
     protected $casts = [
@@ -60,7 +62,10 @@ class Collection extends Model
         return Cache::remember(
             "collections.{$value}",
             now()->addDay(),
-            fn () => self::with('bullets', 'users')->findByHashidOrFail($value)
+            fn () => tap(
+                self::with('bullets', 'users')->findByHashidOrFail($value),
+                fn ($collection) => $collection->hash = md5($collection->toJson())
+            )
         );
     }
 
