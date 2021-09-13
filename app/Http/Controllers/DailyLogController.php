@@ -102,9 +102,10 @@ class DailyLogController extends Controller
             $bullet->collection->clearCache();
         }
 
-        $bullet->collection_id = null;
-        $bullet->date = $request->input('date');
-        $bullet->save();
+        $bullet->update([
+            'collection_id' => null,
+            'date' => $request->input('date'),
+        ]);
 
         $request->user()->clearDailyLogCache();
 
