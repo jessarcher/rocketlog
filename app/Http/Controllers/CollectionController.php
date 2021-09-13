@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CollectionUpdated;
+use App\Events\DailyLogUpdated;
 use App\Models\Collection;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -41,6 +43,8 @@ class CollectionController extends Controller
 
         $collection->update($request->only(['name', 'type', 'hide_done']));
 
+        CollectionUpdated::dispatch($collection);
+
         return redirect(route('c.show', $collection));
     }
 
@@ -48,7 +52,17 @@ class CollectionController extends Controller
     {
         $this->authorize($collection);
 
+        $bullets = $collection->bullets;
+
         $collection->delete();
+
+        CollectionUpdated::dispatch($collection);
+
+        $bullets
+            ->filter(fn ($bullet) => $bullet->date)
+            ->pluck('user')
+            ->unique()
+            ->each(fn ($user) => DailyLogUpdated::dispatch($user));
 
         return redirect(route('daily-log.index'));
     }

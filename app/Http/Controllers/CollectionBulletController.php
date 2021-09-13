@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CollectionUpdated;
+use App\Events\DailyLogUpdated;
 use App\Models\Bullet;
 use App\Models\Collection;
 use Illuminate\Http\Request;
@@ -19,6 +21,8 @@ class CollectionBulletController extends Controller
             'user_id' => $request->user()->id,
         ]);
 
+        CollectionUpdated::dispatch($collection);
+
         return redirect(route('c.show', $collection));
     }
 
@@ -29,6 +33,12 @@ class CollectionBulletController extends Controller
         $bullet->update($request->only(
             array_merge(['name', 'state'], $bullet->user_id === $request->user()->id ? ['date'] : [])
         ));
+
+        CollectionUpdated::dispatch($collection);
+
+        if ($bullet->date) {
+            DailyLogUpdated::dispatch($bullet->user);
+        }
 
         return redirect(route('c.show', $collection));
     }
@@ -47,6 +57,12 @@ class CollectionBulletController extends Controller
         $bullet->collection_id = $collection->id;
         $bullet->save();
 
+        CollectionUpdated::dispatch($collection);
+
+        if ($bullet->date) {
+            DailyLogUpdated::dispatch($bullet->user);
+        }
+
         return back();
     }
 
@@ -55,6 +71,12 @@ class CollectionBulletController extends Controller
         $this->authorize('update', $collection);
 
         $bullet->delete();
+
+        CollectionUpdated::dispatch($collection);
+
+        if ($bullet->date) {
+            DailyLogUpdated::dispatch($bullet->user);
+        }
 
         return redirect(route('c.show', $collection));
     }

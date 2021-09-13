@@ -21,3 +21,7 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
 Broadcast::channel('collection.{collectionId}', function ($user, $collectionId) {
     return $user->can('view', Collection::findOrNew($collectionId));
 });
+
+Broadcast::channel('user.{userId}', function ($user, int $userId) {
+    return $user->id === $userId;
+});

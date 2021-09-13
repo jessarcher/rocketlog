@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CollectionUpdated;
+use App\Events\DailyLogUpdated;
 use App\Models\Bullet;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -53,6 +55,8 @@ class DailyLogController extends Controller
             'state' => 'incomplete',
         ]);
 
+        DailyLogUpdated::dispatch($request->user());
+
         return redirect(route('daily-log.index'));
     }
 
@@ -61,6 +65,12 @@ class DailyLogController extends Controller
         $this->authorize($bullet);
 
         $bullet->update($request->only(['name', 'state', 'date']));
+
+        DailyLogUpdated::dispatch($request->user());
+
+        if ($bullet->collection) {
+            CollectionUpdated::dispatch($bullet->collection);
+        }
 
         return redirect(route('daily-log.index'));
     }
@@ -72,9 +82,15 @@ class DailyLogController extends Controller
 
         $this->authorize('update', $bullet);
 
+        if ($bullet->collection) {
+            CollectionUpdated::dispatch($bullet->collection);
+        }
+
         $bullet->collection_id = null;
         $bullet->date = $request->input('date');
         $bullet->save();
+
+        DailyLogUpdated::dispatch($request->user());
 
         return back();
     }
@@ -84,6 +100,12 @@ class DailyLogController extends Controller
         $this->authorize($bullet);
 
         $bullet->delete();
+
+        DailyLogUpdated::dispatch($request->user());
+
+        if ($bullet->collection) {
+            CollectionUpdated::dispatch($bullet->collection);
+        }
 
         return redirect(route('daily-log.index'));
     }
