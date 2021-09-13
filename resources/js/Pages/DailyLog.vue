@@ -1,5 +1,9 @@
 <template>
     <journal-layout>
+        <ContentUpdateNotification v-if="contentUpdateAvailable" :reloading="reloading" @reload="reload">
+            Daily log updated
+        </ContentUpdateNotification>
+
         <div v-if="days.length === 0" class="mb-10 leading-relaxed text-gray-600 dark:text-gray-300">
             <h1 class="text-xl font-semibold text-gray-700 dark:text-gray-300">
                 <Icon name="medium/calendar" auto-size class="mr-1 text-gray-600 dark:text-gray-400" />
@@ -63,6 +67,7 @@
 <script>
     import JournalLayout from '@/Layouts/JournalLayout'
     import Bullet from '@/Components/Bullet'
+    import ContentUpdateNotification from '@/Components/ContentUpdateNotification'
     import NewBullet from '@/Components/NewBullet'
     import SubscriptionPromptModal from '@/Components/SubscriptionPromptModal'
     import Icon from '@/Components/Icon'
@@ -70,6 +75,7 @@
     export default {
         components: {
             Bullet,
+            ContentUpdateNotification,
             JournalLayout,
             NewBullet,
             SubscriptionPromptModal,
@@ -82,6 +88,8 @@
             return {
                 today: this.$today(),
                 showingSubscriptionPrompt: false,
+                contentUpdateAvailable: false,
+                reloading: false,
             }
         },
 
@@ -163,6 +171,18 @@
                     { id: bullet.id },
                     { preserveScroll: true }
                 )
+            },
+
+            reload() {
+                this.reloading = true;
+
+                this.$inertia.reload({
+                    only: ['days'],
+                    onFinish: () => {
+                        this.contentUpdateAvailable = false
+                        this.$nextTick(() => this.reloading = false)
+                    }
+                })
             },
         },
     }
