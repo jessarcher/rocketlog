@@ -370,7 +370,7 @@ export default {
         async clearDone() {
             this.processing = true
             await this.$inertia.delete(
-                route('c.destroy-done', this.collection.hashid),
+                route('c.bullets.done.destroy', this.collection.hashid),
                 { preserveScroll: true }
             )
             this.processing = false
