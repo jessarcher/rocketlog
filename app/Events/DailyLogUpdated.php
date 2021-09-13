@@ -2,7 +2,6 @@
 
 namespace App\Events;
 
-use App\Models\User;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
@@ -18,7 +17,7 @@ class DailyLogUpdated implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct(public User $user)
+    public function __construct(public int $userId)
     {
         //
     }
@@ -30,11 +29,11 @@ class DailyLogUpdated implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('user.'.$this->user->id);
+        return new PrivateChannel('user.'.$this->userId);
     }
 
     public function broadcastWith()
     {
-        return ['id' => $this->user->id];
+        return ['id' => $this->userId];
     }
 }

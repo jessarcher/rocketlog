@@ -16,13 +16,13 @@ class CollectionBulletDoneController extends Controller
 
         $completeBullets->each->delete();
 
-        broadcast(new CollectionUpdated($collection))->toOthers();
+        broadcast(new CollectionUpdated($collection->id))->toOthers();
 
         $completeBullets
             ->filter(fn ($bullet) => $bullet->date)
-            ->pluck('user')
+            ->pluck('user_id')
             ->unique()
-            ->each(fn ($user) => broadcast(new DailyLogUpdated($user))->toOthers());
+            ->each(fn ($userId) => broadcast(new DailyLogUpdated($userId))->toOthers());
 
         return redirect(route('c.show', $collection));
     }

@@ -2,7 +2,6 @@
 
 namespace App\Events;
 
-use App\Models\Collection;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
@@ -18,7 +17,7 @@ class CollectionUpdated implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct(public Collection $collection)
+    public function __construct(public int $collectionId)
     {
         //
     }
@@ -30,11 +29,11 @@ class CollectionUpdated implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('collection.'.$this->collection->id);
+        return new PrivateChannel('collection.'.$this->collectionId);
     }
 
     public function broadcastWith()
     {
-        return ['id' => $this->collection->id];
+        return ['id' => $this->collectionId];
     }
 }
