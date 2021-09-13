@@ -317,6 +317,14 @@ export default {
         document.addEventListener('visibilitychange', reloadWhenVisible)
 
         this.$once('hook:destroyed', () => document.removeEventListener('visibilitychange', reloadWhenVisible))
+
+        window.Echo
+            .private(`collection.${this.collection.id}`)
+            .listen('CollectionUpdated', () => this.contentUpdateAvailable = true)
+    },
+
+    destroyed() {
+        window.Echo.leave(`collection.${this.collection.id}`)
     },
 
     methods: {

@@ -124,6 +124,14 @@
             document.addEventListener('visibilitychange', reloadWhenVisible)
 
             this.$once('hook:destroyed', () => document.removeEventListener('visibilitychange', reloadWhenVisible))
+
+            window.Echo
+                .private(`user.${this.$page.props.user.id}`)
+                .listen('DailyLogUpdated', () => this.contentUpdateAvailable = true)
+        },
+
+        destroyed() {
+            window.Echo.leave(`user.${this.$page.props.user.id}`)
         },
 
         methods: {
