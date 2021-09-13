@@ -58,6 +58,26 @@ services:
             - '${FORWARD_MAILHOG_DASHBOARD_PORT:-8025}:8025'
         networks:
             - sail
+    websockets:
+      build:
+          context: ./vendor/laravel/sail/runtimes/8.0
+          dockerfile: Dockerfile
+          args:
+              WWWGROUP: '${WWWGROUP}'
+      image: sail-8.0/app
+      command: php artisan websockets:serve
+      ports:
+          - '6001:6001'
+      environment:
+          WWWUSER: '${WWWUSER}'
+          LARAVEL_SAIL: 1
+      volumes:
+          - '.:/var/www/html'
+      networks:
+          - sail
+      depends_on:
+          - mysql
+          - redis
 networks:
     sail:
         driver: bridge
