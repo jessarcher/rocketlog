@@ -31,7 +31,7 @@ class CollectionController extends Controller
         ]);
     }
 
-    public function update(Collection $collection, Request $request)
+    public function update(Request $request, Collection $collection)
     {
         $this->authorize($collection);
 
@@ -43,7 +43,7 @@ class CollectionController extends Controller
 
         $collection->update($request->only(['name', 'type', 'hide_done']));
 
-        CollectionUpdated::dispatch($collection);
+        broadcast(new CollectionUpdated($collection))->toOthers();
 
         return redirect(route('c.show', $collection));
     }
@@ -56,13 +56,13 @@ class CollectionController extends Controller
 
         $collection->delete();
 
-        CollectionUpdated::dispatch($collection);
+        broadcast(new CollectionUpdated($collection))->toOthers();
 
         $bullets
             ->filter(fn ($bullet) => $bullet->date)
             ->pluck('user')
             ->unique()
-            ->each(fn ($user) => DailyLogUpdated::dispatch($user));
+            ->each(fn ($user) => broadcast(new DailyLogUpdated($user))->toOthers());
 
         return redirect(route('daily-log.index'));
     }

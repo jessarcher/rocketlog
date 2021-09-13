@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Events\CollectionUpdated;
 use App\Events\DailyLogUpdated;
 use App\Models\Collection;
-use Illuminate\Http\Request;
 
 class CollectionBulletDoneController extends Controller
 {
@@ -17,13 +16,13 @@ class CollectionBulletDoneController extends Controller
 
         $completeBullets->each->delete();
 
-        CollectionUpdated::dispatch($collection);
+        broadcast(new CollectionUpdated($collection))->toOthers();
 
         $completeBullets
             ->filter(fn ($bullet) => $bullet->date)
             ->pluck('user')
             ->unique()
-            ->each(fn ($user) => DailyLogUpdated::dispatch($user));
+            ->each(fn ($user) => broadcast(new DailyLogUpdated($user))->toOthers());
 
         return redirect(route('c.show', $collection));
     }

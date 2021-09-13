@@ -55,7 +55,7 @@ class DailyLogController extends Controller
             'state' => 'incomplete',
         ]);
 
-        DailyLogUpdated::dispatch($request->user());
+        broadcast(new DailyLogUpdated($request->user()))->toOthers();
 
         return redirect(route('daily-log.index'));
     }
@@ -66,10 +66,10 @@ class DailyLogController extends Controller
 
         $bullet->update($request->only(['name', 'state', 'date']));
 
-        DailyLogUpdated::dispatch($request->user());
+        broadcast(new DailyLogUpdated($request->user()))->toOthers();
 
         if ($bullet->collection) {
-            CollectionUpdated::dispatch($bullet->collection);
+            broadcast(new CollectionUpdated($bullet->collection))->toOthers();
         }
 
         return redirect(route('daily-log.index'));
@@ -83,14 +83,14 @@ class DailyLogController extends Controller
         $this->authorize('update', $bullet);
 
         if ($bullet->collection) {
-            CollectionUpdated::dispatch($bullet->collection);
+            broadcast(new CollectionUpdated($bullet->collection))->toOthers();
         }
 
         $bullet->collection_id = null;
         $bullet->date = $request->input('date');
         $bullet->save();
 
-        DailyLogUpdated::dispatch($request->user());
+        broadcast(new DailyLogUpdated($request->user()))->toOthers();
 
         return back();
     }
@@ -101,10 +101,10 @@ class DailyLogController extends Controller
 
         $bullet->delete();
 
-        DailyLogUpdated::dispatch($request->user());
+        broadcast(new DailyLogUpdated($request->user()))->toOthers();
 
         if ($bullet->collection) {
-            CollectionUpdated::dispatch($bullet->collection);
+            broadcast(new CollectionUpdated($bullet->collection))->toOthers();
         }
 
         return redirect(route('daily-log.index'));

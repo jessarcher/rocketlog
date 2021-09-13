@@ -21,7 +21,7 @@ class CollectionBulletController extends Controller
             'user_id' => $request->user()->id,
         ]);
 
-        CollectionUpdated::dispatch($collection);
+        broadcast(new CollectionUpdated($collection))->toOthers();
 
         return redirect(route('c.show', $collection));
     }
@@ -34,10 +34,10 @@ class CollectionBulletController extends Controller
             array_merge(['name', 'state'], $bullet->user_id === $request->user()->id ? ['date'] : [])
         ));
 
-        CollectionUpdated::dispatch($collection);
+        broadcast(new CollectionUpdated($collection))->toOthers();
 
         if ($bullet->date) {
-            DailyLogUpdated::dispatch($bullet->user);
+            broadcast(new DailyLogUpdated($bullet->user))->toOthers();
         }
 
         return redirect(route('c.show', $collection));
@@ -57,25 +57,25 @@ class CollectionBulletController extends Controller
         $bullet->collection_id = $collection->id;
         $bullet->save();
 
-        CollectionUpdated::dispatch($collection);
+        broadcast(new CollectionUpdated($collection))->toOthers();
 
         if ($bullet->date) {
-            DailyLogUpdated::dispatch($bullet->user);
+            broadcast(new DailyLogUpdated($bullet->user))->toOthers();
         }
 
         return back();
     }
 
-    public function destroy(Request $request, Collection $collection, Bullet $bullet)
+    public function destroy(Collection $collection, Bullet $bullet)
     {
         $this->authorize('update', $collection);
 
         $bullet->delete();
 
-        CollectionUpdated::dispatch($collection);
+        broadcast(new CollectionUpdated($collection))->toOthers();
 
         if ($bullet->date) {
-            DailyLogUpdated::dispatch($bullet->user);
+            broadcast(new DailyLogUpdated($bullet->user))->toOthers();
         }
 
         return redirect(route('c.show', $collection));
