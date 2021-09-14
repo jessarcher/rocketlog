@@ -157,7 +157,7 @@
             <bullet
                 v-for="bullet in collection.bullets"
                 v-show="! bullet.complete || ! hideDone"
-                :key="bullet.id"
+                :key="bullet.id + bullet.updated_at"
                 :bullet="bullet"
                 :type="type"
                 @input="updateBullet"
@@ -297,6 +297,18 @@ export default {
         hideDone() {
             this.update()
         }
+    },
+
+    mounted() {
+        const reloadWhenVisible = (e) => {
+            if (document.visibilityState === 'visible') {
+                this.$inertia.reload({ only: ['collection'] })
+            }
+        }
+
+        document.addEventListener('visibilitychange', reloadWhenVisible)
+
+        this.$once('hook:destroyed', () => document.removeEventListener('visibilitychange', reloadWhenVisible))
     },
 
     methods: {

@@ -43,8 +43,8 @@ class HandleInertiaRequests extends Middleware
                 'showSubscriptionPrompt' => $request->user() && ! $request->user()->subscribed() && ! $request->user()->onTrial(),
             ],
             $request->user() ? [
-                'collections' => $request->user()->collections,
-                'sharedCollections' => $request->user()->sharedCollections,
+                'collections' => fn () => $request->user()->collections,
+                'sharedCollections' => fn () => $request->user()->sharedCollections,
             ] : [],
         );
     }
