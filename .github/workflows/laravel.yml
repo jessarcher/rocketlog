@@ -35,17 +35,26 @@ jobs:
       id: composer-cache
       run: echo "::set-output name=dir::$(composer config cache-files-dir)"
 
-    - name: Cache dependencies
+    - name: Cache composer dependencies
       uses: actions/cache@v2
       with:
         path: ${{ steps.composer-cache.outputs.dir }}
         key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
         restore-keys: ${{ runner.os }}-composer-
 
-    - name: Install Dependencies
-      run: |
-        composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-        npm install --production --no-progress --no-save
+    - name: Install composer dependencies
+      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+    - name: Cache npm dependencies
+      id: npm-cache
+      uses: actions/cache@v2
+      with:
+        path: node_modules
+        key: ${{ runner.os}}-npm-${{ hashFiles('package-lock.json') }}
+
+    - name: Install npm dependencies
+      if: steps.npm-cache.outputs.cache-hit != 'true'
+      run: npm install --production --no-progress --no-save
 
     - name: Compile assets
       run: npm run production
