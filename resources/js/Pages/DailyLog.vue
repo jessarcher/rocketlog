@@ -25,7 +25,7 @@
 
             <bullet
                 v-for="bullet in day.bullets"
-                :key="bullet.id"
+                :key="bullet.id + bullet.updated_at"
                 :bullet="bullet"
                 :fade="{
                     'opacity-50': i === 4,
@@ -106,6 +106,16 @@
             }, 1000)
 
             this.$once('hook:destroyed', () => clearInterval(todayInterval))
+
+            const reloadWhenVisible = (e) => {
+                if (document.visibilityState === 'visible') {
+                    this.$inertia.reload({ only: ['days'] })
+                }
+            }
+
+            document.addEventListener('visibilitychange', reloadWhenVisible)
+
+            this.$once('hook:destroyed', () => document.removeEventListener('visibilitychange', reloadWhenVisible))
         },
 
         methods: {
