@@ -312,7 +312,7 @@ export default {
     },
 
     methods: {
-        async update() {
+        update() {
             this.$inertia.patch(
                 route('c.update', this.collection.hashid),
                 {
@@ -324,77 +324,90 @@ export default {
             )
         },
 
-        async storeBullet(bullet) {
-            await this.$inertia.post(
+        storeBullet(bullet) {
+            this.$inertia.post(
                 route('c.bullets.store', this.collection.hashid),
                 bullet,
-                { preserveScroll: true }
+                {
+                    preserveScroll: true,
+                    onFinish: () => {
+                        if (this.$page.props.showSubscriptionPrompt) {
+                            this.showingSubscriptionPrompt = true
+                        }
+                    }
+                }
             )
-
-            if (this.$page.props.showSubscriptionPrompt) {
-                this.showingSubscriptionPrompt = true;
-            }
         },
 
-        async updateBullet(bullet) {
-            await this.$inertia.patch(
+        updateBullet(bullet) {
+            this.$inertia.patch(
                 route('c.bullets.update', [this.collection.hashid, bullet.id]),
                 bullet,
                 { preserveScroll: true }
             )
         },
 
-        async migrateBulletTo(bullet, collection) {
-            await this.$inertia.put(
+        migrateBulletTo(bullet, collection) {
+            this.$inertia.put(
                 route('c.bullets.move', collection.hashid),
                 { id: bullet.id },
                 { preserveScroll: true }
             )
         },
 
-        async migrateBulletToDailyLog(bullet) {
-            await this.$inertia.put(
+        migrateBulletToDailyLog(bullet) {
+            this.$inertia.put(
                 route('daily-log.move'),
                 { id: bullet.id, date: this.$today().format('YYYY-MM-DD') },
                 { preserveScroll: true }
             )
         },
 
-        async deleteBullet(bullet) {
-            await this.$inertia.delete(
+        deleteBullet(bullet) {
+            this.$inertia.delete(
                 route('c.bullets.destroy', [this.collection.hashid, bullet.id]),
                 { preserveScroll: true }
             )
         },
 
-        async clearDone() {
+        clearDone() {
             this.processing = true
-            await this.$inertia.delete(
+            this.$inertia.delete(
                 route('c.destroy-done', this.collection.hashid),
-                { preserveScroll: true }
+                {
+                    preserveScroll: true,
+                    onFinish: () => {
+                        this.processing = false
+                        this.confirmingClearDone = false
+                    }
+                }
             )
-            this.processing = false
-            this.confirmingClearDone = false
         },
 
-        async deleteCollection() {
+        deleteCollection() {
             this.processing = true
-            await this.$inertia.delete(
+            this.$inertia.delete(
                 route('c.destroy', this.collection.hashid),
-                { preserveScroll: true }
+                {
+                    preserveScroll: true,
+                    onFinish: () => this.processing = false
+                }
             )
-            this.processing = false
         },
 
-        async addUser() {
+        addUser() {
             this.processing = true
-            await this.$inertia.post(
+            this.$inertia.post(
                 route('c.users.store', this.collection.hashid),
                 { email: this.addUserEmail },
-                { preserveScroll: true }
+                {
+                    preserveScroll: true,
+                    onFinish: () => {
+                        this.processing = false
+                        this.addUserEmail = ''
+                    }
+                }
             )
-            this.processing = false
-            this.addUserEmail = ''
         },
 
         confirmUserRemoval(user) {

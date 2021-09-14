@@ -119,43 +119,46 @@
         },
 
         methods: {
-            async storeBullet(bullet) {
-                await this.$inertia.post(
+            storeBullet(bullet) {
+                this.$inertia.post(
                     route('daily-log.store'),
                     { ...bullet, date: this.$today().format('YYYY-MM-DD') },
-                    { preserveScroll: true }
+                    {
+                        preserveScroll: true,
+                        onFinish: () => {
+                            if (this.$page.props.showSubscriptionPrompt) {
+                                this.showingSubscriptionPrompt = true
+                            }
+                        }
+                    }
                 )
-
-                if (this.$page.props.showSubscriptionPrompt) {
-                    this.showingSubscriptionPrompt = true;
-                }
             },
 
-            async updateBullet(bullet) {
-                await this.$inertia.patch(
+            updateBullet(bullet) {
+                this.$inertia.patch(
                     route('daily-log.update', bullet.id),
                     bullet,
                     { preserveScroll: true }
                 )
             },
 
-            async deleteBullet(bullet) {
-                await this.$inertia.delete(
+            deleteBullet(bullet) {
+                this.$inertia.delete(
                     route('daily-log.destroy', bullet.id),
                     { preserveScroll: true }
                 )
             },
 
-            async migrateBullet(bullet) {
-                await this.$inertia.patch(
+            migrateBullet(bullet) {
+                this.$inertia.patch(
                     route('daily-log.update', bullet.id),
                     { date: this.$today().format('YYYY-MM-DD') },
                     { preserveScroll: true }
                 )
             },
 
-            async migrateBulletTo(bullet, collection) {
-                await this.$inertia.put(
+            migrateBulletTo(bullet, collection) {
+                this.$inertia.put(
                     route('c.bullets.move', collection.hashid),
                     { id: bullet.id },
                     { preserveScroll: true }
