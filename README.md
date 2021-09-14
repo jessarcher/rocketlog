@@ -1,5 +1,7 @@
 <p align="center"><a href="https://rocketlog.app" target="_blank"><img src="https://raw.githubusercontent.com/jessarcher/rocketlog/main/public/images/rocketlog.svg" width="400"></a></p>
 
+[![Tests](https://github.com/jessarcher/rocketlog/actions/workflows/tests.yml/badge.svg)](https://github.com/jessarcher/rocketlog/actions/workflows/tests.yml)
+
 ## Self-hosting
 
 One of the original goals of RocketLog is to allow people to self-host it if they didn't feel comfortable using a hosted solution.
