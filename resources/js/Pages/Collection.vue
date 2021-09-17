@@ -308,26 +308,42 @@ export default {
     },
 
     mounted() {
-        const reloadWhenVisible = (e) => {
-            if (document.visibilityState === 'visible') {
-                this.$inertia.reload({ only: ['collection'] })
-            }
-        }
-
-        document.addEventListener('visibilitychange', reloadWhenVisible)
-
-        this.$once('hook:destroyed', () => document.removeEventListener('visibilitychange', reloadWhenVisible))
-
-        window.Echo
-            .private(`collection.${this.collection.id}`)
-            .listen('CollectionUpdated', () => this.contentUpdateAvailable = true)
-    },
-
-    destroyed() {
-        window.Echo.leave(`collection.${this.collection.id}`)
+        this.listenForUpdates()
+        this.reloadWhenHiddenIfContentAvailable()
     },
 
     methods: {
+        listenForUpdates() {
+            window.Echo
+                .private(`collection.${this.collection.id}`)
+                .listen('CollectionUpdated', () => {
+                    if (document.visibilityState === 'hidden') {
+                        this.reload()
+                    } else {
+                        this.contentUpdateAvailable = true
+                    }
+                })
+
+            window.Echo.connector.pusher.connection.bind('reconnected', () => this.reload());
+
+            this.$once('hook:destroyed', () => {
+                window.Echo.leave(`collection.${this.collection.id}`)
+                window.Echo.connector.pusher.connection.unbind('reconnected')
+            })
+        },
+
+        reloadWhenHiddenIfContentAvailable() {
+            const handler = (e) => {
+                if (document.visibilityState === 'hidden' && this.contentUpdateAvailable) {
+                    this.reload()
+                }
+            }
+
+            document.addEventListener('visibilitychange', handler)
+
+            this.$once('hook:destroyed', () => document.removeEventListener('visibilitychange', handler))
+        },
+
         update() {
             this.$inertia.patch(
                 route('c.update', this.collection.hashid),

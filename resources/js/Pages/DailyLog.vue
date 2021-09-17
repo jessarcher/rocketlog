@@ -107,34 +107,54 @@
         },
 
         mounted() {
-            const todayInterval = setInterval(() => {
-                if (! this.today.isSame(this.$today())) {
-                    this.today = this.$today()
-                }
-            }, 1000)
-
-            this.$once('hook:destroyed', () => clearInterval(todayInterval))
-
-            const reloadWhenVisible = (e) => {
-                if (document.visibilityState === 'visible') {
-                    this.$inertia.reload({ only: ['days'] })
-                }
-            }
-
-            document.addEventListener('visibilitychange', reloadWhenVisible)
-
-            this.$once('hook:destroyed', () => document.removeEventListener('visibilitychange', reloadWhenVisible))
-
-            window.Echo
-                .private(`user.${this.$page.props.user.id}`)
-                .listen('DailyLogUpdated', () => this.contentUpdateAvailable = true)
-        },
-
-        destroyed() {
-            window.Echo.leave(`user.${this.$page.props.user.id}`)
+            this.setToday()
+            this.listenForUpdates()
+            this.reloadWhenHiddenIfContentAvailable()
         },
 
         methods: {
+            setToday() {
+                const todayInterval = setInterval(() => {
+                    if (! this.today.isSame(this.$today())) {
+                        this.today = this.$today()
+                    }
+                }, 1000)
+
+                this.$once('hook:destroyed', () => clearInterval(todayInterval))
+            },
+
+            listenForUpdates() {
+                window.Echo
+                    .private(`user.${this.$page.props.user.id}`)
+                    .listen('DailyLogUpdated', (e) => {
+                        console.log('DailyLogUpdated')
+                        if (document.visibilityState === 'hidden' || !document.hasFocus()) {
+                            this.reload()
+                        } else {
+                            this.contentUpdateAvailable = true
+                        }
+                    })
+
+                window.Echo.connector.pusher.connection.bind('reconnected', () => this.reload());
+
+                this.$once('hook:destroyed', () => {
+                    window.Echo.leave(`user.${this.$page.props.user.id}`)
+                    window.Echo.connector.pusher.connection.unbind('reconnected')
+                })
+            },
+
+            reloadWhenHiddenIfContentAvailable() {
+                const handler = (e) => {
+                    if (document.visibilityState === 'hidden' && this.contentUpdateAvailable) {
+                        this.reload()
+                    }
+                }
+
+                document.addEventListener('visibilitychange', handler)
+
+                this.$once('hook:destroyed', () => document.removeEventListener('visibilitychange', handler))
+            },
+
             storeBullet(bullet) {
                 this.$inertia.post(
                     route('daily-log.store'),

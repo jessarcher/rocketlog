@@ -30,3 +30,14 @@ window.Echo = new Echo({
     forceTLS: process.env.MIX_APP_ENV !== 'local',
     enabledTransports: [process.env.MIX_APP_ENV === 'local' ? 'ws' : 'wss'],
 });
+
+let firstConnection = false;
+
+window.Echo.connector.pusher.connection.bind('connected', () => {
+    if (firstConnection === false) {
+        firstConnection = true;
+        return;
+    }
+
+    window.Echo.connector.pusher.connection.emit('reconnected')
+})
