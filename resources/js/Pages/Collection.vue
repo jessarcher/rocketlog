@@ -325,18 +325,22 @@ export default {
         },
 
         storeBullet(bullet) {
-            this.$inertia.post(
-                route('c.bullets.store', this.collection.hashid),
-                bullet,
-                {
-                    preserveScroll: true,
-                    onFinish: () => {
-                        if (this.$page.props.showSubscriptionPrompt) {
-                            this.showingSubscriptionPrompt = true
-                        }
+            return new Promise((resolve, reject) => {
+                this.$inertia.post(
+                    route('c.bullets.store', this.collection.hashid),
+                    bullet,
+                    {
+                        preserveScroll: true,
+                        onSuccess: () => {
+                            if (this.$page.props.showSubscriptionPrompt) {
+                                this.showingSubscriptionPrompt = true
+                            }
+                            resolve()
+                        },
+                        onError: () => reject(),
                     }
-                }
-            )
+                )
+            })
         },
 
         updateBullet(bullet) {

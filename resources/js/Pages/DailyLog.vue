@@ -120,18 +120,22 @@
 
         methods: {
             storeBullet(bullet) {
-                this.$inertia.post(
-                    route('daily-log.store'),
-                    { ...bullet, date: this.$today().format('YYYY-MM-DD') },
-                    {
-                        preserveScroll: true,
-                        onFinish: () => {
-                            if (this.$page.props.showSubscriptionPrompt) {
-                                this.showingSubscriptionPrompt = true
-                            }
+                return new Promise((resolve, reject) => {
+                    this.$inertia.post(
+                        route('daily-log.store'),
+                        { ...bullet, date: this.$today().format('YYYY-MM-DD') },
+                        {
+                            preserveScroll: true,
+                            onSuccess: () => {
+                                if (this.$page.props.showSubscriptionPrompt) {
+                                    this.showingSubscriptionPrompt = true
+                                }
+                                resolve()
+                            },
+                            onError: () => reject(),
                         }
-                    }
-                )
+                    )
+                })
             },
 
             updateBullet(bullet) {
