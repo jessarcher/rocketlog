@@ -23,6 +23,14 @@ jobs:
       with:
         php-version: '8.0'
 
+    - name: Setup Node
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+
+    - name: Update npm
+      run: npm install -g npm
+
     - name: Checkout
       uses: actions/checkout@v2
 
@@ -46,16 +54,18 @@ jobs:
     - name: Install composer dependencies
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
-    - name: Cache npm dependencies
+    - name: Get npm cache directory
       id: npm-cache
+      run: echo "::set-output name=dir::$(npm config get cache)"
+
+    - name: Cache npm dependencies
       uses: actions/cache@v2
       with:
-        path: node_modules
-        key: ${{ runner.os}}-npm-${{ hashFiles('package-lock.json') }}
+        path: ${{ steps.npm-cache.outputs.dir }}
+        key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
 
     - name: Install npm dependencies
-      if: steps.npm-cache.outputs.cache-hit != 'true'
-      run: npm install --production --no-progress --no-save
+      run: npm ci --production --no-progress --no-save --no-optional
 
     - name: Compile assets
       run: npm run production
