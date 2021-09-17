@@ -11,6 +11,21 @@ const mix = require('laravel-mix');
  |
  */
 
+if (process.env.HMR_PORT) {
+    mix.options({
+        hmrOptions: {
+            host: 'localhost',
+            port: process.env.HMR_PORT,
+        },
+    });
+
+    mix.webpackConfig({
+        devServer: {
+            port: process.env.HMR_PORT
+        },
+    });
+}
+
 mix.js('resources/js/app.js', 'public/js').vue()
     .postCss('resources/css/app.css', 'public/css', [
         require('postcss-import'),
