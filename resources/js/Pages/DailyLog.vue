@@ -127,7 +127,6 @@
                 window.Echo
                     .private(`user.${this.$page.props.user.id}`)
                     .listen('DailyLogUpdated', (e) => {
-                        console.log('DailyLogUpdated')
                         if (document.visibilityState === 'hidden' || !document.hasFocus()) {
                             this.reload()
                         } else {
