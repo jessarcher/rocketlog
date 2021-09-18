@@ -28,7 +28,7 @@ window.Echo = new Echo({
     wssPort: process.env.MIX_APP_ENV === 'local' ? 6001 : 2053,
     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
     forceTLS: process.env.MIX_APP_ENV !== 'local',
-    enabledTransports: [process.env.MIX_APP_ENV === 'local' ? 'ws' : 'wss'],
+    enabledTransports: ['ws'],
 });
 
 let firstConnection = false;
