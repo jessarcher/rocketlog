@@ -13,7 +13,7 @@ return [
 
     'dashboard' => [
 
-        'port' => env('LARAVEL_WEBSOCKETS_PORT', 6001),
+        'port' => env('APP_ENV') === 'local' ? env('LARAVEL_WEBSOCKETS_PORT', 6001) : 2053,
 
         'domain' => env('LARAVEL_WEBSOCKETS_DOMAIN'),
 
