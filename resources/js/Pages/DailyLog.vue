@@ -1,5 +1,9 @@
 <template>
     <journal-layout>
+        <ContentUpdateNotification v-if="contentUpdateAvailable" :reloading="reloading" @reload="reload">
+            Daily log updated
+        </ContentUpdateNotification>
+
         <div v-if="days.length === 0" class="mb-10 leading-relaxed text-gray-600 dark:text-gray-300">
             <h1 class="text-xl font-semibold text-gray-700 dark:text-gray-300">
                 <Icon name="medium/calendar" auto-size class="mr-1 text-gray-600 dark:text-gray-400" />
@@ -63,6 +67,7 @@
 <script>
     import JournalLayout from '@/Layouts/JournalLayout'
     import Bullet from '@/Components/Bullet'
+    import ContentUpdateNotification from '@/Components/ContentUpdateNotification'
     import NewBullet from '@/Components/NewBullet'
     import SubscriptionPromptModal from '@/Components/SubscriptionPromptModal'
     import Icon from '@/Components/Icon'
@@ -70,6 +75,7 @@
     export default {
         components: {
             Bullet,
+            ContentUpdateNotification,
             JournalLayout,
             NewBullet,
             SubscriptionPromptModal,
@@ -82,6 +88,8 @@
             return {
                 today: this.$today(),
                 showingSubscriptionPrompt: false,
+                contentUpdateAvailable: false,
+                reloading: false,
             }
         },
 
@@ -99,26 +107,54 @@
         },
 
         mounted() {
-            const todayInterval = setInterval(() => {
-                if (! this.today.isSame(this.$today())) {
-                    this.today = this.$today()
-                }
-            }, 1000)
-
-            this.$once('hook:destroyed', () => clearInterval(todayInterval))
-
-            const reloadWhenVisible = (e) => {
-                if (document.visibilityState === 'visible') {
-                    this.$inertia.reload({ only: ['days'] })
-                }
-            }
-
-            document.addEventListener('visibilitychange', reloadWhenVisible)
-
-            this.$once('hook:destroyed', () => document.removeEventListener('visibilitychange', reloadWhenVisible))
+            this.setToday()
+            this.listenForUpdates()
+            this.reloadWhenHiddenIfContentAvailable()
         },
 
         methods: {
+            setToday() {
+                const todayInterval = setInterval(() => {
+                    if (! this.today.isSame(this.$today())) {
+                        this.today = this.$today()
+                    }
+                }, 1000)
+
+                this.$once('hook:destroyed', () => clearInterval(todayInterval))
+            },
+
+            listenForUpdates() {
+                window.Echo
+                    .private(`user.${this.$page.props.user.id}`)
+                    .listen('DailyLogUpdated', (e) => {
+                        console.log('DailyLogUpdated')
+                        if (document.visibilityState === 'hidden' || !document.hasFocus()) {
+                            this.reload()
+                        } else {
+                            this.contentUpdateAvailable = true
+                        }
+                    })
+
+                window.Echo.connector.pusher.connection.bind('reconnected', () => this.reload());
+
+                this.$once('hook:destroyed', () => {
+                    window.Echo.leave(`user.${this.$page.props.user.id}`)
+                    window.Echo.connector.pusher.connection.unbind('reconnected')
+                })
+            },
+
+            reloadWhenHiddenIfContentAvailable() {
+                const handler = (e) => {
+                    if (document.visibilityState === 'hidden' && this.contentUpdateAvailable) {
+                        this.reload()
+                    }
+                }
+
+                document.addEventListener('visibilitychange', handler)
+
+                this.$once('hook:destroyed', () => document.removeEventListener('visibilitychange', handler))
+            },
+
             storeBullet(bullet) {
                 return new Promise((resolve, reject) => {
                     this.$inertia.post(
@@ -167,6 +203,18 @@
                     { id: bullet.id },
                     { preserveScroll: true }
                 )
+            },
+
+            reload() {
+                this.reloading = true;
+
+                this.$inertia.reload({
+                    only: ['days'],
+                    onFinish: () => {
+                        this.contentUpdateAvailable = false
+                        this.$nextTick(() => this.reloading = false)
+                    }
+                })
             },
         },
     }

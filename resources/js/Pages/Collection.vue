@@ -1,5 +1,9 @@
 <template>
     <journal-layout>
+        <ContentUpdateNotification v-if="contentUpdateAvailable" :reloading="reloading" @reload="reload">
+            Collection updated
+        </ContentUpdateNotification>
+
         <div v-if="$page.props.collections.length === 1 && collection.bullets.length === 0" class="mb-10 leading-relaxed text-gray-600 dark:text-gray-300">
             <h1 class="text-xl font-semibold text-gray-700 dark:text-gray-300">
                 <Icon name="medium/clipboard" auto-size class="mr-1 text-gray-600 dark:text-gray-400" />
@@ -244,6 +248,7 @@
 <script>
 import JournalLayout from '@/Layouts/JournalLayout'
 import Bullet from '@/Components/Bullet'
+import ContentUpdateNotification from '@/Components/ContentUpdateNotification'
 import NewBullet from '@/Components/NewBullet'
 import JetConfirmationModal from '@/Jetstream/ConfirmationModal'
 import JetSecondaryButton from '@/Jetstream/SecondaryButton'
@@ -255,6 +260,7 @@ import Icon from '@/Components/Icon'
 export default {
     components: {
         Bullet,
+        ContentUpdateNotification,
         JournalLayout,
         NewBullet,
         JetConfirmationModal,
@@ -284,6 +290,8 @@ export default {
 
             userBeingRemoved: null,
             removeUserForm: this.$inertia.form(),
+            contentUpdateAvailable: false,
+            reloading: false,
         }
     },
 
@@ -300,18 +308,42 @@ export default {
     },
 
     mounted() {
-        const reloadWhenVisible = (e) => {
-            if (document.visibilityState === 'visible') {
-                this.$inertia.reload({ only: ['collection'] })
-            }
-        }
-
-        document.addEventListener('visibilitychange', reloadWhenVisible)
-
-        this.$once('hook:destroyed', () => document.removeEventListener('visibilitychange', reloadWhenVisible))
+        this.listenForUpdates()
+        this.reloadWhenHiddenIfContentAvailable()
     },
 
     methods: {
+        listenForUpdates() {
+            window.Echo
+                .private(`collection.${this.collection.id}`)
+                .listen('CollectionUpdated', () => {
+                    if (document.visibilityState === 'hidden') {
+                        this.reload()
+                    } else {
+                        this.contentUpdateAvailable = true
+                    }
+                })
+
+            window.Echo.connector.pusher.connection.bind('reconnected', () => this.reload());
+
+            this.$once('hook:destroyed', () => {
+                window.Echo.leave(`collection.${this.collection.id}`)
+                window.Echo.connector.pusher.connection.unbind('reconnected')
+            })
+        },
+
+        reloadWhenHiddenIfContentAvailable() {
+            const handler = (e) => {
+                if (document.visibilityState === 'hidden' && this.contentUpdateAvailable) {
+                    this.reload()
+                }
+            }
+
+            document.addEventListener('visibilitychange', handler)
+
+            this.$once('hook:destroyed', () => document.removeEventListener('visibilitychange', handler))
+        },
+
         update() {
             this.$inertia.patch(
                 route('c.update', this.collection.hashid),
@@ -425,7 +457,19 @@ export default {
                 preserveState: true,
                 onSuccess: () => (this.userBeingRemoved = null),
             })
-        }
+        },
+
+        reload() {
+            this.reloading = true
+
+            this.$inertia.reload({
+                only: ['collection'],
+                onFinish: () => {
+                    this.contentUpdateAvailable = false
+                    this.$nextTick(() => this.reloading = false)
+                }
+            })
+        },
     }
 }
 </script>

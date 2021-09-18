@@ -8,7 +8,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class CollectionUpdated implements ShouldBroadcast
+class DailyLogUpdated implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -17,7 +17,7 @@ class CollectionUpdated implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct(public int $collectionId)
+    public function __construct(public int $userId)
     {
         //
     }
@@ -29,11 +29,11 @@ class CollectionUpdated implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('collection.'.$this->collectionId);
+        return new PrivateChannel('user.'.$this->userId);
     }
 
     public function broadcastWith()
     {
-        return ['id' => $this->collectionId];
+        return ['id' => $this->userId];
     }
 }

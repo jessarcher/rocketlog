@@ -2,11 +2,14 @@
 
 namespace Tests\Feature;
 
+use App\Events\CollectionUpdated;
+use App\Events\DailyLogUpdated;
 use App\Models\Bullet;
 use App\Models\Collection;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 
 class DailyLogTest extends TestCase
@@ -82,6 +85,7 @@ class DailyLogTest extends TestCase
 
     public function test_it_stores_bullets()
     {
+        Event::fake();
         /** @var \App\Models\User */
         $user = User::factory()->create();
 
@@ -93,7 +97,6 @@ class DailyLogTest extends TestCase
             ]);
 
         $response->assertRedirect('/daily-log');
-
         $this->assertDatabaseHas('bullets', [
             'user_id' => $user->id,
             'date' => now()->format('Y-m-d'),
@@ -101,10 +104,12 @@ class DailyLogTest extends TestCase
             'type' => 'task',
             'state' => 'incomplete',
         ]);
+        Event::assertDispatched(fn (DailyLogUpdated $event) => $event->userId === $user->id);
     }
 
     public function test_it_updates_bullets()
     {
+        Event::fake();
         /** @var \App\Models\User */
         $user = User::factory()->create();
         $bullet = $user->bullets()->save(Bullet::factory()->make(['date' => now()->subDays(2)]));
@@ -124,10 +129,12 @@ class DailyLogTest extends TestCase
             'name' => $name,
             'state' => 'complete',
         ]);
+        Event::assertDispatched(fn (DailyLogUpdated $event) => $event->userId === $user->id);
     }
 
     public function test_it_moves_bullets()
     {
+        Event::fake();
         /** @var \App\Models\User */
         $user = User::factory()->create();
         $collection = $user->collections()->save(Collection::factory()->make());
@@ -147,6 +154,7 @@ class DailyLogTest extends TestCase
             'date' => now()->format('Y-m-d'),
             'collection_id' => null,
         ]);
+        Event::assertDispatched(fn (DailyLogUpdated $event) => $event->userId === $user->id);
     }
 
     public function test_a_user_cant_move_others_bullets()
@@ -168,6 +176,7 @@ class DailyLogTest extends TestCase
 
     public function test_a_user_can_move_others_bullets_if_they_own_the_collection()
     {
+        Event::fake();
         /** @var \App\Models\User */
         $user = User::factory()->create();
         $collection = Collection::factory()->create(['user_id' => $user->id]);
@@ -187,10 +196,13 @@ class DailyLogTest extends TestCase
             'date' => now()->format('Y-m-d'),
             'collection_id' => null,
         ]);
+        Event::assertDispatched(fn (DailyLogUpdated $event) => $event->userId === $user->id);
+        Event::assertDispatched(fn (CollectionUpdated $event) => $event->collectionId === $collection->id);
     }
 
     public function test_a_user_can_move_others_bullets_if_they_have_access_to_the_collection()
     {
+        Event::fake();
         /** @var \App\Models\User */
         $user = User::factory()->create();
         $collection = Collection::factory()->create();
@@ -211,10 +223,13 @@ class DailyLogTest extends TestCase
             'date' => now()->format('Y-m-d'),
             'collection_id' => null,
         ]);
+        Event::assertDispatched(fn (DailyLogUpdated $event) => $event->userId === $user->id);
+        Event::assertDispatched(fn (CollectionUpdated $event) => $event->collectionId === $collection->id);
     }
 
     public function test_it_destroys_bullets()
     {
+        Event::fake();
         /** @var \App\Models\User */
         $user = User::factory()->create();
         $collection = $user->collections()->save(Collection::factory()->make());
@@ -226,6 +241,7 @@ class DailyLogTest extends TestCase
             ->assertRedirect('/daily-log');
 
         $this->assertDatabaseMissing('bullets', ['id' => $bullet->id]);
+        Event::assertDispatched(fn (DailyLogUpdated $event) => $event->userId === $user->id);
     }
 
     public function test_a_user_cant_update_others_bullets()

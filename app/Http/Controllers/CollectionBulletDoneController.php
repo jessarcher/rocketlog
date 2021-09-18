@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CollectionUpdated;
+use App\Events\DailyLogUpdated;
 use App\Models\Collection;
-use Illuminate\Http\Request;
 
 class CollectionBulletDoneController extends Controller
 {
@@ -11,7 +12,17 @@ class CollectionBulletDoneController extends Controller
     {
         $this->authorize('update', $collection);
 
-        $collection->bullets()->whereState('complete')->delete();
+        $completeBullets = $collection->bullets()->whereState('complete')->get();
+
+        $completeBullets->each->delete();
+
+        broadcast(new CollectionUpdated($collection->id))->toOthers();
+
+        $completeBullets
+            ->filter(fn ($bullet) => $bullet->date)
+            ->pluck('user_id')
+            ->unique()
+            ->each(fn ($userId) => broadcast(new DailyLogUpdated($userId))->toOthers());
 
         return redirect(route('c.show', $collection));
     }
