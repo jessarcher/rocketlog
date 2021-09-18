@@ -71,4 +71,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::resource('c.users', CollectionUserController::class)
         ->only('store', 'destroy')
         ->parameters(['c' => 'collection']);
+
+    Route::inertia('debug', 'Debug');
 });
