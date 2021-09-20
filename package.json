@@ -30,7 +30,7 @@
         "pusher-js": "^7.0.3",
         "tailwindcss": "^2.2.0",
         "vue": "^2.5.17",
-        "vue-loader": "^15.9.6",
+        "vue-loader": "^16.6.0",
         "vue-svg-loader": "^0.16.0",
         "vue-template-compiler": "^2.6.10"
     }
