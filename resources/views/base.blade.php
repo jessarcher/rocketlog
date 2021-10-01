@@ -46,7 +46,7 @@
             }
         </script>
         @if (config('app.url') === 'https://rocketlog.app')
-            <script src="https://marmoset.rocketlog.app/script.js" data-spa="auto" data-site="PREDBIVK" defer></script>
+            <script src="https://marmoset.rocketlog.app/script.js" data-site="PREDBIVK" defer></script>
         @endif
     </head>
     <body class="font-sans antialiased {{ $bodyClass ?? '' }}">
