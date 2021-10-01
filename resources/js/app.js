@@ -58,6 +58,6 @@ new Vue({
 
 Inertia.on('navigate', () => {
     if (typeof window.fathom !== 'undefined') {
-        window.fathom.trackPageView();
+        window.fathom.trackPageview();
     }
 });
