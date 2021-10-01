@@ -9,6 +9,7 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import * as Sentry from '@sentry/vue';
 import {Integrations} from '@sentry/tracing';
+import Inertia from '@inertiajs/inertia';
 
 Sentry.init({
     Vue,
@@ -54,3 +55,9 @@ new Vue({
             },
         }),
 }).$mount(app);
+
+Inertia.on('navigate', () => {
+    if (typeof window.fathom !== 'undefined') {
+        window.fathom.trackPageView();
+    }
+});
