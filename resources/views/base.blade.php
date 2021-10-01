@@ -45,6 +45,11 @@
                 document.documentElement.classList.remove('dark')
             }
         </script>
+        @if (config('app.url') === 'https://rocketlog.app')
+            <!-- Fathom - beautiful, simple website analytics -->
+            <script src="https://cdn.usefathom.com/script.js" data-spa="auto" data-site="PREDBIVK" defer></script>
+            <!-- / Fathom -->
+        @endif
     </head>
     <body class="font-sans antialiased {{ $bodyClass ?? '' }}">
         @yield('body')
