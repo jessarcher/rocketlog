@@ -9,7 +9,7 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import * as Sentry from '@sentry/vue';
 import {Integrations} from '@sentry/tracing';
-import Inertia from '@inertiajs/inertia';
+import { Inertia } from '@inertiajs/inertia';
 
 Sentry.init({
     Vue,
