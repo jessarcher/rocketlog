@@ -46,9 +46,7 @@
             }
         </script>
         @if (config('app.url') === 'https://rocketlog.app')
-            <!-- Fathom - beautiful, simple website analytics -->
-            <script src="https://cdn.usefathom.com/script.js" data-spa="auto" data-site="PREDBIVK" defer></script>
-            <!-- / Fathom -->
+            <script src="https://marmoset.rocketlog.app/script.js" data-spa="auto" data-site="PREDBIVK" defer></script>
         @endif
     </head>
     <body class="font-sans antialiased {{ $bodyClass ?? '' }}">
