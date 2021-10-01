@@ -43,7 +43,7 @@
                 @delete="deleteBullet"
             >
                 <template #tags>
-                    <inertia-link
+                    <Link
                         v-if="bullet.collection_id"
                         :href="route('c.show', $page.props.collections.find(collection => collection.id === bullet.collection_id).hashid)"
                         title="Appears in collection"
@@ -53,7 +53,7 @@
                         ]"
                     >
                         {{ $page.props.collections.find(collection => collection.id === bullet.collection_id).name }}
-                    </inertia-link>
+                    </Link>
                 </template>
             </bullet>
 
@@ -71,12 +71,14 @@
     import NewBullet from '@/Components/NewBullet'
     import SubscriptionPromptModal from '@/Components/SubscriptionPromptModal'
     import Icon from '@/Components/Icon'
+    import { Link } from '@inertiajs/inertia-vue'
 
     export default {
         components: {
             Bullet,
             ContentUpdateNotification,
             JournalLayout,
+            Link,
             NewBullet,
             SubscriptionPromptModal,
             Icon,

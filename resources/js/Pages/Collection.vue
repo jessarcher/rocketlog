@@ -170,7 +170,7 @@
                 @migrateToDailyLog="migrateBulletToDailyLog"
             >
                 <template #status>
-                    <inertia-link
+                    <Link
                         v-if="bullet.date && bullet.user_id === $page.props.user.id"
                         :href="route('daily-log.index')"
                         title="Appears in daily log"
@@ -180,7 +180,7 @@
                         ]"
                     >
                         <Icon name="medium/calendar" class="h-6 w-6 md:h-5 md:w-5" />
-                    </inertia-link>
+                    </Link>
                 </template>
             </bullet>
         </div>
@@ -256,12 +256,14 @@ import JetDangerButton from '@/Jetstream/DangerButton'
 import JetInputError from '@/Jetstream/InputError'
 import SubscriptionPromptModal from '@/Components/SubscriptionPromptModal'
 import Icon from '@/Components/Icon'
+import { Link } from '@inertiajs/inertia-vue'
 
 export default {
     components: {
         Bullet,
         ContentUpdateNotification,
         JournalLayout,
+        Link,
         NewBullet,
         JetConfirmationModal,
         JetSecondaryButton,
