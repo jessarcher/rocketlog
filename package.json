@@ -19,7 +19,7 @@
         "@tailwindcss/typography": "^0.4.1",
         "autoprefixer": "^10.3.6",
         "autosize": "^5.0.1",
-        "axios": "^0.21",
+        "axios": "^0.22",
         "dayjs": "^1.10.7",
         "laravel-echo": "^1.11.2",
         "laravel-mix": "^6.0.31",
