@@ -41,7 +41,7 @@ class NewUserNotification extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
+        return (new MailMessage())
                     ->line('A new user has signed up!')
                     ->line($this->user->name);
     }
