@@ -20,6 +20,7 @@ services:
         depends_on:
             - mysql
             - redis
+            - selenium
     mysql:
         image: 'mysql:8.0'
         ports:
@@ -32,7 +33,7 @@ services:
             MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
         volumes:
             - 'sailmysql:/var/lib/mysql'
-            - './database/create-testing-database.sql:/docker-entrypoint-initdb.d/zz-create-testing-database.sql'
+            - './database/create-test-database.sql:/docker-entrypoint-initdb.d/zz-create-test-database.sql'
         networks:
             - sail
         healthcheck:
@@ -78,6 +79,12 @@ services:
       depends_on:
           - mysql
           - redis
+    selenium:
+      image: 'selenium/standalone-chrome'
+      volumes:
+        - '/dev/shm:/dev/shm'
+      networks:
+        - sail
 networks:
     sail:
         driver: bridge
