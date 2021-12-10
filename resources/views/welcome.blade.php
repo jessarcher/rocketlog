@@ -74,7 +74,7 @@
                 <h3>How does it work?</h3>
                 <p>As you add new tasks to your todo list, the older incomplete tasks naturally fall out of view, unless you migrate them forward.</p>
                 <p><strong>This naturally causes you to reassess what's still important versus what only felt important at the time.</strong></p>
-                <p>If you don't complete or migrate a task forward, it will start fading away.</p>
+                <p>If you don't complete or migrate a task forward, it will start fading away as you add newer tasks.</p>
                 <p>This gives you a more organic and truer representation of what is important to you. No arbitrary priority rankings, and no "smart" automated prioritisation.</p>
             </div>
 
@@ -84,7 +84,7 @@
                         x-data="{
                             date: '{{ date('D, M j') }}',
                             days: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-                            months: ['Jan', 'Feb', 'Mar', 'Apr', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                            months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
                             setCurrentDate() {
                                 let date = new Date
                                 let day = date.getDay()
@@ -93,7 +93,7 @@
                             }
                         }"
                         x-init="setCurrentDate"
-                        class="pb-3 font-bold border-b border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-200"
+                        class="pb-3 font-bold border-b border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200"
                     >
                         <span x-text="date">{{ date('D, M j') }}</span>
                     </div>
@@ -124,7 +124,7 @@
                             </div>
                         </div>
                         <div class="w-full p-2 md:p-1 overflow-hidden bg-transparent border-none disabled:opacity-75 text-gray-900 dark:text-gray-100 opacity-50">
-                            Read about a cool new app
+                            Read about RocketLog
                         </div>
                     </div>
 
@@ -156,28 +156,15 @@
                             </div>
                         </div>
                         <div class="w-full p-2 md:p-1 overflow-hidden bg-transparent border-none disabled:opacity-75 text-gray-900 dark:text-gray-100">
-                            Check out RocketLog
+                            Start a free trial
                         </div>
                     </div>
 
-{{--                     <div class="py-1 md:py-2 border-b border-gray-200 dark:border-gray-700 flex"> --}}
-{{--                         <div class="relative flex-shrink-0"> --}}
-{{--                             <a href="{{ route('register') }}" class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center rounded-full border border-transparent text-gray-200 dark:text-gray-700 hover:border-gray-200 dark:hover:border-gray-600 hover:shadow focus:outline-none focus:border-gray-200 dark:focus:border-gray-600 focus:shadow-inner disabled:opacity-50"> --}}
-{{--                                 <svg class="h-6 w-6 md:h-5" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"> --}}
-{{--                                     <path d="M7.8 10a2.2 2.2 0 0 0 4.4 0 2.2 2.2 0 0 0-4.4 0z"></path> --}}
-{{--                                 </svg> --}}
-{{--                             </a> --}}
-{{--                         </div> --}}
-{{--                         <div class="w-full p-2 md:p-1 overflow-hidden bg-transparent border-none disabled:opacity-75 text-gray-300 dark:text-gray-600"> --}}
-{{--                             Unburden your mind... --}}
-{{--                         </div> --}}
-{{--                     </div> --}}
-
-                    <div class="mt-12 pb-3 font-bold border-b border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-200 opacity-25">
+                    <div class="mt-12 pb-3 font-bold border-b border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 opacity-30">
                         {{ date('D, M j', strtotime('5 days ago')) }}
                     </div>
 
-                    <div class="py-1 md:py-2 border-b border-gray-200 dark:border-gray-700 flex opacity-25">
+                    <div class="py-1 md:py-2 border-b border-gray-200 dark:border-gray-700 flex opacity-30">
                         <div class="relative flex-shrink-0">
                             <div class="border border-transparent">
                                 <div class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center rounded-full border border-transparent text-gray-900 dark:text-gray-100">
@@ -229,6 +216,12 @@
                 <svg role="presentation" class="mr-2 h-6 flex-shrink-0 text-pink-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
+                Show individual items from a collection in your daily log
+            </li>
+            <li class="mt-4 flex">
+                <svg role="presentation" class="mr-2 h-6 flex-shrink-0 text-pink-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
                 Share your collections with others - great for collaborative projects and family shopping lists.
             </li>
             <li class="mt-4 flex">
@@ -247,7 +240,7 @@
                 <svg role="presentation" class="mr-2 h-6 flex-shrink-0 text-pink-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                <span class="dark:hidden">Dark Mode 🕶</span><span class="hidden dark:inline">Light mode 🌞</span>
+                Light and Dark modes
             </li>
             <li class="mt-4 flex">
                 <svg role="presentation" class="mr-2 h-6 flex-shrink-0 text-pink-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
