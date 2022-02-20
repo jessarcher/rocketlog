@@ -155,7 +155,7 @@ class CollectionTest extends TestCase
         $response = $this
             ->actingAs($user)
             ->patch("/c/{$collection->hashid}/bullets/{$bullet->id}", [
-                'date' => '2021-02-03'
+                'date' => '2021-02-03',
             ]);
 
         $response->assertRedirect("/c/{$collection->hashid}");
@@ -179,7 +179,7 @@ class CollectionTest extends TestCase
         $response = $this
             ->actingAs($user)
             ->patch("/c/{$collection->hashid}/bullets/{$bullet->id}", [
-                'date' => '2021-02-03'
+                'date' => '2021-02-03',
             ]);
 
         $response->assertRedirect("/c/{$collection->hashid}");
