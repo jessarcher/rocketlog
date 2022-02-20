@@ -93,7 +93,7 @@ class DailyLogTest extends TestCase
             ->actingAs($user)
             ->post('/daily-log', [
                 'date' => now()->format('Y-m-d'),
-                'name' => $name = $this->faker->text,
+                'name' => $name = $this->faker->text(),
             ]);
 
         $response->assertRedirect('/daily-log');
@@ -118,7 +118,7 @@ class DailyLogTest extends TestCase
             ->actingAs($user)
             ->patch("/daily-log/{$bullet->id}", [
                 'date' => now()->format('Y-m-d'),
-                'name' => $name = $this->faker->text,
+                'name' => $name = $this->faker->text(),
                 'state' => 'complete',
             ]);
 

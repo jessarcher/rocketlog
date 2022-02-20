@@ -10,13 +10,6 @@ use Illuminate\Support\Str;
 class BulletFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
-    protected $model = Bullet::class;
-
-    /**
      * Define the model's default state.
      *
      * @return array
