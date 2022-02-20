@@ -18,7 +18,7 @@ class DeleteUser implements DeletesUsers
         $user->tokens->each->delete();
         $user->delete();
 
-        if (optional($user->subscription())->recurring()) {
+        if ($user->subscription()?->recurring()) {
             $user->subscription()->cancelNow();
         }
     }
