@@ -10,31 +10,30 @@
     "require": {
         "php": "^8.0",
         "beyondcode/laravel-websockets": "^2.0",
-        "doctrine/dbal": "^2.9",
-        "fideloper/proxy": "^4.4",
-        "fruitcake/laravel-cors": "^2.0",
-        "guzzlehttp/guzzle": "^7.0.1",
-        "inertiajs/inertia-laravel": "^0.3.5",
-        "laravel/framework": "^8.12",
-        "laravel/horizon": "^5.1",
-        "laravel/jetstream": "^2.1",
-        "laravel/sanctum": "^2.6",
-        "laravel/spark-paddle": "^1.0",
-        "laravel/tinker": "^2.5",
-        "mtvs/eloquent-hashids": "^3.1",
-        "pusher/pusher-php-server": "^5.0",
-        "sentry/sentry-laravel": "^2.4",
-        "spatie/laravel-backup": "^7.3",
-        "tightenco/ziggy": "^1.0"
+        "doctrine/dbal": "^3.3",
+        "fruitcake/laravel-cors": "^2.0.5",
+        "guzzlehttp/guzzle": "^7.2",
+        "inertiajs/inertia-laravel": "^0.5",
+        "laravel/framework": "^9.1",
+        "laravel/horizon": "^5.9",
+        "laravel/jetstream": "^2.6",
+        "laravel/sanctum": "^2.14",
+        "laravel/spark-paddle": "^1.2",
+        "laravel/tinker": "^2.7",
+        "mtvs/eloquent-hashids": "^3.2",
+        "pusher/pusher-php-server": "^7.0",
+        "sentry/sentry-laravel": "^2.11",
+        "spatie/laravel-backup": "^8.0",
+        "tightenco/ziggy": "^1.4"
     },
     "require-dev": {
-        "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
-        "laravel/dusk": "^6.19",
-        "laravel/sail": "^1.3",
-        "mockery/mockery": "^1.4.2",
-        "nunomaduro/collision": "^5.0",
-        "phpunit/phpunit": "^9.3.3"
+        "laravel/dusk": "^6.22",
+        "laravel/sail": "^1.13",
+        "mockery/mockery": "^1.4.4",
+        "nunomaduro/collision": "^6.1",
+        "phpunit/phpunit": "^9.5.10",
+        "spatie/laravel-ignition": "^1.0"
     },
     "config": {
         "optimize-autoloader": true,
@@ -85,6 +84,9 @@
             "@php artisan config:clear",
             "@php artisan route:clear",
             "@php artisan view:clear"
+        ],
+        "post-update-cmd": [
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
         ]
     },
     "repositories": [
