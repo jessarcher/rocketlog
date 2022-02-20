@@ -34,4 +34,11 @@ return [
 
     'controllers_base_namespace' => env('SENTRY_CONTROLLERS_BASE_NAMESPACE', 'App\\Http\\Controllers'),
 
+    'before_send' => function (\Sentry\Event $event): ?\Sentry\Event {
+        if (array_search('uptime', $event->getRequest()) !== false) {
+            return null;
+        }
+
+        return $event;
+    },
 ];
