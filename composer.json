@@ -24,6 +24,7 @@
         "pusher/pusher-php-server": "^7.0",
         "sentry/sentry-laravel": "^2.11",
         "spatie/laravel-backup": "^8.0",
+        "symfony/mailgun-mailer": "^6.0",
         "tightenco/ziggy": "^1.4"
     },
     "require-dev": {
