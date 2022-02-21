@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "18113a37a5e8434144b678a0a0da3e97",
+    "content-hash": "e6858d69f502924fad60eb1bfc9fc039",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -1405,25 +1405,25 @@
         },
         {
             "name": "fruitcake/php-cors",
-            "version": "v1.1.0",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fruitcake/php-cors.git",
-                "reference": "507d1de41251b5c22eaf361df3e362b84da8d83e"
+                "reference": "58571acbaa5f9f462c9c77e911700ac66f446d4e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fruitcake/php-cors/zipball/507d1de41251b5c22eaf361df3e362b84da8d83e",
-                "reference": "507d1de41251b5c22eaf361df3e362b84da8d83e",
+                "url": "https://api.github.com/repos/fruitcake/php-cors/zipball/58571acbaa5f9f462c9c77e911700ac66f446d4e",
+                "reference": "58571acbaa5f9f462c9c77e911700ac66f446d4e",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.2|^8.0",
-                "symfony/http-foundation": "^4|^5|^6"
+                "php": "^7.4|^8.0",
+                "symfony/http-foundation": "^4.4|^5.4|^6"
             },
             "require-dev": {
                 "phpstan/phpstan": "^1.4",
-                "phpunit/phpunit": "^7|^9",
+                "phpunit/phpunit": "^9",
                 "squizlabs/php_codesniffer": "^3.5"
             },
             "type": "library",
@@ -1443,6 +1443,10 @@
             ],
             "authors": [
                 {
+                    "name": "Fruitcake",
+                    "homepage": "https://fruitcake.nl"
+                },
+                {
                     "name": "Barryvdh",
                     "email": "barryvdh@gmail.com"
                 }
@@ -1456,7 +1460,7 @@
             ],
             "support": {
                 "issues": "https://github.com/fruitcake/php-cors/issues",
-                "source": "https://github.com/fruitcake/php-cors/tree/v1.1.0"
+                "source": "https://github.com/fruitcake/php-cors/tree/v1.2.0"
             },
             "funding": [
                 {
@@ -1468,7 +1472,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-02-20T11:19:41+00:00"
+            "time": "2022-02-20T15:07:15+00:00"
         },
         {
             "name": "graham-campbell/manager",
@@ -2087,12 +2091,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Inertia\\": "src"
-                },
                 "files": [
                     "./helpers.php"
-                ]
+                ],
+                "psr-4": {
+                    "Inertia\\": "src"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -2906,19 +2910,20 @@
         },
         {
             "name": "laravel/spark-paddle",
-            "version": "v1.2.1",
+            "version": "v1.2.2",
             "source": {
                 "type": "git",
                 "url": "git@github.com:laravel/spark-paddle.git",
-                "reference": "418e5cbf019e093d24d182940aaf582991924798"
+                "reference": "2b845dcec0febb7182feb8fab4483380ab7cd008"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://spark.laravel.com/dist/laravel/spark-paddle/laravel-spark-paddle-418e5cbf019e093d24d182940aaf582991924798-zip-e9d879.zip",
-                "reference": "418e5cbf019e093d24d182940aaf582991924798",
-                "shasum": "984184094318488ee93f6a9ade78265897183c67"
+                "url": "https://spark.laravel.com/dist/laravel/spark-paddle/laravel-spark-paddle-2b845dcec0febb7182feb8fab4483380ab7cd008-zip-3072a9.zip",
+                "reference": "2b845dcec0febb7182feb8fab4483380ab7cd008",
+                "shasum": "8056e7b309bb4b13ed97ef8af2fe492b9f0c1807"
             },
             "require": {
+                "ext-bcmath": "*",
                 "ext-json": "*",
                 "inertiajs/inertia-laravel": "^0.5.1",
                 "laravel/cashier-paddle": "^1.0",
@@ -2973,10 +2978,10 @@
                 "scaffolding"
             ],
             "support": {
-                "source": "https://github.com/laravel/spark-paddle/tree/v1.2.1",
+                "source": "https://github.com/laravel/spark-paddle/tree/v1.2.2",
                 "issues": "https://github.com/laravel/spark-paddle/issues"
             },
-            "time": "2022-02-10T07:50:53+00:00"
+            "time": "2022-02-17T14:27:49+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -12625,5 +12630,5 @@
         "php": "^8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.2.0"
 }
