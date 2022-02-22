@@ -354,7 +354,7 @@ export default {
                     type: this.type,
                     hide_done: this.hideDone,
                 },
-                { preserveScroll: true }
+                { preserveScroll: true, headers: { 'X-Socket-ID': Echo.socketId() } }
             )
         },
 
@@ -365,6 +365,7 @@ export default {
                     bullet,
                     {
                         preserveScroll: true,
+                        headers: { 'X-Socket-ID': Echo.socketId() }
                         onSuccess: () => {
                             if (this.$page.props.showSubscriptionPrompt) {
                                 this.showingSubscriptionPrompt = true
@@ -381,7 +382,7 @@ export default {
             this.$inertia.patch(
                 route('c.bullets.update', [this.collection.hashid, bullet.id]),
                 bullet,
-                { preserveScroll: true }
+                { preserveScroll: true, headers: { 'X-Socket-ID': Echo.socketId() } }
             )
         },
 
@@ -389,7 +390,7 @@ export default {
             this.$inertia.put(
                 route('c.bullets.move', collection.hashid),
                 { id: bullet.id },
-                { preserveScroll: true }
+                { preserveScroll: true, headers: { 'X-Socket-ID': Echo.socketId() } }
             )
         },
 
@@ -397,14 +398,14 @@ export default {
             this.$inertia.put(
                 route('daily-log.move'),
                 { id: bullet.id, date: this.$today().format('YYYY-MM-DD') },
-                { preserveScroll: true }
+                { preserveScroll: true, headers: { 'X-Socket-ID': Echo.socketId() } }
             )
         },
 
         deleteBullet(bullet) {
             this.$inertia.delete(
                 route('c.bullets.destroy', [this.collection.hashid, bullet.id]),
-                { preserveScroll: true }
+                { preserveScroll: true, headers: { 'X-Socket-ID': Echo.socketId() } }
             )
         },
 
@@ -414,6 +415,7 @@ export default {
                 route('c.destroy-done', this.collection.hashid),
                 {
                     preserveScroll: true,
+                    headers: { 'X-Socket-ID': Echo.socketId() }
                     onFinish: () => {
                         this.processing = false
                         this.confirmingClearDone = false
@@ -428,6 +430,7 @@ export default {
                 route('c.destroy', this.collection.hashid),
                 {
                     preserveScroll: true,
+                    headers: { 'X-Socket-ID': Echo.socketId() }
                     onFinish: () => this.processing = false
                 }
             )
@@ -440,6 +443,7 @@ export default {
                 { email: this.addUserEmail },
                 {
                     preserveScroll: true,
+                    headers: { 'X-Socket-ID': Echo.socketId() }
                     onFinish: () => {
                         this.processing = false
                         this.addUserEmail = ''
@@ -466,6 +470,7 @@ export default {
 
             this.$inertia.reload({
                 only: ['collection'],
+                headers: { 'X-Socket-ID': Echo.socketId() },
                 onFinish: () => {
                     this.contentUpdateAvailable = false
                     this.$nextTick(() => this.reloading = false)

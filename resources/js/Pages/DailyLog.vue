@@ -179,14 +179,14 @@
                 this.$inertia.patch(
                     route('daily-log.update', bullet.id),
                     bullet,
-                    { preserveScroll: true }
+                    { preserveScroll: true, headers: { 'X-Socket-ID': Echo.socketId() } }
                 )
             },
 
             deleteBullet(bullet) {
                 this.$inertia.delete(
                     route('daily-log.destroy', bullet.id),
-                    { preserveScroll: true }
+                    { preserveScroll: true, headers: { 'X-Socket-ID': Echo.socketId() } }
                 )
             },
 
@@ -194,7 +194,7 @@
                 this.$inertia.patch(
                     route('daily-log.update', bullet.id),
                     { date: this.$today().format('YYYY-MM-DD') },
-                    { preserveScroll: true }
+                    { preserveScroll: true, headers: { 'X-Socket-ID': Echo.socketId() } }
                 )
             },
 
@@ -202,7 +202,7 @@
                 this.$inertia.put(
                     route('c.bullets.move', collection.hashid),
                     { id: bullet.id },
-                    { preserveScroll: true }
+                    { preserveScroll: true, headers: { 'X-Socket-ID': Echo.socketId() } }
                 )
             },
 
@@ -214,7 +214,8 @@
                     onFinish: () => {
                         this.contentUpdateAvailable = false
                         this.$nextTick(() => this.reloading = false)
-                    }
+                    },
+                    headers: { 'X-Socket-ID': Echo.socketId() },
                 })
             },
         },
