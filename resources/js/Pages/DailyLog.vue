@@ -163,6 +163,7 @@
                         { ...bullet, date: this.$today().format('YYYY-MM-DD') },
                         {
                             preserveScroll: true,
+                            headers: { 'X-Socket-ID': Echo.socketId() },
                             onSuccess: () => {
                                 if (this.$page.props.showSubscriptionPrompt) {
                                     this.showingSubscriptionPrompt = true
