@@ -53,14 +53,44 @@
                         <Icon name="medium/share" class="w-6 h-6 md:w-5 md:h-5" />
                     </button>
 
-                    <button
-                        type="button"
-                        @click="drawer = drawer === 'settings' ? '' : 'settings'"
-                        class="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 transition duration-150 ease-in-out"
-                        :class="drawer === 'settings' ? 'bg-gray-100 dark:bg-gray-900 text-gray-500 dark:text-gray-300' : 'text-gray-400'"
-                    >
-                        <Icon name="medium/adjustments" class="w-6 h-6 md:w-5 md:h-5" />
-                    </button>
+                    <jet-dropdown>
+                        <template #trigger>
+                            <button
+                                type="button"
+                                class="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 transition duration-150 ease-in-out text-gray-400"
+                            >
+                                <Icon name="medium/adjustments" class="w-6 h-6 md:w-5 md:h-5" />
+                            </button>
+                        </template>
+                        <template #content>
+                            <div class="px-4 py-3 space-y-2">
+                                <div class="text-xs text-gray-400 dark:text-gray-300">
+                                    List style
+                                </div>
+                                <label class="flex items-center">
+                                    <input type="radio" v-model="type" name="type" value="bullet" class="h-5 w-5 border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-700">
+                                    <span class="ml-2 font-semibold text-gray-700 dark:text-gray-300">Bullets</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" v-model="type" name="type" value="checklist" class="h-5 w-5 border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-700">
+                                    <span class="ml-2 font-semibold text-gray-700 dark:text-gray-300">Checklist</span>
+                                </label>
+                            </div>
+                            <div class="border-t border-gray-100 dark:border-gray-600"></div>
+                            <jet-dropdown-link as="button" @click.native="confirmingClearDone = true">
+                                <svg class="-mt-px mr-1 h-4 w-4 inline-block text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                </svg>
+                                Clear Done
+                            </jet-dropdown-link>
+                            <jet-dropdown-link as="button" @click.native="confirmingDeleteCollection = true">
+                                <svg class="-mt-px mr-1 h-4 w-4 inline-block text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                </svg>
+                                Delete Collection
+                            </jet-dropdown-link>
+                        </template>
+                    </jet-dropdown>
                 </div>
             </div>
 
@@ -68,43 +98,6 @@
                 v-show="drawer"
                 class="-mx-12 px-12 py-6 bg-gray-100 dark:bg-black dark:bg-opacity-20 shadow-inner"
             >
-                <div v-show="drawer === 'settings'" class="flex items-center justify-between flex-wrap gap-x-20 gap-y-6">
-                    <div class="flex flex-wrap gap-x-4 gap-y-4">
-                        <div class="flex">
-                            <label class="flex items-center">
-                                <input type="radio" v-model="type" name="type" value="bullet" class="h-5 w-5 border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-700">
-                                <span class="ml-2 font-semibold text-gray-700 dark:text-gray-300">Bullets</span>
-                            </label>
-                            <label class="ml-4 flex items-center">
-                                <input type="radio" v-model="type" name="type" value="checklist" class="h-5 w-5 border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-700">
-                                <span class="ml-2 font-semibold text-gray-700 dark:text-gray-300">Checklist</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="-mx-2 flex flex-wrap gap-x-2 gap-y-2">
-                        <button
-                            class="px-2 py-1 inline-flex items-center font-semibold text-gray-600 dark:text-gray-300 rounded-md whitespace-no-wrap hover:bg-gray-200 dark:hover:bg-gray-800 hover:text-gray-800 dark:hover:text-gray-300 focus:outline-none focus:bg-gray-200 dark:focus:bg-gray-800 focus:text-gray-800 dark:focus:text-gray-300"
-                            @click="confirmingClearDone = true"
-                        >
-                            <svg class="mr-1 text-gray-500" style="height: 1em; width: 1em;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                            </svg>
-                            Clear Done
-                        </button>
-
-                        <button
-                            class="px-2 py-1 inline-flex items-center font-semibold text-gray-600 dark:text-gray-300 rounded-md whitespace-no-wrap hover:bg-gray-200 dark:hover:bg-gray-800 hover:text-gray-800 dark:hover:text-gray-300 focus:outline-none focus:bg-gray-200 dark:focus:bg-gray-800 focus:text-gray-800 dark:focus:text-gray-300"
-                            @click="confirmingDeleteCollection = true"
-                        >
-                            <svg class="mr-1 text-gray-500" style="height: 1em; width: 1em;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                            </svg>
-                            Delete Collection
-                        </button>
-                    </div>
-                </div>
-
                 <div v-show="drawer === 'share'" class="grid gap-6">
                     <div v-if="collection.users.length > 0" class="p-6 space-y-6 border border-gray-300 dark:border-gray-700 rounded">
                         <div v-for="user in collection.users" :key="user.id" class="flex items-center justify-between">
@@ -251,6 +244,8 @@ import Bullet from '@/Components/Bullet'
 import ContentUpdateNotification from '@/Components/ContentUpdateNotification'
 import NewBullet from '@/Components/NewBullet'
 import JetConfirmationModal from '@/Jetstream/ConfirmationModal'
+import JetDropdown from '@/Jetstream/Dropdown'
+import JetDropdownLink from '@/Jetstream/DropdownLink'
 import JetSecondaryButton from '@/Jetstream/SecondaryButton'
 import JetDangerButton from '@/Jetstream/DangerButton'
 import JetInputError from '@/Jetstream/InputError'
@@ -266,6 +261,8 @@ export default {
         Link,
         NewBullet,
         JetConfirmationModal,
+        JetDropdown,
+        JetDropdownLink,
         JetSecondaryButton,
         JetDangerButton,
         JetInputError,
