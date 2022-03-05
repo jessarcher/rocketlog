@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -25,10 +26,14 @@ class Collection extends Model
         'hashid',
     ];
 
-    public function setNameAttribute($value)
+    protected function name(): Attribute
     {
-        $this->attributes['name'] = $value;
-        $this->attributes['slug'] = Str::slug($value);
+        return new Attribute(
+            set: fn ($value) => [
+                'name' => $value,
+                'slug' => Str::slug($value),
+            ],
+        );
     }
 
     public function bullets()

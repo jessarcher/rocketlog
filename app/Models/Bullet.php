@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -21,14 +22,14 @@ class Bullet extends Model
         'user_id' => 'integer',
     ];
 
-    public function getCompleteAttribute()
+    protected function complete(): Attribute
     {
-        return $this->state === 'complete';
-    }
-
-    public function setCompleteAttribute($value)
-    {
-        $this->attributes['state'] = $value ? 'complete' : 'incomplete';
+        return new Attribute(
+            get: fn ($value) => $this->state === 'complete',
+            set: fn ($value) => [
+                'state' => $value ? 'complete' : 'incomplete',
+            ],
+        );
     }
 
     public function user(): BelongsTo
