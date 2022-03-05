@@ -190,8 +190,12 @@
                         <!--     </jet-responsive-nav-link> -->
                         <!-- </div> -->
                         <!-- Responsive Settings Options -->
-                        <div class="pt-4 pb-1">
-                            <div class="flex items-center px-4">
+                        <div class="py-4">
+                            <div class="px-4">
+                                <index />
+                            </div>
+
+                            <div class="mt-8 flex items-center px-4">
                                 <div v-if="$page.props.jetstream.managesProfilePhotos" class="flex-shrink-0 mr-3" >
                                     <img class="h-10 w-10 rounded-full object-cover" :src="$page.props.user.profile_photo_url" :alt="$page.props.user.name" />
                                 </div>
@@ -275,10 +279,6 @@
                                         </form>
                                     </template>
                                 </template>
-                            </div>
-
-                            <div class="mt-3 border-t border-gray-200 dark:border-gray-700 p-4">
-                                <index />
                             </div>
                         </div>
                     </div>
