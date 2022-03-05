@@ -96,7 +96,7 @@
 
             <div
                 v-show="drawer"
-                class="-mx-12 px-12 py-6 bg-gray-100 dark:bg-black dark:bg-opacity-20 shadow-inner"
+                class="-mx-4 px-4 sm:-mx-6 sm:px-6 md:-mx-12 md:px-12 py-6 bg-gray-100 dark:bg-black dark:bg-opacity-20 shadow-inner"
             >
                 <div v-show="drawer === 'share'" class="grid gap-6">
                     <div v-if="collection.users.length > 0" class="p-6 space-y-6 border border-gray-300 dark:border-gray-700 rounded">
