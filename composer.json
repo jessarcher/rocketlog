@@ -18,7 +18,7 @@
         "laravel/horizon": "^5.9",
         "laravel/jetstream": "^2.6",
         "laravel/sanctum": "^2.14",
-        "laravel/spark-paddle": "1.2.1",
+        "laravel/spark-paddle": "2.0.1",
         "laravel/tinker": "^2.7",
         "mtvs/eloquent-hashids": "^3.2",
         "pusher/pusher-php-server": "^7.0",
