@@ -1,12 +1,17 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
-    purge: [
-        './vendor/laravel/jetstream/**/*.blade.php',
-        './storage/framework/views/*.php',
-        './resources/views/**/*.blade.php',
-        './resources/js/**/*.vue',
-    ],
+    purge: {
+        content: [
+            './vendor/laravel/jetstream/**/*.blade.php',
+            './storage/framework/views/*.php',
+            './resources/views/**/*.blade.php',
+            './resources/js/**/*.vue',
+        ],
+        options: {
+            safelist: ['sortable-drag', 'sortable-ghost'],
+        },
+    },
 
     darkMode: 'class',
 
