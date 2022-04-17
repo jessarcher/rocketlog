@@ -150,7 +150,11 @@
             </div>
         </div>
 
-        <div>
+        <draggable
+            v-model="collection.bullets"
+            handle=".drag-handle"
+            @update="saveOrder"
+        >
             <bullet
                 v-for="bullet in collection.bullets"
                 v-show="! bullet.complete || ! hideDone"
@@ -176,7 +180,7 @@
                     </Link>
                 </template>
             </bullet>
-        </div>
+        </draggable>
 
         <new-bullet @input="storeBullet" />
 
@@ -252,9 +256,11 @@ import JetInputError from '@/Jetstream/InputError'
 import SubscriptionPromptModal from '@/Components/SubscriptionPromptModal'
 import Icon from '@/Components/Icon'
 import { Link } from '@inertiajs/inertia-vue'
+import draggable from 'vuedraggable'
 
 export default {
     components: {
+        draggable,
         Bullet,
         ContentUpdateNotification,
         JournalLayout,
@@ -474,6 +480,17 @@ export default {
                 }
             })
         },
+
+        saveOrder() {
+            this.$inertia.put(
+                route('c.order.update', this.collection.hashid),
+                this.collection.bullets.map(bullet => bullet.id),
+                {
+                    preserveScroll: true,
+                    headers: { 'X-Socket-ID': Echo.socketId() },
+                }
+            )
+        }
     }
 }
 </script>

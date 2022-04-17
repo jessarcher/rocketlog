@@ -3,6 +3,13 @@
 @import 'tailwindcss/utilities';
 
 @layer components {
+    .sortable-drag {
+        @apply rounded-lg shadow-xl bg-gray-800 border border-gray-600;
+    }
+    .sortable-ghost .bullet-body {
+        @apply opacity-10 bg-black;
+    }
+
     .spotlight-bg {
         background-color: #F9FAFB;
     }

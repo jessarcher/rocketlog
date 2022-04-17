@@ -38,7 +38,14 @@ class Collection extends Model
 
     public function bullets()
     {
-        return $this->hasMany(Bullet::class);
+        return $this->hasMany(Bullet::class)
+            ->orderBy('order')
+            ->orderBy('created_at');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     public function users()
