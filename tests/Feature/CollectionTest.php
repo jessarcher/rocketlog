@@ -252,4 +252,36 @@ class CollectionTest extends TestCase
 
         $response->assertJsonValidationErrors(['email' => 'This user has already been added to this collection.']);
     }
+
+    public function test_bullets_can_be_reordered()
+    {
+        /** @var \App\Models\User */
+        $user = User::factory()->create();
+        $collection = Collection::factory()->for($user)->create();
+        // $bullets = Bullet::factory()->for($collection)->times(3)->create();
+        $bullets = Bullet::factory()->times(3)->create(['collection_id' => $collection->id]);
+
+        $this->assertSame([1, 2, 3], $bullets->map(fn ($bullet) => $bullet->order)->all());
+
+        $response = $this
+            ->actingAs($user)
+            ->putJson("/c/{$collection->hashid}/order", [3, 2, 1]);
+
+        $response->assertOk();
+    }
+
+    public function test_only_bullets_from_the_authorized_collection_can_be_ordered()
+    {
+        /** @var \App\Models\User */
+        $user = User::factory()->create();
+        $collection = Collection::factory()->for($user)->create();
+        // $bullets = Bullet::factory()->for($collection)->times(3)->create();
+        Bullet::factory()->times(3)->create();
+
+        $response = $this
+            ->actingAs($user)
+            ->putJson("/c/{$collection->hashid}/order", [3, 2, 1]);
+
+        $response->assertForbidden();
+    }
 }

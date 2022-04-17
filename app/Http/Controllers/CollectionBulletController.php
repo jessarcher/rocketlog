@@ -56,6 +56,7 @@ class CollectionBulletController extends Controller
         }
         $bullet->collection_id = $collection->id;
         $bullet->save();
+        $bullet->moveToEnd();
 
         broadcast(new CollectionUpdated($collection->id))->toOthers();
 

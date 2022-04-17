@@ -3,6 +3,7 @@
 use App\Http\Controllers\CollectionBulletController;
 use App\Http\Controllers\CollectionBulletDoneController;
 use App\Http\Controllers\CollectionController;
+use App\Http\Controllers\CollectionOrderController;
 use App\Http\Controllers\CollectionUserController;
 use App\Http\Controllers\DailyLogController;
 use App\Http\Controllers\UserPreferenceController;
@@ -67,6 +68,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::resource('c.bullets', CollectionBulletController::class)
         ->only('store', 'update', 'destroy')
         ->parameters(['c' => 'collection']);
+
+    Route::put('c/{collection}/order', [CollectionOrderController::class, 'update'])->name('c.order.update');
 
     Route::resource('c.users', CollectionUserController::class)
         ->only('store', 'destroy')
