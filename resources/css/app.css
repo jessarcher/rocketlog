@@ -3,11 +3,11 @@
 @import 'tailwindcss/utilities';
 
 @layer components {
-    .sortable-drag {
-        @apply rounded-lg shadow-xl bg-gray-800 border border-gray-600;
+    .sortable-chosen:not(.sortable-ghost) {
+        @apply -m-px rounded-lg shadow-xl bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600;
     }
     .sortable-ghost .bullet-body {
-        @apply opacity-10 bg-black;
+        @apply opacity-10 bg-gray-400 dark:bg-black;
     }
 
     .spotlight-bg {

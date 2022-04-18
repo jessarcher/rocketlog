@@ -161,6 +161,7 @@
                 :key="bullet.id + bullet.updated_at"
                 :bullet="bullet"
                 :type="type"
+                :draggable="true"
                 @input="updateBullet"
                 @delete="deleteBullet"
                 @migrateTo="migrateBulletTo"
@@ -171,7 +172,7 @@
                         v-if="bullet.date && bullet.user_id === $page.props.user.id"
                         :href="route('daily-log.index')"
                         title="Appears in daily log"
-                        class="inline-block ml-2 md:-mt-1 -mb-1 p-2 rounded-md text-gray-400 dark:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 transition duration-150 ease-in-out"
+                        class="inline-block md:-mt-1 -mb-1 p-2 rounded-md text-gray-400 dark:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 transition duration-150 ease-in-out"
                         :class="[
                             bullet.complete ? 'opacity-50' : ''
                         ]"
