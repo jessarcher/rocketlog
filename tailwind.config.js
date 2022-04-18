@@ -9,7 +9,7 @@ module.exports = {
             './resources/js/**/*.vue',
         ],
         options: {
-            safelist: ['sortable-drag', 'sortable-ghost'],
+            safelist: ['sortable-chosen', 'sortable-ghost'],
         },
     },
 
