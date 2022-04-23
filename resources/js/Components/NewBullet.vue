@@ -25,8 +25,11 @@
                 @keydown.up="up"
                 @keydown.down="down"
                 @keydown.enter="
-                    if (! $event.shiftKey && $event.target.value.trim() !== '') {
-                        $event.preventDefault()
+                    if ($event.shiftKey) {
+                        return
+                    }
+                    $event.preventDefault()
+                    if ($event.target.value.trim() !== '') {
                         create()
                     }
                 "
