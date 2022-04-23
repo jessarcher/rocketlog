@@ -148,12 +148,6 @@
                         style="resize: none;"
                         rows="1"
                         maxlength="255"
-                        @keydown.enter="
-                            if (! $event.shiftKey && $event.target.value.length) {
-                                $event.preventDefault()
-                                save()
-                            }
-                        "
                         @keydown.up="up"
                         @keydown.down="down"
                         @blur="$event.target.value.trim() !== '' ? save() : destroy()"
