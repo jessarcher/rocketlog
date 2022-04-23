@@ -25,13 +25,13 @@
                 @keydown.up="up"
                 @keydown.down="down"
                 @keydown.enter="
-                    if (! $event.shiftKey && $event.target.value.length) {
+                    if (! $event.shiftKey && $event.target.value.trim() !== '') {
                         $event.preventDefault()
                         create()
                     }
                 "
                 @blur="
-                    if ($event.target.value.length) {
+                    if ($event.target.value.trim() !== '') {
                         create()
                     }
                 "
