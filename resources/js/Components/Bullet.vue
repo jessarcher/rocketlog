@@ -148,15 +148,9 @@
                         style="resize: none;"
                         rows="1"
                         maxlength="255"
-                        @keydown.enter="
-                            if (! $event.shiftKey && $event.target.value.length) {
-                                $event.preventDefault()
-                                save()
-                            }
-                        "
                         @keydown.up="up"
                         @keydown.down="down"
-                        @blur="$event.target.value.length > 0 ? save() : destroy()"
+                        @blur="$event.target.value.trim() !== '' ? save() : destroy()"
                         spellcheck="false"
                     ></textarea>
                 </div>

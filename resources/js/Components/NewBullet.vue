@@ -12,7 +12,7 @@
             </div>
         </div>
 
-        <div class="flex-1 mx-1">
+        <div class="flex-1">
             <textarea
                 v-model="name"
                 ref="name"
