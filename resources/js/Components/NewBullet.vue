@@ -24,7 +24,7 @@
                 placeholder="Unburden your mind..."
                 @keydown.up="up"
                 @keydown.down="down"
-                @keydown.enter.prevent="create"
+                @keydown.enter.exact.prevent="create"
                 @blur="create"
             ></textarea>
         </div>
