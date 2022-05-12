@@ -12445,16 +12445,16 @@
         },
         {
             "name": "spatie/flare-client-php",
-            "version": "1.1.0",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/flare-client-php.git",
-                "reference": "ceab058852a1278d9f57a7b95f1c348e4956d866"
+                "reference": "1059fd8f229fa016b11063c6be9d1922d036adb7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/flare-client-php/zipball/ceab058852a1278d9f57a7b95f1c348e4956d866",
-                "reference": "ceab058852a1278d9f57a7b95f1c348e4956d866",
+                "url": "https://api.github.com/repos/spatie/flare-client-php/zipball/1059fd8f229fa016b11063c6be9d1922d036adb7",
+                "reference": "1059fd8f229fa016b11063c6be9d1922d036adb7",
                 "shasum": ""
             },
             "require": {
@@ -12475,6 +12475,11 @@
                 "spatie/phpunit-snapshot-assertions": "^4.0"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "1.1.x-dev"
+                }
+            },
             "autoload": {
                 "files": [
                     "src/helpers.php"
@@ -12497,7 +12502,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/flare-client-php/issues",
-                "source": "https://github.com/spatie/flare-client-php/tree/1.1.0"
+                "source": "https://github.com/spatie/flare-client-php/tree/1.1.1"
             },
             "funding": [
                 {
@@ -12505,20 +12510,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-03-11T13:21:28+00:00"
+            "time": "2022-05-11T09:43:07+00:00"
         },
         {
             "name": "spatie/ignition",
-            "version": "1.2.7",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/ignition.git",
-                "reference": "2f059cf42b48f7c522efbba1c05ad59fc2c1a3f2"
+                "reference": "6aa8f1c8c46aff30c9bd4c354dc865eeee2ed59f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/ignition/zipball/2f059cf42b48f7c522efbba1c05ad59fc2c1a3f2",
-                "reference": "2f059cf42b48f7c522efbba1c05ad59fc2c1a3f2",
+                "url": "https://api.github.com/repos/spatie/ignition/zipball/6aa8f1c8c46aff30c9bd4c354dc865eeee2ed59f",
+                "reference": "6aa8f1c8c46aff30c9bd4c354dc865eeee2ed59f",
                 "shasum": ""
             },
             "require": {
@@ -12539,6 +12544,11 @@
                 "symfony/process": "^5.4|^6.0"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "1.2.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Spatie\\Ignition\\": "src"
@@ -12575,20 +12585,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-03-29T08:48:34+00:00"
+            "time": "2022-05-12T08:19:04+00:00"
         },
         {
             "name": "spatie/laravel-ignition",
-            "version": "1.2.2",
+            "version": "1.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-ignition.git",
-                "reference": "924d1ae878874ad0bb49f63b69a9af759a34ee78"
+                "reference": "51e5daaa7e43c154fe57f1ddfbba862f9fe57646"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-ignition/zipball/924d1ae878874ad0bb49f63b69a9af759a34ee78",
-                "reference": "924d1ae878874ad0bb49f63b69a9af759a34ee78",
+                "url": "https://api.github.com/repos/spatie/laravel-ignition/zipball/51e5daaa7e43c154fe57f1ddfbba862f9fe57646",
+                "reference": "51e5daaa7e43c154fe57f1ddfbba862f9fe57646",
                 "shasum": ""
             },
             "require": {
@@ -12665,7 +12675,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-04-14T18:04:51+00:00"
+            "time": "2022-05-05T15:53:24+00:00"
         },
         {
             "name": "theseer/tokenizer",
