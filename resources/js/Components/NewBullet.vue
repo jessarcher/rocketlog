@@ -24,20 +24,8 @@
                 placeholder="Unburden your mind..."
                 @keydown.up="up"
                 @keydown.down="down"
-                @keydown.enter="
-                    if ($event.shiftKey) {
-                        return
-                    }
-                    $event.preventDefault()
-                    if ($event.target.value.trim() !== '') {
-                        create()
-                    }
-                "
-                @blur="
-                    if ($event.target.value.trim() !== '') {
-                        create()
-                    }
-                "
+                @keydown.enter.exact.prevent="create"
+                @blur="create"
             ></textarea>
         </div>
     </form>
@@ -64,7 +52,11 @@ export default {
     },
 
     methods: {
-        async create() {
+        async create(event) {
+            if (event.target.value.trim() === '' || this.creating) {
+                return
+            }
+
             this.creating = true;
 
             await this.$listeners.input({ name: this.name })
