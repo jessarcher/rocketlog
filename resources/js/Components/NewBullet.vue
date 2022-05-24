@@ -21,7 +21,7 @@
                 style="resize: none; height: 1em;"
                 rows="1"
                 maxlength="255"
-                placeholder="Unburden your mind..."
+                :placeholder="placeholder"
                 @keydown.up="up"
                 @keydown.down="down"
                 @keydown.enter.exact.prevent="create"
@@ -38,6 +38,13 @@ import Icon from '@/Components/Icon'
 export default {
     components: {
         Icon,
+    },
+
+    props: {
+        placeholder: {
+            type: String,
+            default: 'Unburden your mind...',
+        },
     },
 
     data() {

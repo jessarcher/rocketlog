@@ -6,6 +6,7 @@ use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\CollectionOrderController;
 use App\Http\Controllers\CollectionUserController;
 use App\Http\Controllers\DailyLogController;
+use App\Http\Controllers\FutureLogController;
 use App\Http\Controllers\UserPreferenceController;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -56,6 +57,10 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::resource('daily-log', DailyLogController::class)
         ->only('index', 'store', 'update', 'destroy')
         ->parameters(['daily-log' => 'bullet']);
+
+    Route::resource('future-log', FutureLogController::class)
+        ->only('index', 'store', 'update', 'destroy')
+        ->parameters(['future-log' => 'bullet']);
 
     Route::resource('c', CollectionController::class)
         ->only('show', 'store', 'update', 'destroy')
