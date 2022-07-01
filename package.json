@@ -14,7 +14,7 @@
         "@inertiajs/inertia-vue": "^0.7.2",
         "@inertiajs/progress": "^0.2.7",
         "@sentry/tracing": "^6.13.2",
-        "@sentry/vue": "^6.13.2",
+        "@sentry/vue": "^7.4.1",
         "@tailwindcss/forms": "^0.3.3",
         "@tailwindcss/typography": "^0.4.1",
         "autoprefixer": "^10.3.6",
