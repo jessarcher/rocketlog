@@ -5,5 +5,5 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ mix('js/app.js') }}" defer></script>
+    @vite('resources/js/app.js')
 @endpush
