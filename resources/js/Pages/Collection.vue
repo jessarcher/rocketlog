@@ -1,12 +1,242 @@
+<script setup>
+import JournalLayout from '@/Layouts/JournalLayout.vue'
+import Bullet from '@/Components/Bullet.vue'
+import ContentUpdateNotification from '@/Components/ContentUpdateNotification.vue'
+import NewBullet from '@/Components/NewBullet.vue'
+import JetConfirmationModal from '@/Jetstream/ConfirmationModal.vue'
+import JetDropdown from '@/Jetstream/Dropdown.vue'
+import JetDropdownLink from '@/Jetstream/DropdownLink.vue'
+import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
+import JetDangerButton from '@/Jetstream/DangerButton.vue'
+import JetInputError from '@/Jetstream/InputError.vue'
+import SubscriptionPromptModal from '@/Components/SubscriptionPromptModal.vue'
+import Icon from '@/Components/Icon.vue'
+import { Link } from '@inertiajs/inertia-vue3'
+import Draggable from 'vuedraggable'
+import { useForm, usePage } from '@inertiajs/inertia-vue3'
+import { Inertia } from '@inertiajs/inertia'
+import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
+import dayjs from 'dayjs'
+
+const props = defineProps(['collection'])
+
+const bullets = ref(props.collection.bullets)
+const processing = ref(false)
+const name = ref(props.collection.name)
+const type = ref(props.collection.type)
+const hideDone = ref(props.collection.hide_done)
+const drawer = ref(false)
+const confirmingClearDone = ref(false)
+const confirmingDeleteCollection = ref(false)
+const showingSubscriptionPrompt = ref(false)
+const addUserForm = useForm({
+    email: '',
+})
+const userBeingRemoved = ref(null)
+const removeUserForm = useForm()
+const contentUpdateAvailable = ref(false)
+const reloading = ref(false)
+
+const listenForUpdates = () => {
+    window.Echo
+        .private(`collection.${props.collection.id}`)
+        .listen('CollectionUpdated', () => {
+            if (document.visibilityState === 'hidden') {
+                reload()
+            } else {
+                contentUpdateAvailable.value = true
+            }
+        })
+
+    window.Echo.connector.pusher.connection.bind('reconnected', () => reload());
+
+    onUnmounted(() => {
+        window.Echo.leave(`collection.${props.collection.id}`)
+        window.Echo.connector.pusher.connection.unbind('reconnected')
+    })
+}
+
+const reloadWhenHiddenIfContentAvailable = () => {
+    const handler = (e) => {
+        if (document.visibilityState === 'hidden' && contentUpdateAvailable.value) {
+            reload()
+        }
+    }
+
+    document.addEventListener('visibilitychange', handler)
+
+    onUnmounted(() => document.removeEventListener('visibilitychange', handler))
+}
+
+const update = () => Inertia.patch(
+    route('c.update', props.collection.hashid),
+    {
+        name: name.value,
+        type: type.value,
+        hide_done: hideDone.value,
+    },
+    { preserveScroll: true, headers: { 'X-Socket-ID': Echo.socketId() } }
+)
+
+const storeBullet = (bullet) => new Promise((resolve, reject) => {
+    Inertia.post(
+        route('c.bullets.store', props.collection.hashid),
+        bullet,
+        {
+            preserveScroll: true,
+            headers: { 'X-Socket-ID': Echo.socketId() },
+            onSuccess: () => {
+                if (usePage().props.value.showSubscriptionPrompt) {
+                    showingSubscriptionPrompt.value = true
+                }
+                resolve()
+            },
+            onError: () => reject(),
+        }
+    )
+})
+
+const updateBullet = (bullet) => Inertia.patch(
+    route('c.bullets.update', [props.collection.hashid, bullet.id]),
+    bullet,
+    {
+        preserveScroll: true,
+        headers: { 'X-Socket-ID': Echo.socketId() },
+    }
+)
+
+const migrateBulletTo = (bullet, collection) => Inertia.put(
+    route('c.bullets.move', collection.hashid),
+    { id: bullet.id },
+    {
+        preserveScroll: true,
+        headers: { 'X-Socket-ID': Echo.socketId() },
+    }
+)
+
+const migrateBulletToDailyLog = (bullet) => Inertia.put(
+    route('daily-log.move'),
+    {
+        id: bullet.id,
+        date: dayjs().startOf('day').format('YYYY-MM-DD'),
+    },
+    {
+        preserveScroll: true,
+        headers: { 'X-Socket-ID': Echo.socketId() },
+    }
+)
+
+const deleteBullet = (bullet) => Inertia.delete(
+    route('c.bullets.destroy', [props.collection.hashid, bullet.id]),
+    {
+        preserveScroll: true,
+        headers: { 'X-Socket-ID': Echo.socketId() },
+    }
+)
+
+const clearDone = () => {
+    processing.value = true
+
+    Inertia.delete(
+        route('c.destroy-done', props.collection.hashid),
+        {
+            preserveScroll: true,
+            headers: { 'X-Socket-ID': Echo.socketId() },
+            onFinish: () => {
+                processing.value = false
+                confirmingClearDone.value = false
+            }
+        }
+    )
+}
+
+const deleteCollection = () => {
+    processing.value = true
+
+    Inertia.delete(
+        route('c.destroy', props.collection.hashid),
+        {
+            preserveScroll: true,
+            headers: { 'X-Socket-ID': Echo.socketId() },
+            onFinish: () => processing.value = false
+        }
+    )
+}
+
+const addUser = () => {
+    processing.value = true
+
+    Inertia.post(
+        route('c.users.store', props.collection.hashid),
+        { email: addUserEmail.value },
+        {
+            preserveScroll: true,
+            headers: { 'X-Socket-ID': Echo.socketId() },
+            onFinish: () => {
+                processing.value = false
+                addUserEmail.value = ''
+            }
+        }
+    )
+}
+
+const confirmUserRemoval = (user) => {
+    userBeingRemoved.value = user
+}
+
+const removeUser = () => removeUserForm.delete(
+    route('c.users.destroy',
+    [props.collection.hashid, userBeingRemoved.value]),
+    {
+        errorBag: 'removeUser',
+        preserveScroll: true,
+        preserveState: true,
+        onSuccess: () => (userBeingRemoved.value = null),
+    }
+)
+
+const reload = () => {
+    reloading.value = true
+
+    Inertia.reload({
+        only: ['collection'],
+        headers: { 'X-Socket-ID': Echo.socketId() },
+        onFinish: () => {
+            contentUpdateAvailable.value = false
+            nextTick(() => reloading.value = false)
+        }
+    })
+}
+
+const saveOrder = () => Inertia.put(
+    route('c.order.update', props.collection.hashid),
+    bullets.value.map(bullet => bullet.id),
+    {
+        preserveScroll: true,
+        headers: { 'X-Socket-ID': Echo.socketId() },
+    }
+)
+
+watch(name, update)
+watch(type, update)
+watch(hideDone, update)
+watch(() => props.collection.bullets, newBullets => bullets.value = newBullets)
+
+onMounted(() => {
+    listenForUpdates()
+    reloadWhenHiddenIfContentAvailable()
+})
+</script>
+
 <template>
-    <journal-layout>
+    <JournalLayout>
         <ContentUpdateNotification v-if="contentUpdateAvailable" :reloading="reloading" @reload="reload">
             Collection updated
         </ContentUpdateNotification>
 
         <div v-if="$page.props.collections.length === 1 && collection.bullets.length === 0" class="mb-10 leading-relaxed text-gray-600 dark:text-gray-300">
             <h1 class="text-xl font-semibold text-gray-700 dark:text-gray-300">
-                <Icon name="medium/clipboard" auto-size class="mr-1 text-gray-600 dark:text-gray-400" />
+                <Icon name="medium/clipboard" autosize class="mr-1 text-gray-600 dark:text-gray-400" />
                 Collections
             </h1>
             <p class="mt-4">Collections can be used for all sorts of things, such as:</p>
@@ -53,7 +283,7 @@
                         <Icon name="medium/share" class="w-6 h-6 md:w-5 md:h-5" />
                     </button>
 
-                    <jet-dropdown>
+                    <JetDropdown>
                         <template #trigger>
                             <button
                                 type="button"
@@ -77,20 +307,20 @@
                                 </label>
                             </div>
                             <div class="border-t border-gray-100 dark:border-gray-600"></div>
-                            <jet-dropdown-link as="button" @click.native="confirmingClearDone = true">
+                            <JetDropdownLink as="button" @click.native="confirmingClearDone = true">
                                 <svg class="-mt-px mr-1 h-4 w-4 inline-block text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                 </svg>
                                 Clear Done
-                            </jet-dropdown-link>
-                            <jet-dropdown-link as="button" @click.native="confirmingDeleteCollection = true">
+                            </JetDropdownLink>
+                            <JetDropdownLink as="button" @click.native="confirmingDeleteCollection = true">
                                 <svg class="-mt-px mr-1 h-4 w-4 inline-block text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                 </svg>
                                 Delete Collection
-                            </jet-dropdown-link>
+                            </JetDropdownLink>
                         </template>
-                    </jet-dropdown>
+                    </JetDropdown>
                 </div>
             </div>
 
@@ -144,48 +374,49 @@
                             </button>
                         </div>
 
-                        <jet-input-error for="email" :message="addUserForm.errors.email" class="mt-2" />
+                        <JetInputError for="email" :message="addUserForm.errors.email" class="mt-2" />
                     </form>
                 </div>
             </div>
         </div>
 
-        <draggable
-            v-model="collection.bullets"
+        <Draggable
+            v-model="bullets"
             handle=".drag-handle"
+            item-key="id"
             @update="saveOrder"
         >
-            <bullet
-                v-for="bullet in collection.bullets"
-                v-show="! bullet.complete || ! hideDone"
-                :key="bullet.id + bullet.updated_at"
-                :bullet="bullet"
-                :type="type"
-                :draggable="true"
-                @input="updateBullet"
-                @delete="deleteBullet"
-                @migrateTo="migrateBulletTo"
-                @migrateToDailyLog="migrateBulletToDailyLog"
-            >
-                <template #status>
-                    <Link
-                        v-if="bullet.date && bullet.user_id === $page.props.user.id"
-                        :href="route('daily-log.index')"
-                        title="Appears in daily log"
-                        class="inline-block md:-mt-1 -mb-1 p-2 rounded-md text-gray-400 dark:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 transition duration-150 ease-in-out"
-                        :class="[
-                            bullet.complete ? 'opacity-50' : ''
-                        ]"
-                    >
-                        <Icon name="medium/calendar" class="h-6 w-6 md:h-5 md:w-5" />
-                    </Link>
-                </template>
-            </bullet>
-        </draggable>
+            <template #item="{ element: bullet }">
+                <Bullet
+                    v-show="! bullet.complete || ! hideDone"
+                    :bullet="bullet"
+                    :type="type"
+                    :draggable="true"
+                    @input="updateBullet"
+                    @delete="deleteBullet"
+                    @migrateTo="migrateBulletTo"
+                    @migrateToDailyLog="migrateBulletToDailyLog"
+                >
+                    <template #status>
+                        <Link
+                            v-if="bullet.date && bullet.user_id === $page.props.user.id"
+                            :href="route('daily-log.index')"
+                            title="Appears in daily log"
+                            class="inline-block md:-mt-1 -mb-1 p-2 rounded-md text-gray-400 dark:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 transition duration-150 ease-in-out"
+                            :class="[
+                                bullet.complete ? 'opacity-50' : ''
+                            ]"
+                        >
+                            <Icon name="medium/calendar" class="h-6 w-6 md:h-5 md:w-5" />
+                        </Link>
+                    </template>
+                </Bullet>
+            </template>
+        </Draggable>
 
-        <new-bullet @input="storeBullet" />
+        <NewBullet @input="storeBullet" />
 
-        <jet-confirmation-modal :show="confirmingClearDone" @close="confirmingClearDone = false">
+        <JetConfirmationModal :show="confirmingClearDone" @close="confirmingClearDone = false">
             <template #title>
                 Clear Done
             </template>
@@ -193,17 +424,17 @@
                 Are you sure you want to clear all complete items?
             </template>
             <template #footer>
-                <jet-secondary-button @click.native="confirmingClearDone = false">
+                <JetSecondaryButton @click.native="confirmingClearDone = false">
                     Nevermind
-                </jet-secondary-button>
+                </JetSecondaryButton>
 
-                <jet-danger-button class="ml-2" @click.native="clearDone" :class="{ 'opacity-25': processing }" :disabled="processing">
+                <JetDangerButton class="ml-2" @click.native="clearDone" :class="{ 'opacity-25': processing }" :disabled="processing">
                     Clear Done
-                </jet-danger-button>
+                </JetDangerButton>
             </template>
-        </jet-confirmation-modal>
+        </JetConfirmationModal>
 
-        <jet-confirmation-modal :show="confirmingDeleteCollection" @close="confirmingDeleteCollection = false">
+        <JetConfirmationModal :show="confirmingDeleteCollection" @close="confirmingDeleteCollection = false">
             <template #title>
                 Delete Collection
             </template>
@@ -219,9 +450,9 @@
                     Delete Collection
                 </jet-danger-button>
             </template>
-        </jet-confirmation-modal>
+        </JetConfirmationModal>
 
-        <jet-confirmation-modal :show="userBeingRemoved" @close="userBeingRemoved = null">
+        <JetConfirmationModal :show="userBeingRemoved !== null" @close="userBeingRemoved = null">
             <template #title>
                 Remove User
             </template>
@@ -229,269 +460,16 @@
                 Are you sure you want to remove this user?
             </template>
             <template #footer>
-                <jet-secondary-button @click.native="userBeingRemoved = null">
+                <JetSecondaryButton @click.native="userBeingRemoved = null">
                     Nevermind
-                </jet-secondary-button>
+                </JetSecondaryButton>
 
-                <jet-danger-button class="ml-2" @click.native="removeUser" :class="{ 'opacity-25': removeUserForm.processing }" :disabled="removeUserForm.processing">
+                <JetDangerButton class="ml-2" @click.native="removeUser" :class="{ 'opacity-25': removeUserForm.processing }" :disabled="removeUserForm.processing">
                     Remove User
-                </jet-danger-button>
+                </JetDangerButton>
             </template>
-        </jet-confirmation-modal>
+        </JetConfirmationModal>
 
-        <subscription-prompt-modal :show="showingSubscriptionPrompt" @close="showingSubscriptionPrompt = false" />
-    </journal-layout>
+        <SubscriptionPromptModal :show="showingSubscriptionPrompt" @close="showingSubscriptionPrompt = false" />
+    </JournalLayout>
 </template>
-
-<script>
-import JournalLayout from '@/Layouts/JournalLayout'
-import Bullet from '@/Components/Bullet'
-import ContentUpdateNotification from '@/Components/ContentUpdateNotification'
-import NewBullet from '@/Components/NewBullet'
-import JetConfirmationModal from '@/Jetstream/ConfirmationModal'
-import JetDropdown from '@/Jetstream/Dropdown'
-import JetDropdownLink from '@/Jetstream/DropdownLink'
-import JetSecondaryButton from '@/Jetstream/SecondaryButton'
-import JetDangerButton from '@/Jetstream/DangerButton'
-import JetInputError from '@/Jetstream/InputError'
-import SubscriptionPromptModal from '@/Components/SubscriptionPromptModal'
-import Icon from '@/Components/Icon'
-import { Link } from '@inertiajs/inertia-vue'
-import draggable from 'vuedraggable'
-
-export default {
-    components: {
-        draggable,
-        Bullet,
-        ContentUpdateNotification,
-        JournalLayout,
-        Link,
-        NewBullet,
-        JetConfirmationModal,
-        JetDropdown,
-        JetDropdownLink,
-        JetSecondaryButton,
-        JetDangerButton,
-        JetInputError,
-        SubscriptionPromptModal,
-        Icon,
-    },
-
-    props: ['collection'],
-
-    data() {
-        return {
-            processing: false,
-            name: this.collection.name,
-            type: this.collection.type,
-            hideDone: this.collection.hide_done,
-            drawer: false,
-            confirmingClearDone: false,
-            confirmingDeleteCollection: false,
-            showingSubscriptionPrompt: false,
-
-            addUserForm: this.$inertia.form({
-                email: '',
-            }),
-
-            userBeingRemoved: null,
-            removeUserForm: this.$inertia.form(),
-            contentUpdateAvailable: false,
-            reloading: false,
-        }
-    },
-
-    watch: {
-        name() {
-            this.update()
-        },
-        type() {
-            this.update()
-        },
-        hideDone() {
-            this.update()
-        }
-    },
-
-    mounted() {
-        this.listenForUpdates()
-        this.reloadWhenHiddenIfContentAvailable()
-    },
-
-    methods: {
-        listenForUpdates() {
-            window.Echo
-                .private(`collection.${this.collection.id}`)
-                .listen('CollectionUpdated', () => {
-                    if (document.visibilityState === 'hidden') {
-                        this.reload()
-                    } else {
-                        this.contentUpdateAvailable = true
-                    }
-                })
-
-            window.Echo.connector.pusher.connection.bind('reconnected', () => this.reload());
-
-            this.$once('hook:destroyed', () => {
-                window.Echo.leave(`collection.${this.collection.id}`)
-                window.Echo.connector.pusher.connection.unbind('reconnected')
-            })
-        },
-
-        reloadWhenHiddenIfContentAvailable() {
-            const handler = (e) => {
-                if (document.visibilityState === 'hidden' && this.contentUpdateAvailable) {
-                    this.reload()
-                }
-            }
-
-            document.addEventListener('visibilitychange', handler)
-
-            this.$once('hook:destroyed', () => document.removeEventListener('visibilitychange', handler))
-        },
-
-        update() {
-            this.$inertia.patch(
-                route('c.update', this.collection.hashid),
-                {
-                    name: this.name,
-                    type: this.type,
-                    hide_done: this.hideDone,
-                },
-                { preserveScroll: true, headers: { 'X-Socket-ID': Echo.socketId() } }
-            )
-        },
-
-        storeBullet(bullet) {
-            return new Promise((resolve, reject) => {
-                this.$inertia.post(
-                    route('c.bullets.store', this.collection.hashid),
-                    bullet,
-                    {
-                        preserveScroll: true,
-                        headers: { 'X-Socket-ID': Echo.socketId() },
-                        onSuccess: () => {
-                            if (this.$page.props.showSubscriptionPrompt) {
-                                this.showingSubscriptionPrompt = true
-                            }
-                            resolve()
-                        },
-                        onError: () => reject(),
-                    }
-                )
-            })
-        },
-
-        updateBullet(bullet) {
-            this.$inertia.patch(
-                route('c.bullets.update', [this.collection.hashid, bullet.id]),
-                bullet,
-                { preserveScroll: true, headers: { 'X-Socket-ID': Echo.socketId() } }
-            )
-        },
-
-        migrateBulletTo(bullet, collection) {
-            this.$inertia.put(
-                route('c.bullets.move', collection.hashid),
-                { id: bullet.id },
-                { preserveScroll: true, headers: { 'X-Socket-ID': Echo.socketId() } }
-            )
-        },
-
-        migrateBulletToDailyLog(bullet) {
-            this.$inertia.put(
-                route('daily-log.move'),
-                { id: bullet.id, date: this.$today().format('YYYY-MM-DD') },
-                { preserveScroll: true, headers: { 'X-Socket-ID': Echo.socketId() } }
-            )
-        },
-
-        deleteBullet(bullet) {
-            this.$inertia.delete(
-                route('c.bullets.destroy', [this.collection.hashid, bullet.id]),
-                { preserveScroll: true, headers: { 'X-Socket-ID': Echo.socketId() } }
-            )
-        },
-
-        clearDone() {
-            this.processing = true
-            this.$inertia.delete(
-                route('c.destroy-done', this.collection.hashid),
-                {
-                    preserveScroll: true,
-                    headers: { 'X-Socket-ID': Echo.socketId() },
-                    onFinish: () => {
-                        this.processing = false
-                        this.confirmingClearDone = false
-                    }
-                }
-            )
-        },
-
-        deleteCollection() {
-            this.processing = true
-            this.$inertia.delete(
-                route('c.destroy', this.collection.hashid),
-                {
-                    preserveScroll: true,
-                    headers: { 'X-Socket-ID': Echo.socketId() },
-                    onFinish: () => this.processing = false
-                }
-            )
-        },
-
-        addUser() {
-            this.processing = true
-            this.$inertia.post(
-                route('c.users.store', this.collection.hashid),
-                { email: this.addUserEmail },
-                {
-                    preserveScroll: true,
-                    headers: { 'X-Socket-ID': Echo.socketId() },
-                    onFinish: () => {
-                        this.processing = false
-                        this.addUserEmail = ''
-                    }
-                }
-            )
-        },
-
-        confirmUserRemoval(user) {
-            this.userBeingRemoved = user
-        },
-
-        removeUser() {
-            this.removeUserForm.delete(route('c.users.destroy', [this.collection.hashid, this.userBeingRemoved]), {
-                errorBag: 'removeUser',
-                preserveScroll: true,
-                preserveState: true,
-                onSuccess: () => (this.userBeingRemoved = null),
-            })
-        },
-
-        reload() {
-            this.reloading = true
-
-            this.$inertia.reload({
-                only: ['collection'],
-                headers: { 'X-Socket-ID': Echo.socketId() },
-                onFinish: () => {
-                    this.contentUpdateAvailable = false
-                    this.$nextTick(() => this.reloading = false)
-                }
-            })
-        },
-
-        saveOrder() {
-            this.$inertia.put(
-                route('c.order.update', this.collection.hashid),
-                this.collection.bullets.map(bullet => bullet.id),
-                {
-                    preserveScroll: true,
-                    headers: { 'X-Socket-ID': Echo.socketId() },
-                }
-            )
-        }
-    }
-}
-</script>

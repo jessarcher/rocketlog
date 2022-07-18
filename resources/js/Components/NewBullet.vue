@@ -1,90 +1,90 @@
-<template>
-    <form
-        @submit.prevent="create"
-        class="py-1 md:py-2 border-b border-gray-200 dark:border-gray-700 flex"
-    >
-        <div class="border border-transparent flex-shrink-0">
-            <div class="relative h-10 w-10 md:h-8 md:w-8 flex items-center justify-center">
-                <div v-show="creating" class="absolute inset-0 border border-transparent flex items-center justify-center">
-                    <Icon name="medium/spinner" class="h-10 w-10 md:h-8 md:w-8 animate-spin text-gray-400" />
-                </div>
-                <icon name="small/bullet" class="h-5 w-5 text-gray-200 dark:text-gray-700" />
-            </div>
-        </div>
-
-        <div class="flex-1">
-            <textarea
-                v-model="name"
-                ref="name"
-                :disabled="creating"
-                class="w-full p-2 md:p-1 text-gray-900 dark:text-gray-100 overflow-hidden bg-transparent border-none disabled:opacity-50 placeholder-gray-300 dark:placeholder-gray-600 focus:ring-0"
-                style="resize: none; height: 1em;"
-                rows="1"
-                maxlength="255"
-                placeholder="Unburden your mind..."
-                @keydown.up="up"
-                @keydown.down="down"
-                @keydown.enter.exact.prevent="create"
-                @blur="create"
-            ></textarea>
-        </div>
-    </form>
-</template>
-
-<script>
+<script setup>
 import autosize from 'autosize'
-import Icon from '@/Components/Icon'
+import { nextTick, onMounted, ref } from 'vue'
+import Icon from '@/Components/Icon.vue'
 
-export default {
-    components: {
-        Icon,
-    },
+const props = defineProps(['onInput'])
 
-    data() {
-        return {
-            creating: false,
-            name: '',
-        }
-    },
+const emit = defineEmits(['up', 'down'])
 
-    mounted() {
-        autosize(this.$refs.name)
-    },
+const creating = ref(false)
+const name = ref('')
 
-    methods: {
-        async create(event) {
-            if (event.target.value.trim() === '' || this.creating) {
-                return
-            }
+const nameInput = ref(null)
 
-            this.creating = true;
+onMounted(() => autosize(nameInput.value))
 
-            await this.$listeners.input({ name: this.name })
+const create = async (event) => {
+  if (event.target.value.trim() === '' || creating.value) {
+    return
+  }
 
-            this.name = '';
-            this.creating = false;
+  creating.value = true
 
-            this.$nextTick(() => {
-                autosize.update(this.$refs.name)
-                this.$refs.name.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
-            })
-        },
+  await props.onInput({ name: name.value })
 
-        up() {
-            if (this.$refs.name.selectionStart === 0 && this.$refs.name.selectionStart === 0) {
-                this.$emit('up')
-            }
-        },
+  name.value = ''
+  creating.value = false
 
-        down() {
-            if (this.$refs.name.selectionStart === this.$refs.name.value.length && this.$refs.name.selectionStart === this.$refs.name.value.length) {
-                this.$emit('down')
-            }
-        },
-
-        focus() {
-            this.$refs.name.focus()
-        },
-    },
+  nextTick(() => {
+    autosize.update(nameInput.value)
+    nameInput.value.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+  })
 }
+
+const up = () => {
+  if (nameInput.value.selectionStart === 0 && nameInput.value.selectionStart === 0) {
+    emit('up')
+  }
+}
+
+const down = () => {
+  if (nameInput.value.selectionStart === nameInput.value.value.length && nameInput.value.selectionStart === nameInput.value.value.length) {
+    emit('down')
+  }
+}
+
+defineExpose({ focus: () => nameInput.value.focus() })
 </script>
+
+<template>
+  <form
+    class="py-1 md:py-2 border-b border-gray-200 dark:border-gray-700 flex"
+    @submit.prevent="create"
+  >
+    <div class="border border-transparent flex-shrink-0">
+      <div class="relative h-10 w-10 md:h-8 md:w-8 flex items-center justify-center">
+        <div
+          v-show="creating"
+          class="absolute inset-0 border border-transparent flex items-center justify-center"
+        >
+          <Icon
+            name="medium/spinner"
+            class="h-10 w-10 md:h-8 md:w-8 animate-spin text-gray-400"
+          />
+        </div>
+        <Icon
+          name="small/bullet"
+          class="h-5 w-5 text-gray-200 dark:text-gray-700"
+        />
+      </div>
+    </div>
+
+    <div class="flex-1">
+      <textarea
+        ref="nameInput"
+        v-model="name"
+        :disabled="creating"
+        class="w-full p-2 md:p-1 text-gray-900 dark:text-gray-100 overflow-hidden bg-transparent border-none disabled:opacity-50 placeholder-gray-300 dark:placeholder-gray-600 focus:ring-0"
+        style="resize: none; height: 1em;"
+        rows="1"
+        maxlength="255"
+        placeholder="Unburden your mind..."
+        @keydown.up="up"
+        @keydown.down="down"
+        @keydown.enter.exact.prevent="create"
+        @blur="create"
+      />
+    </div>
+  </form>
+</template>

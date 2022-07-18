@@ -1,12 +1,146 @@
+<script setup>
+import JournalLayout from '@/Layouts/JournalLayout.vue'
+import Bullet from '@/Components/Bullet.vue'
+import ContentUpdateNotification from '@/Components/ContentUpdateNotification.vue'
+import NewBullet from '@/Components/NewBullet.vue'
+import SubscriptionPromptModal from '@/Components/SubscriptionPromptModal.vue'
+import Icon from '@/Components/Icon.vue'
+import { Link } from '@inertiajs/inertia-vue3'
+import { computed, nextTick, onMounted, onUnmounted, ref } from 'vue'
+import { usePage } from '@inertiajs/inertia-vue3'
+import { Inertia } from '@inertiajs/inertia'
+import dayjs from 'dayjs'
+
+const props = defineProps(['days'])
+
+const today = ref(dayjs().startOf('day'))
+const showingSubscriptionPrompt = ref(false)
+const contentUpdateAvailable = ref(false)
+const reloading = ref(false)
+
+const daysIncludingToday = computed(() => {
+    if (props.days.length > 0 && ! today.value.isAfter(dayjs(props.days[0].date))) {
+        return props.days
+    }
+
+    return [
+        { date: today.value.format('YYYY-MM-DD'), bullets: [] },
+        ...props.days.slice(0, 5)
+    ]
+})
+
+onMounted(() => {
+    setToday()
+    listenForUpdates()
+    reloadWhenHiddenIfContentAvailable()
+})
+
+const setToday = () => {
+    const todayInterval = setInterval(() => {
+        if (! today.value.isSame(dayjs().startOf('day'))) {
+            today.value = dayjs.startOf('day')
+        }
+    }, 1000)
+
+    onUnmounted(() => clearInterval(todayInterval))
+}
+
+const listenForUpdates = () => {
+    const userId = usePage().props.value.user.id
+    window.Echo
+        .private(`user.${userId}`)
+        .listen('DailyLogUpdated', (e) => {
+            if (document.visibilityState === 'hidden' || !document.hasFocus()) {
+                reload()
+            } else {
+                contentUpdateAvailable.value = true
+            }
+        })
+
+    window.Echo.connector.pusher.connection.bind('reconnected', () => reload())
+
+    onUnmounted(() => {
+        window.Echo.leave(`user.${userId}`)
+        window.Echo.connector.pusher.connection.unbind('reconnected')
+    })
+}
+
+const reloadWhenHiddenIfContentAvailable = () => {
+    const handler = (e) => {
+        if (document.visibilityState === 'hidden' && contentUpdateAvailable.value) {
+            reload()
+        }
+    }
+
+    document.addEventListener('visibilitychange', handler)
+
+    onUnmounted(() => document.removeEventListener('visibilitychange', handler))
+}
+
+const storeBullet = (bullet) => new Promise((resolve, reject) => {
+    Inertia.post(
+        route('daily-log.store'),
+        { ...bullet, date: dayjs().startOf('day').format('YYYY-MM-DD') },
+        {
+            preserveScroll: true,
+            headers: { 'X-Socket-ID': Echo.socketId() },
+            onSuccess: () => {
+                if (props.showSubscriptionPrompt) {
+                    showingSubscriptionPrompt.value = true
+                }
+                resolve()
+            },
+            onError: () => reject(),
+        }
+    )
+})
+
+const updateBullet = (bullet) => Inertia.patch(
+    route('daily-log.update', bullet.id),
+    bullet,
+    { preserveScroll: true, headers: { 'X-Socket-ID': Echo.socketId() } }
+)
+
+const deleteBullet = (bullet) => Inertia.delete(
+    route('daily-log.destroy', bullet.id),
+    { preserveScroll: true, headers: { 'X-Socket-ID': Echo.socketId() } }
+)
+
+const migrateBullet = (bullet) => Inertia.patch(
+    route('daily-log.update', bullet.id),
+    { date: dayjs().startOf('day').format('YYYY-MM-DD') },
+    { preserveScroll: true, headers: { 'X-Socket-ID': Echo.socketId() } }
+)
+
+const migrateBulletTo = (bullet, collection) => Inertia.put(
+    route('c.bullets.move', collection.hashid),
+    { id: bullet.id },
+    { preserveScroll: true, headers: { 'X-Socket-ID': Echo.socketId() } }
+)
+
+const reload = () => {
+    reloading.value = true
+
+    Inertia.reload({
+        only: ['days'],
+        onFinish: () => {
+            contentUpdateAvailable.value = false
+            nextTick(() => reloading.value = false)
+        },
+        headers: { 'X-Socket-ID': Echo.socketId() },
+    })
+}
+</script>
+
 <template>
-    <journal-layout>
+    <JournalLayout>
         <ContentUpdateNotification v-if="contentUpdateAvailable" :reloading="reloading" @reload="reload">
             Daily log updated
         </ContentUpdateNotification>
 
         <div v-if="days.length === 0" class="mb-10 leading-relaxed text-gray-600 dark:text-gray-300">
             <h1 class="text-xl font-semibold text-gray-700 dark:text-gray-300">
-                <Icon name="medium/calendar" auto-size class="mr-1 text-gray-600 dark:text-gray-400" />
+                <Icon name="medium/calendar" autosize class="mr-1 text-gray-600 dark:text-gray-400" />
                 Daily Log
             </h1>
             <p class="mt-4">Add the tasks you would like to get done.</p>
@@ -24,10 +158,10 @@
                     'opacity-30': i === 5,
                 }"
             >
-                {{ $date(day.date).format('ddd, MMM D') }}
+                {{ dayjs(day.date).format('ddd, MMM D') }}
             </h2>
 
-            <bullet
+            <Bullet
                 v-for="bullet in day.bullets"
                 :key="bullet.id + bullet.updated_at"
                 :bullet="bullet"
@@ -55,170 +189,11 @@
                         {{ $page.props.collections.find(collection => collection.id === bullet.collection_id).name }}
                     </Link>
                 </template>
-            </bullet>
+            </Bullet>
 
-            <new-bullet v-if="i == 0" @input="storeBullet" />
+            <NewBullet v-if="i == 0" @input="storeBullet" />
         </div>
 
-        <subscription-prompt-modal :show="showingSubscriptionPrompt" @close="showingSubscriptionPrompt = false" />
-    </journal-layout>
+        <SubscriptionPromptModal :show="showingSubscriptionPrompt" @close="showingSubscriptionPrompt = false" />
+    </JournalLayout>
 </template>
-
-<script>
-    import JournalLayout from '@/Layouts/JournalLayout'
-    import Bullet from '@/Components/Bullet'
-    import ContentUpdateNotification from '@/Components/ContentUpdateNotification'
-    import NewBullet from '@/Components/NewBullet'
-    import SubscriptionPromptModal from '@/Components/SubscriptionPromptModal'
-    import Icon from '@/Components/Icon'
-    import { Link } from '@inertiajs/inertia-vue'
-
-    export default {
-        components: {
-            Bullet,
-            ContentUpdateNotification,
-            JournalLayout,
-            Link,
-            NewBullet,
-            SubscriptionPromptModal,
-            Icon,
-        },
-
-        props: ['days'],
-
-        data() {
-            return {
-                today: this.$today(),
-                showingSubscriptionPrompt: false,
-                contentUpdateAvailable: false,
-                reloading: false,
-            }
-        },
-
-        computed: {
-            daysIncludingToday() {
-                if (this.days.length > 0 && ! this.today.isAfter(this.$date(this.days[0].date))) {
-                    return this.days
-                }
-
-                return [
-                    { date: this.today.format('YYYY-MM-DD'), bullets: [] },
-                    ...this.days.slice(0, 5)
-                ]
-            }
-        },
-
-        mounted() {
-            this.setToday()
-            this.listenForUpdates()
-            this.reloadWhenHiddenIfContentAvailable()
-        },
-
-        methods: {
-            setToday() {
-                const todayInterval = setInterval(() => {
-                    if (! this.today.isSame(this.$today())) {
-                        this.today = this.$today()
-                    }
-                }, 1000)
-
-                this.$once('hook:destroyed', () => clearInterval(todayInterval))
-            },
-
-            listenForUpdates() {
-                window.Echo
-                    .private(`user.${this.$page.props.user.id}`)
-                    .listen('DailyLogUpdated', (e) => {
-                        if (document.visibilityState === 'hidden' || !document.hasFocus()) {
-                            this.reload()
-                        } else {
-                            this.contentUpdateAvailable = true
-                        }
-                    })
-
-                window.Echo.connector.pusher.connection.bind('reconnected', () => this.reload());
-
-                this.$once('hook:destroyed', () => {
-                    window.Echo.leave(`user.${this.$page.props.user.id}`)
-                    window.Echo.connector.pusher.connection.unbind('reconnected')
-                })
-            },
-
-            reloadWhenHiddenIfContentAvailable() {
-                const handler = (e) => {
-                    if (document.visibilityState === 'hidden' && this.contentUpdateAvailable) {
-                        this.reload()
-                    }
-                }
-
-                document.addEventListener('visibilitychange', handler)
-
-                this.$once('hook:destroyed', () => document.removeEventListener('visibilitychange', handler))
-            },
-
-            storeBullet(bullet) {
-                return new Promise((resolve, reject) => {
-                    this.$inertia.post(
-                        route('daily-log.store'),
-                        { ...bullet, date: this.$today().format('YYYY-MM-DD') },
-                        {
-                            preserveScroll: true,
-                            headers: { 'X-Socket-ID': Echo.socketId() },
-                            onSuccess: () => {
-                                if (this.$page.props.showSubscriptionPrompt) {
-                                    this.showingSubscriptionPrompt = true
-                                }
-                                resolve()
-                            },
-                            onError: () => reject(),
-                        }
-                    )
-                })
-            },
-
-            updateBullet(bullet) {
-                this.$inertia.patch(
-                    route('daily-log.update', bullet.id),
-                    bullet,
-                    { preserveScroll: true, headers: { 'X-Socket-ID': Echo.socketId() } }
-                )
-            },
-
-            deleteBullet(bullet) {
-                this.$inertia.delete(
-                    route('daily-log.destroy', bullet.id),
-                    { preserveScroll: true, headers: { 'X-Socket-ID': Echo.socketId() } }
-                )
-            },
-
-            migrateBullet(bullet) {
-                this.$inertia.patch(
-                    route('daily-log.update', bullet.id),
-                    { date: this.$today().format('YYYY-MM-DD') },
-                    { preserveScroll: true, headers: { 'X-Socket-ID': Echo.socketId() } }
-                )
-            },
-
-            migrateBulletTo(bullet, collection) {
-                this.$inertia.put(
-                    route('c.bullets.move', collection.hashid),
-                    { id: bullet.id },
-                    { preserveScroll: true, headers: { 'X-Socket-ID': Echo.socketId() } }
-                )
-            },
-
-            reload() {
-                this.reloading = true;
-
-                this.$inertia.reload({
-                    only: ['days'],
-                    onFinish: () => {
-                        this.contentUpdateAvailable = false
-                        this.$nextTick(() => this.reloading = false)
-                    },
-                    headers: { 'X-Socket-ID': Echo.socketId() },
-                })
-            },
-        },
-    }
-</script>

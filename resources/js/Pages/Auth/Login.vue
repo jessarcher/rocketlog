@@ -1,3 +1,34 @@
+<script setup>
+import { Link, useForm } from '@inertiajs/inertia-vue3'
+import JetAuthenticationCard from '@/Jetstream/AuthenticationCard.vue'
+import JetAuthenticationCardLogo from '@/Jetstream/AuthenticationCardLogo.vue'
+import JetButton from '@/Jetstream/Button.vue'
+import JetInput from '@/Jetstream/Input.vue'
+import JetCheckbox from '@/Jetstream/Checkbox.vue'
+import JetLabel from '@/Jetstream/Label.vue'
+import JetValidationErrors from '@/Jetstream/ValidationErrors.vue'
+
+defineProps({
+    canResetPassword: Boolean,
+    status: String
+})
+
+const form = useForm({
+    email: '',
+    password: '',
+    remember: false
+})
+
+const submit = () => {
+    form.transform(data => ({
+        ... data,
+        remember: form.remember ? 'on' : ''
+    })).post(route('login'), {
+        onFinish: () => form.reset('password'),
+    })
+}
+</script>
+
 <template>
     <jet-authentication-card>
         <template #logo>
@@ -40,55 +71,3 @@
         </form>
     </jet-authentication-card>
 </template>
-
-<script>
-    import JetAuthenticationCard from '@/Jetstream/AuthenticationCard'
-    import JetAuthenticationCardLogo from '@/Jetstream/AuthenticationCardLogo'
-    import JetButton from '@/Jetstream/Button'
-    import JetInput from '@/Jetstream/Input'
-    import JetCheckbox from '@/Jetstream/Checkbox'
-    import JetLabel from '@/Jetstream/Label'
-    import JetValidationErrors from '@/Jetstream/ValidationErrors'
-    import { Link } from '@inertiajs/inertia-vue'
-
-    export default {
-        components: {
-            JetAuthenticationCard,
-            JetAuthenticationCardLogo,
-            JetButton,
-            JetInput,
-            JetCheckbox,
-            JetLabel,
-            JetValidationErrors,
-            Link,
-        },
-
-        props: {
-            canResetPassword: Boolean,
-            status: String
-        },
-
-        data() {
-            return {
-                form: this.$inertia.form({
-                    email: '',
-                    password: '',
-                    remember: false
-                })
-            }
-        },
-
-        methods: {
-            submit() {
-                this.form
-                    .transform(data => ({
-                        ... data,
-                        remember: this.form.remember ? 'on' : ''
-                    }))
-                    .post(this.route('login'), {
-                        onFinish: () => this.form.reset('password'),
-                    })
-            }
-        }
-    }
-</script>

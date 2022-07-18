@@ -1,60 +1,42 @@
-require('./bootstrap');
+import './bootstrap'
+import '../css/app.css'
 
-// Import modules...
-import Vue from 'vue';
-import { App as InertiaApp, plugin as InertiaPlugin } from '@inertiajs/inertia-vue';
+import { createApp, h } from 'vue'
+import { createInertiaApp } from '@inertiajs/inertia-vue3'
+import { Inertia } from '@inertiajs/inertia'
 import { InertiaProgress } from '@inertiajs/progress'
-import PortalVue from 'portal-vue';
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
+import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import * as Sentry from '@sentry/vue';
-import {Integrations} from '@sentry/tracing';
-import { Inertia } from '@inertiajs/inertia';
+import { Integrations } from '@sentry/tracing';
+import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m'
 
-Sentry.init({
-    Vue,
-    dsn: process.env.MIX_SENTRY_VUE_DSN,
-    integrations: [new Integrations.BrowserTracing()],
+createInertiaApp({
+    title: (title) => `${title} - ${appName}`,
+    resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue')),
+    setup({ el, app, props, plugin }) {
+        const vue = createApp({ render: () => h(app, props) })
+            .use(plugin)
+            .use(ZiggyVue, Ziggy)
 
-    // We recommend adjusting this value in production, or using tracesSampler
-    // for finer control
-    tracesSampleRate: 1.0,
+        Sentry.init({
+            vue,
+            dsn: import.meta.env.VITE_SENTRY_VUE_DSN,
+            integrations: [new Integrations.BrowserTracing()],
 
-    logErrors: true,
-});
+            // We recommend adjusting this value in production, or using tracesSampler
+            // for finer control
+            tracesSampleRate: 1.0,
 
-InertiaProgress.init({
-    color: '#8B5CF6',
+            logErrors: true,
+        });
+
+        vue.mount(el);
+
+        return vue;
+    },
 })
 
-dayjs.extend(utc);
-
-Vue.mixin({ methods: { route } });
-Vue.use(InertiaPlugin);
-Vue.use(PortalVue);
-Vue.mixin({ methods: {
-    $utc(date) {
-        return dayjs.utc(date)
-    },
-    $date(date) {
-        return dayjs(date)
-    },
-    $today() {
-        return dayjs().startOf('day')
-    },
-}});
-
-const app = document.getElementById('app');
-
-new Vue({
-    render: (h) =>
-        h(InertiaApp, {
-            props: {
-                initialPage: JSON.parse(app.dataset.page),
-                resolveComponent: (name) => require(`./Pages/${name}`).default,
-            },
-        }),
-}).$mount(app);
+InertiaProgress.init({ color: '#8B5CF6' })
 
 Inertia.on('navigate', () => {
     if (typeof window.fathom !== 'undefined') {
