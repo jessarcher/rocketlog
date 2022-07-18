@@ -1,5 +1,5 @@
 <script setup>
-import { onUnmounted, ref, watchEffect } from 'vue'
+import { onUnmounted, ref, watch } from 'vue'
 import { Inertia } from '@inertiajs/inertia'
 import { Link } from '@inertiajs/inertia-vue3'
 import JetBanner from '@/Jetstream/Banner.vue'
@@ -34,7 +34,7 @@ const setTheme = (newTheme) => {
 
 const toggleTheme = () => setTheme(theme.value === 'dark' ? 'light' : 'dark')
 
-watchEffect(showingNavigationDropdown, (show) => {
+watch(showingNavigationDropdown, (show) => {
   if (show) {
     document.body.style.overflow = 'hidden'
   } else {
