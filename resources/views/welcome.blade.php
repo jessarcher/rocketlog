@@ -59,7 +59,7 @@
             </div>
         </div>
 
-        <div class="mt-20 prose prose-lg text-gray-500 dark:prose-dark dark:text-gray-400">
+        <div class="mt-20 prose prose-lg text-gray-500 dark:prose-invert dark:text-gray-400">
             <h3>Why another todo list?</h3>
             <p><strong>RocketLog is not your average todo list. It's a fan-letter to bullet-journalling, rapid-logging, and task migration.</strong></p>
             <p>Many of the limitations of a paper journal are what make them so good for focus and prioritisation.</p>
@@ -70,7 +70,7 @@
 
     <div class="px-4 md:p-10 max-w-3xl lg:max-w-5xl mx-auto">
         <div class="lg:flex">
-            <div class="lg:w-3/5 lg:pr-10 prose prose-lg text-gray-500 dark:prose-dark dark:text-gray-400">
+            <div class="lg:w-3/5 lg:pr-10 prose prose-lg text-gray-500 dark:prose-invert dark:text-gray-400">
                 <h3>How does it work?</h3>
                 <p>As you add new tasks to your todo list, the older incomplete tasks naturally fall out of view, unless you migrate them forward.</p>
                 <p><strong>This naturally causes you to reassess what's still important versus what only felt important at the time.</strong></p>
@@ -250,7 +250,7 @@
             </li>
         </ul>
 
-        <div class="mt-20 prose prose-lg text-gray-500 dark:prose-dark dark:text-gray-400">
+        <div class="mt-20 prose prose-lg text-gray-500 dark:prose-invert dark:text-gray-400">
             <h3>RocketLog respects your privacy and freedom</h3>
             <p>The RocketLog software project is open-source and free to self-host. We believe in maintaining the privacy of <em>your</em> data. We believe that you should be free to see "under the hood" of the software you use, and be able modify it if you see fit.</p>
 

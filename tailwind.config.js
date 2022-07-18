@@ -2,6 +2,7 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 
 let colors = require('tailwindcss/colors')
 
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     './vendor/laravel/jetstream/**/*.blade.php',
