@@ -13,7 +13,7 @@ import { Inertia } from '@inertiajs/inertia';
 
 Sentry.init({
     Vue,
-    dsn: process.env.MIX_SENTRY_VUE_DSN,
+    dsn: import.meta.env.VITE_SENTRY_VUE_DSN,
     integrations: [new Integrations.BrowserTracing()],
 
     // We recommend adjusting this value in production, or using tracesSampler

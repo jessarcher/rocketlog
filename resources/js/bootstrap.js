@@ -25,12 +25,12 @@ window.Pusher = Pusher;
 
 window.Echo = new Echo({
     broadcaster: 'pusher',
-    key: process.env.MIX_PUSHER_APP_KEY,
+    key: import.meta.env.VITE_PUSHER_APP_KEY,
     wsHost: window.location.hostname,
-    wsPort: process.env.MIX_APP_ENV === 'local' ? 6001 : 2053,
-    wssPort: process.env.MIX_APP_ENV === 'local' ? 6001 : 2053,
-    cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-    forceTLS: process.env.MIX_APP_ENV !== 'local',
+    wsPort: import.meta.env.VITE_APP_ENV === 'local' ? 6001 : 2053,
+    wssPort: import.meta.env.VITE_APP_ENV === 'local' ? 6001 : 2053,
+    cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER,
+    forceTLS: import.meta.env.VITE_APP_ENV !== 'local',
     enabledTransports: ['ws'],
 });
 
