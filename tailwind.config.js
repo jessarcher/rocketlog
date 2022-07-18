@@ -1,5 +1,7 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 
+let colors = require('tailwindcss/colors')
+
 module.exports = {
   content: [
     './vendor/laravel/jetstream/**/*.blade.php',
@@ -16,6 +18,10 @@ module.exports = {
       },
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+      },
+      colors: {
+        green: colors.emerald,
+        purple: colors.violet,
       },
     },
   },
