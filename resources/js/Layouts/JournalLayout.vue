@@ -36,9 +36,9 @@
 </template>
 
 <script>
-    import AppLayout from './AppLayout'
-    import JetButton from '@/Jetstream/Button'
-    import Index from '@/Components/Index'
+    import AppLayout from './AppLayout.vue'
+    import JetButton from '@/Jetstream/Button.vue'
+    import Index from '@/Components/Index.vue'
 
     export default {
         components: {

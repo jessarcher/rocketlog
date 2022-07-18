@@ -49,9 +49,9 @@
 </template>
 
 <script>
-import JetDialogModal from '@/Jetstream/DialogModal'
-import JetButton from '@/Jetstream/Button'
-import JetSecondaryButton from '@/Jetstream/SecondaryButton'
+import JetDialogModal from '@/Jetstream/DialogModal.vue'
+import JetButton from '@/Jetstream/Button.vue'
+import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
 export default {
     components: {
         JetDialogModal,

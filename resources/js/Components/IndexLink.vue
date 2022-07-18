@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import Icon from '@/Components/Icon'
+import Icon from '@/Components/Icon.vue'
 import { Link } from '@inertiajs/inertia-vue'
 
 export default {

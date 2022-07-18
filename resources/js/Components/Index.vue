@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import IndexLink from './IndexLink'
+import IndexLink from './IndexLink.vue'
 
 export default {
     components: {

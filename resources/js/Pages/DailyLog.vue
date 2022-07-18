@@ -65,12 +65,12 @@
 </template>
 
 <script>
-    import JournalLayout from '@/Layouts/JournalLayout'
-    import Bullet from '@/Components/Bullet'
-    import ContentUpdateNotification from '@/Components/ContentUpdateNotification'
-    import NewBullet from '@/Components/NewBullet'
-    import SubscriptionPromptModal from '@/Components/SubscriptionPromptModal'
-    import Icon from '@/Components/Icon'
+    import JournalLayout from '@/Layouts/JournalLayout.vue'
+    import Bullet from '@/Components/Bullet.vue'
+    import ContentUpdateNotification from '@/Components/ContentUpdateNotification.vue'
+    import NewBullet from '@/Components/NewBullet.vue'
+    import SubscriptionPromptModal from '@/Components/SubscriptionPromptModal.vue'
+    import Icon from '@/Components/Icon.vue'
     import { Link } from '@inertiajs/inertia-vue'
 
     export default {

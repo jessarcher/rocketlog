@@ -307,14 +307,14 @@
 </template>
 
 <script>
-    import JetBanner from '@/Jetstream/Banner'
-    import JetDropdown from '@/Jetstream/Dropdown'
-    import JetDropdownLink from '@/Jetstream/DropdownLink'
-    import JetNavLink from '@/Jetstream/NavLink'
-    import JetResponsiveNavLink from '@/Jetstream/ResponsiveNavLink'
-    import Icon from '@/Components/Icon'
-    import Index from '@/Components/Index'
-    import SupportModal from '@/Components/SupportModal'
+    import JetBanner from '@/Jetstream/Banner.vue'
+    import JetDropdown from '@/Jetstream/Dropdown.vue'
+    import JetDropdownLink from '@/Jetstream/DropdownLink.vue'
+    import JetNavLink from '@/Jetstream/NavLink.vue'
+    import JetResponsiveNavLink from '@/Jetstream/ResponsiveNavLink.vue'
+    import Icon from '@/Components/Icon.vue'
+    import Index from '@/Components/Index.vue'
+    import SupportModal from '@/Components/SupportModal.vue'
     import { Link } from '@inertiajs/inertia-vue'
 
     export default {
