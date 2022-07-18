@@ -52,7 +52,7 @@
         </div>
 
         <div class="mt-20 flex items-center px-4 py-6 border dark:border-gray-700 dark:bg-gray-800 shadow-md rounded-md">
-            <img src="/images/jess-archer.jpg" class="flex-shrink-0 block h-16 w-16 rounded-full" alt="Photo of Jess Archer" />
+            <img src="/images/jess-archer.jpg" class="shrink-0 block h-16 w-16 rounded-full" alt="Photo of Jess Archer" />
             <div class="ml-4 text-base text-gray-500 dark:text-gray-300">
                 <p><strong>Created by <a class="underline font-medium text-gray-900 dark:text-gray-200" href="https://jessarcher.com" target="_blank">Jess Archer</a></strong></p>
                 <p>Digital maker, podcaster, speaker, and fan of bullet journalling.</p>
@@ -99,7 +99,7 @@
                     </div>
 
                     <div class="py-1 md:py-2 border-b border-gray-200 dark:border-gray-700 flex">
-                        <div class="relative flex-shrink-0 opacity-50">
+                        <div class="relative shrink-0 opacity-50">
                             <div class="border border-transparent">
                                 <div class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center rounded-full border border-transparent text-gray-900 dark:text-gray-100">
                                     <svg role="img" aria-label="Marked as complete" class="h-6 w-6 md:h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -114,7 +114,7 @@
                     </div>
 
                     <div class="py-1 md:py-2 border-b border-gray-200 dark:border-gray-700 flex">
-                        <div class="relative flex-shrink-0 opacity-50">
+                        <div class="relative shrink-0 opacity-50">
                             <div class="border border-transparent">
                                 <div class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center rounded-full border border-transparent text-gray-900 dark:text-gray-100">
                                     <svg role="img" aria-label="Marked as complete" class="h-6 w-6 md:h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -129,7 +129,7 @@
                     </div>
 
                     <div class="py-1 md:py-2 border-b border-gray-200 dark:border-gray-700 flex">
-                        <div x-data="{ menu: false }" class="relative flex-shrink-0">
+                        <div x-data="{ menu: false }" class="relative shrink-0">
                             <div class="border border-transparent">
                                 <button
                                     class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center rounded-full border border-transparent text-gray-900 dark:text-gray-100 hover:border-gray-200 dark:hover:border-gray-600 hover:shadow focus:outline-none focus:border-gray-200 dark:focus:border-gray-600 focus:shadow-inner disabled:opacity-50"
@@ -165,7 +165,7 @@
                     </div>
 
                     <div class="py-1 md:py-2 border-b border-gray-200 dark:border-gray-700 flex opacity-30">
-                        <div class="relative flex-shrink-0">
+                        <div class="relative shrink-0">
                             <div class="border border-transparent">
                                 <div class="h-10 w-10 md:h-8 md:w-8 flex items-center justify-center rounded-full border border-transparent text-gray-900 dark:text-gray-100">
                                     <svg role="img" aria-label="Incomplete" class="h-6 w-6 md:h-5" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -201,49 +201,49 @@
 
         <ul class="mt-20 flex-wrap text-lg text-gray-500 dark:text-gray-400">
             <li class="mt-0 flex">
-                <svg role="presentation" class="mr-2 h-6 flex-shrink-0 text-pink-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg role="presentation" class="mr-2 h-6 shrink-0 text-pink-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 Daily Log - the heart of your system.
             </li>
             <li class="mt-4 flex">
-                <svg role="presentation" class="mr-2 h-6 flex-shrink-0 text-pink-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg role="presentation" class="mr-2 h-6 shrink-0 text-pink-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 Collections - create fixed lists to manage projects, book recommendations, menu planning, and more!
             </li>
             <li class="mt-4 flex">
-                <svg role="presentation" class="mr-2 h-6 flex-shrink-0 text-pink-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg role="presentation" class="mr-2 h-6 shrink-0 text-pink-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 Show individual items from a collection in your daily log
             </li>
             <li class="mt-4 flex">
-                <svg role="presentation" class="mr-2 h-6 flex-shrink-0 text-pink-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg role="presentation" class="mr-2 h-6 shrink-0 text-pink-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 Share your collections with others - great for collaborative projects and family shopping lists.
             </li>
             <li class="mt-4 flex">
-                <svg role="presentation" class="mr-2 h-6 flex-shrink-0 text-pink-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg role="presentation" class="mr-2 h-6 shrink-0 text-pink-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 Show or hide complete items - sometimes you want to see how much you've done, and sometimes you just want to focus on what's left.
             </li>
             <li class="mt-4 flex">
-                <svg role="presentation" class="mr-2 h-6 flex-shrink-0 text-pink-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg role="presentation" class="mr-2 h-6 shrink-0 text-pink-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 Access RocketLog from any device with a web browser
             </li>
             <li class="mt-4 flex">
-                <svg role="presentation" class="mr-2 h-6 flex-shrink-0 text-pink-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg role="presentation" class="mr-2 h-6 shrink-0 text-pink-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 Light and Dark modes
             </li>
             <li class="mt-4 flex">
-                <svg role="presentation" class="mr-2 h-6 flex-shrink-0 text-pink-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg role="presentation" class="mr-2 h-6 shrink-0 text-pink-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 Open source - See under the hood and even propose features!

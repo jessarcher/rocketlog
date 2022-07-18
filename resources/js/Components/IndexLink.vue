@@ -13,7 +13,7 @@ defineProps(['href', 'icon', 'active'])
   >
     <Icon
       :name="icon"
-      class="mt-1 h-4 w-4 flex-shrink-0"
+      class="mt-1 h-4 w-4 shrink-0"
       :class="active ? 'text-pink-600 dark:text-pink-500' : 'text-gray-500 group-hover:text-gray-600 group-focus:text-gray-600 dark:group-hover:text-gray-400 dark:group-focus:text-gray-400'"
     />
     <span class="ml-2"><slot /></span>
