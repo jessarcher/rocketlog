@@ -1,4 +1,4 @@
-require('./bootstrap');
+import './bootstrap';
 
 // Import modules...
 import Vue from 'vue';
