@@ -1,48 +1,47 @@
-<template>
-    <modal :show="show" :max-width="maxWidth" :closeable="closeable" @close="close">
-        <div class="px-6 py-4">
-            <div class="text-lg">
-                <slot name="title">
-                </slot>
-            </div>
+<script setup>
+import Modal from './Modal.vue'
 
-            <div class="mt-4">
-                <slot name="content">
-                </slot>
-            </div>
-        </div>
+const emit = defineEmits(['close'])
 
-        <div class="px-6 py-4 bg-gray-100 dark:bg-gray-800 text-right">
-            <slot name="footer">
-            </slot>
-        </div>
-    </modal>
-</template>
+defineProps({
+  show: {
+    type: Boolean,
+    default: false,
+  },
+  maxWidth: {
+    type: String,
+    default: '2xl',
+  },
+  closeable: {
+    type: Boolean,
+    default: true,
+  },
+})
 
-<script>
-    import Modal from './Modal.vue'
-
-    export default {
-        components: {
-            Modal,
-        },
-
-        props: {
-            show: {
-                default: false
-            },
-            maxWidth: {
-                default: '2xl'
-            },
-            closeable: {
-                default: true
-            },
-        },
-
-        methods: {
-            close() {
-                this.$emit('close')
-            },
-        }
-    }
+const close = () => {
+  emit('close')
+}
 </script>
+
+<template>
+  <Modal
+    :show="show"
+    :max-width="maxWidth"
+    :closeable="closeable"
+    @close="close"
+  >
+    <div class="px-6 py-4">
+      <div class="text-lg">
+        <slot name="title" />
+      </div>
+
+      <div class="mt-4">
+        <slot name="content" />
+      </div>
+    </div>
+
+    <div class="px-6 py-4 bg-gray-100 dark:bg-gray-800 text-right">
+      <slot name="footer" />
+    </div>
+  </Modal>
+</template>

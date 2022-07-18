@@ -1,41 +1,33 @@
+<script setup>
+import InlineSvg from 'vue-inline-svg'
+import { computed } from 'vue'
+
+const props = defineProps({
+  name: {
+    type: String,
+    required: true
+  },
+
+  autosize: {
+    type: Boolean,
+    default: false,
+  }
+})
+
+const styleObject = computed(() => {
+  return props.autosize ? {
+    height: '1em',
+    width: '1em',
+    verticalAlign: '-0.125em',
+  } : {}
+})
+</script>
+
 <template>
-  <component
-    :is="iconComponent"
+  <InlineSvg
+    :src="'/icons/' + name + '.svg'"
     class="inline-block"
     :style="styleObject"
     role="img"
   />
 </template>
-
-<script>
-export default {
-  props: {
-    name: {
-      type: String,
-      required: true
-    },
-
-    autoSize: {
-      type: Boolean,
-      default: false,
-    }
-  },
-  computed: {
-    iconComponent () {
-      this.name // Trigger the name as a dependency for change detection
-      return () => import(
-        /* webpackChunkName: "icon" */
-        '!vue-svg-loader!@/../../public/icons/' + this.name + '.svg'
-      )
-    },
-
-    styleObject() {
-      return this.autoSize ? {
-        height: '1em',
-        width: '1em',
-        verticalAlign: '-0.125em',
-      } : {}
-    },
-  }
-}
-</script>

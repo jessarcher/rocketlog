@@ -1,10 +1,15 @@
 {
     "include": [
-        "./resources/js/"
+        "./resources/js/*.js",
+        "./resources/js/*.vue",
     ],
     "compilerOptions": {
         "baseUrl": ".",
+        "jsx": "preserve",
         "paths": {
+            "@/*": [
+                "resources/js/*"
+            ],
             "Components": [
                 "resources/js/Components/*"
             ],

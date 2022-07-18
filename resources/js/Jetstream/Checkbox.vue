@@ -1,35 +1,34 @@
-<template>
-    <input type="checkbox" :value="value" v-model="proxyChecked"
-           class="rounded bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-300 dark:text-gray-900 shadow-sm focus:border-gray-400 dark:focus:border-pink-700 focus:ring focus:ring-gray-200 dark:focus:ring-gray-700 focus:ring-opacity-50">
-</template>
+<script setup>
+import { computed } from 'vue'
 
-<script>
-    export default {
-        model: {
-            prop: "checked",
-            event: "change",
-        },
+const emit = defineEmits(['update:checked'])
 
-        props: {
-            checked: {
-                type: [Array, Boolean],
-                default: false,
-            },
-            value: {
-                default: null,
-            },
-        },
+const props = defineProps({
+  checked: {
+    type: [Array, Boolean],
+    default: false,
+  },
+  value: {
+    type: String,
+    default: null,
+  },
+})
 
-        computed: {
-            proxyChecked: {
-                get() {
-                    return this.checked;
-                },
-                set(val) {
-                    this.$emit("change", val);
-                },
-            },
-        },
-    }
+const proxyChecked = computed({
+  get() {
+    return props.checked
+  },
+  set(val) {
+    emit('update:checked', val)
+  },
+})
 </script>
 
+<template>
+  <input
+    v-model="proxyChecked"
+    type="checkbox"
+    :value="value"
+    class="rounded bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-300 dark:text-gray-900 shadow-sm focus:border-gray-400 dark:focus:border-pink-700 focus:ring focus:ring-gray-200 dark:focus:ring-gray-700 focus:ring-opacity-50"
+  >
+</template>

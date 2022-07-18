@@ -33,7 +33,11 @@
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
 
         <!-- Styles -->
-        @vite('resources/css/app.css')
+        @if (isset($js) && $js === true)
+            @vite('resources/js/app.js')
+        @else
+            @vite('resources/css/app.css')
+        @endif
 
         <!-- Scripts -->
         @routes

@@ -1,83 +1,84 @@
-<template>
-    <div class="relative">
-        <div @click="open = ! open">
-            <slot name="trigger"></slot>
-        </div>
+<script setup>
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 
-        <!-- Full Screen Dropdown Overlay -->
-        <div v-show="open" class="fixed inset-0 z-40" @click="open = false">
-        </div>
+const props = defineProps({
+  align: {
+    type: String,
+    default: 'right',
+  },
+  width: {
+    type: String,
+    default: '48',
+  },
+  contentClasses: {
+    type: Array,
+    default: () => ['py-1', 'bg-white dark:bg-gray-700'],
+  },
+})
 
-        <transition
-            enter-active-class="transition ease-out duration-200"
-            enter-class="transform opacity-0 scale-95"
-            enter-to-class="transform opacity-100 scale-100"
-            leave-active-class="transition ease-in duration-75"
-            leave-class="transform opacity-100 scale-100"
-            leave-to-class="transform opacity-0 scale-95">
-            <div v-show="open"
-                    class="absolute z-50 mt-2 rounded-md shadow-lg"
-                    :class="[widthClass, alignmentClasses]"
-                    style="display: none;"
-                    @click="open = false">
-                <div class="rounded-md ring-1 ring-black ring-opacity-5" :class="contentClasses">
-                    <slot name="content"></slot>
-                </div>
-            </div>
-        </transition>
-    </div>
-</template>
+const open = ref(false)
 
-<script>
-    export default {
-        props: {
-            align: {
-                default: 'right'
-            },
-            width: {
-                default: '48'
-            },
-            contentClasses: {
-                default: () => ['py-1', 'bg-white dark:bg-gray-700']
-            }
-        },
+const closeOnEscape = (e) => {
+  if (open.value && e.keyCode === 27) {
+    open.value = false
+  }
+}
 
-        data() {
-            return {
-                open: false
-            }
-        },
+onMounted(() => document.addEventListener('keydown', closeOnEscape))
+onUnmounted(() => document.removeEventListener('keydown', closeOnEscape))
 
-        created() {
-            const closeOnEscape = (e) => {
-                if (this.open && e.keyCode === 27) {
-                    this.open = false
-                }
-            }
+const widthClass = computed(() => {
+  return {
+    '48': 'w-48',
+  }[props.width.toString()]
+})
 
-            this.$once('hook:destroyed', () => {
-                document.removeEventListener('keydown', closeOnEscape)
-            })
-
-            document.addEventListener('keydown', closeOnEscape)
-        },
-
-        computed: {
-            widthClass() {
-                return {
-                    '48': 'w-48',
-                }[this.width.toString()]
-            },
-
-            alignmentClasses() {
-                if (this.align === 'left') {
-                    return 'origin-top-left left-0'
-                } else if (this.align === 'right') {
-                    return 'origin-top-right right-0'
-                } else {
-                    return 'origin-top'
-                }
-            },
-        }
-    }
+const alignmentClasses = computed(() => {
+  if (props.align === 'left') {
+    return 'origin-top-left left-0'
+  } else if (props.align === 'right') {
+    return 'origin-top-right right-0'
+  } else {
+    return 'origin-top'
+  }
+})
 </script>
+
+<template>
+  <div class="relative">
+    <div @click="open = ! open">
+      <slot name="trigger" />
+    </div>
+
+    <!-- Full Screen Dropdown Overlay -->
+    <div
+      v-show="open"
+      class="fixed inset-0 z-40"
+      @click="open = false"
+    />
+
+    <Transition
+      enter-active-class="transition ease-out duration-200"
+      enter-class="transform opacity-0 scale-95"
+      enter-to-class="transform opacity-100 scale-100"
+      leave-active-class="transition ease-in duration-75"
+      leave-class="transform opacity-100 scale-100"
+      leave-to-class="transform opacity-0 scale-95"
+    >
+      <div
+        v-show="open"
+        class="absolute z-50 mt-2 rounded-md shadow-lg"
+        :class="[widthClass, alignmentClasses]"
+        style="display: none;"
+        @click="open = false"
+      >
+        <div
+          class="rounded-md ring-1 ring-black ring-opacity-5"
+          :class="contentClasses"
+        >
+          <slot name="content" />
+        </div>
+      </div>
+    </Transition>
+  </div>
+</template>
