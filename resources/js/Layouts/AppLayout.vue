@@ -61,7 +61,7 @@ onUnmounted(() => {
           <div class="flex justify-between h-16">
             <div class="flex">
               <!-- Logo -->
-              <div class="flex-shrink-0 flex items-center">
+              <div class="shrink-0 flex items-center">
                 <Link :href="route('daily-log.index')">
                   <svg
                     class="h-8"
@@ -360,7 +360,7 @@ onUnmounted(() => {
               <div class="mt-8 flex items-center px-4">
                 <div
                   v-if="$page.props.jetstream.managesProfilePhotos"
-                  class="flex-shrink-0 mr-3"
+                  class="shrink-0 mr-3"
                 >
                   <img
                     class="h-10 w-10 rounded-full object-cover"

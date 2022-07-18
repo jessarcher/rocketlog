@@ -127,7 +127,7 @@ defineExpose({ focus: () => nameInput.value.focus() })
   <div>
     <div class="bullet-body py-1 md:py-2 flex">
       <div
-        class="relative flex-shrink-0"
+        class="relative shrink-0"
         :class="$slots.tags ? 'mt-3 lg:mt-0' : ''"
       >
         <template v-if="type === 'bullet'">
@@ -379,13 +379,13 @@ defineExpose({ focus: () => nameInput.value.focus() })
         </div>
         <div
           v-if="$slots.tags"
-          class="mt-1 -mb-1 md:mb-0 lg:mb-0 ml-2 md:ml-1 lg:flex-shrink-0"
+          class="mt-1 -mb-1 md:mb-0 lg:mb-0 ml-2 md:ml-1 lg:shrink-0"
         >
           <slot name="tags" />
         </div>
       </div>
 
-      <div class="flex-shrink-0">
+      <div class="shrink-0">
         <div class="flex items-center">
           <slot name="status" />
 

@@ -52,7 +52,7 @@ defineExpose({ focus: () => nameInput.value.focus() })
     class="py-1 md:py-2 border-b border-gray-200 dark:border-gray-700 flex"
     @submit.prevent="create"
   >
-    <div class="border border-transparent flex-shrink-0">
+    <div class="border border-transparent shrink-0">
       <div class="relative h-10 w-10 md:h-8 md:w-8 flex items-center justify-center">
         <div
           v-show="creating"

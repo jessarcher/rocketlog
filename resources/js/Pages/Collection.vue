@@ -263,7 +263,7 @@ onMounted(() => {
                     spellcheck="false"
                 />
 
-                <div class="flex flex-shrink-0 gap-2 text-gray-400">
+                <div class="flex shrink-0 gap-2 text-gray-400">
                     <button
                         type="button"
                         @click="hideDone = ! hideDone"

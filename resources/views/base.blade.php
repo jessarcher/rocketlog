@@ -35,20 +35,25 @@
         <!-- Styles -->
         @if (isset($js) && $js === true)
             @vite('resources/js/app.js')
+            <script>
+                if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                    document.documentElement.classList.add('dark')
+                } else {
+                    document.documentElement.classList.remove('dark')
+                }
+            </script>
         @else
             @vite('resources/css/app.css')
+            <script>
+            if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.documentElement.classList.add('dark')
+            }
+            </script>
         @endif
 
         <!-- Scripts -->
         @routes
         @stack('scripts')
-        <script>
-            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                document.documentElement.classList.add('dark')
-            } else {
-                document.documentElement.classList.remove('dark')
-            }
-        </script>
         @if (config('app.url') === 'https://rocketlog.app')
             <script src="https://truthful-thirtynine.rocketlog.app/script.js" data-site="PREDBIVK" defer></script>
         @endif
