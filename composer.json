@@ -10,7 +10,7 @@
     "require": {
         "php": "^8.0",
         "beyondcode/laravel-websockets": "^2.0",
-        "doctrine/dbal": "^3.3",
+        "doctrine/dbal": "^3.4",
         "fruitcake/laravel-cors": "^3.0.0",
         "guzzlehttp/guzzle": "^7.2",
         "inertiajs/inertia-laravel": "^0.6",
