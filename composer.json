@@ -17,7 +17,7 @@
         "laravel/framework": "^9.27",
         "laravel/horizon": "^5.9",
         "laravel/jetstream": "^2.9",
-        "laravel/sanctum": "^2.15",
+        "laravel/sanctum": "^3.0",
         "laravel/spark-paddle": "1.2.1",
         "laravel/tinker": "^2.7",
         "mtvs/eloquent-hashids": "^3.3",
@@ -31,11 +31,11 @@
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
         "laravel/dusk": "^6.25",
-        "laravel/sail": "^1.13",
+        "laravel/sail": "^1.15",
         "mockery/mockery": "^1.4.4",
-        "nunomaduro/collision": "^6.1",
+        "nunomaduro/collision": "^6.3",
         "phpunit/phpunit": "^9.5.10",
-        "spatie/laravel-ignition": "^1.0"
+        "spatie/laravel-ignition": "^1.4"
     },
     "config": {
         "optimize-autoloader": true,
