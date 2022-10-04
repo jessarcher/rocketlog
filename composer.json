@@ -10,12 +10,12 @@
     "require": {
         "php": "^8.0",
         "beyondcode/laravel-websockets": "^2.0",
-        "doctrine/dbal": "^3.3",
+        "doctrine/dbal": "^3.4",
         "fruitcake/laravel-cors": "^3.0.0",
         "guzzlehttp/guzzle": "^7.2",
         "inertiajs/inertia-laravel": "^0.6",
         "laravel/framework": "^9.34",
-        "laravel/horizon": "^5.9",
+        "laravel/horizon": "^5.10",
         "laravel/jetstream": "^2.9",
         "laravel/sanctum": "^3.0",
         "laravel/spark-paddle": "1.2.1",
@@ -26,7 +26,7 @@
         "spatie/eloquent-sortable": "^4.0",
         "spatie/laravel-backup": "^8.1",
         "symfony/mailgun-mailer": "^6.0",
-        "tightenco/ziggy": "^1.4"
+        "tightenco/ziggy": "^1.5"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
