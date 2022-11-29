@@ -7,7 +7,7 @@ const newCollectionName = ref('')
 
 const addCollection = () => Inertia.post(
   route('c.store'),
-  { name: this.newCollectionName },
+  { name: newCollectionName.value },
   {
     preserveState: false,
     onSuccess: () => newCollectionName.value = '',
