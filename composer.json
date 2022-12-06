@@ -13,7 +13,7 @@
         "doctrine/dbal": "^3.4",
         "guzzlehttp/guzzle": "^7.2",
         "inertiajs/inertia-laravel": "^0.6",
-        "laravel/framework": "^9.37",
+        "laravel/framework": "^9.43",
         "laravel/horizon": "^5.10",
         "laravel/jetstream": "^2.12",
         "laravel/sanctum": "^3.0",
