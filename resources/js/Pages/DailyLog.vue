@@ -38,7 +38,7 @@ onMounted(() => {
 const setToday = () => {
     const todayInterval = setInterval(() => {
         if (! today.value.isSame(dayjs().startOf('day'))) {
-            today.value = dayjs.startOf('day')
+            today.value = dayjs().startOf('day')
         }
     }, 1000)
 
