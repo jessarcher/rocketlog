@@ -62,9 +62,11 @@ class User extends Authenticatable implements MustVerifyEmail
 
     protected function defaultProfilePhotoUrl()
     {
-        return 'https://unavatar.now.sh/'.urlencode($this->email).'?'.http_build_query([
-            'fallback' => 'https://ui-avatars.com/api/?name='.urlencode($this->name).'&color=7F9CF5&background=EBF4FF',
-        ]);
+        $name = trim(collect(explode(' ', $this->name))->map(function ($segment) {
+            return mb_substr($segment, 0, 1);
+        })->join(' '));
+
+        return 'https://www.gravatar.com/avatar/'.md5($this->email).'?d=https%3A%2F%2Fui-avatars.com%2Fapi%2F/'.urlencode($name).'/160';
     }
 
     public function bullets()
