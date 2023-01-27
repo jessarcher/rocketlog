@@ -14,14 +14,14 @@ class CollectionTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_it_requires_authentication()
+    public function test_it_requires_authentication(): void
     {
         $response = $this->post('/c');
 
         $response->assertRedirect('/login');
     }
 
-    public function test_it_stores_a_new_collection()
+    public function test_it_stores_a_new_collection(): void
     {
         /** @var \App\Models\User */
         $user = User::factory()->create();
@@ -38,7 +38,7 @@ class CollectionTest extends TestCase
         ]);
     }
 
-    public function test_it_shows_a_users_collection()
+    public function test_it_shows_a_users_collection(): void
     {
         /** @var \App\Models\User */
         $user = User::factory()->create();
@@ -58,7 +58,7 @@ class CollectionTest extends TestCase
             ->assertViewHas('page.props.collection.users.0.name', $otherUser->name);
     }
 
-    public function test_it_shows_a_collection_that_a_user_has_access_to()
+    public function test_it_shows_a_collection_that_a_user_has_access_to(): void
     {
         /** @var \App\Models\User */
         $user = User::factory()->create();
@@ -72,7 +72,7 @@ class CollectionTest extends TestCase
         $response->assertOk();
     }
 
-    public function test_it_forbids_collections_a_user_doesnt_have_access_to()
+    public function test_it_forbids_collections_a_user_doesnt_have_access_to(): void
     {
         /** @var \App\Models\User */
         $user = User::factory()->create();
@@ -85,7 +85,7 @@ class CollectionTest extends TestCase
         $response->assertForbidden();
     }
 
-    public function test_it_updates_a_collection()
+    public function test_it_updates_a_collection(): void
     {
         Event::fake();
         /** @var \App\Models\User */
@@ -110,7 +110,7 @@ class CollectionTest extends TestCase
         Event::assertDispatched(fn (CollectionUpdated $event) => $event->collectionId === $collection->id);
     }
 
-    public function test_it_destroys_a_collection()
+    public function test_it_destroys_a_collection(): void
     {
         Event::fake();
         /** @var \App\Models\User */
@@ -125,7 +125,7 @@ class CollectionTest extends TestCase
         Event::assertDispatched(fn (CollectionUpdated $event) => $event->collectionId === $collection->id);
     }
 
-    public function test_only_the_owner_can_delete_the_collection()
+    public function test_only_the_owner_can_delete_the_collection(): void
     {
         /** @var \App\Models\User */
         $user = User::factory()->create();
@@ -139,7 +139,7 @@ class CollectionTest extends TestCase
         $response->assertForbidden();
     }
 
-    public function test_users_can_add_bullets_to_the_daily_log()
+    public function test_users_can_add_bullets_to_the_daily_log(): void
     {
         Event::fake();
         /** @var \App\Models\User */
@@ -164,7 +164,7 @@ class CollectionTest extends TestCase
         Event::assertDispatched(fn (DailyLogUpdated $event) => $event->userId === $user->id);
     }
 
-    public function test_other_users_cant_add_bullets_to_the_owners_daily_log()
+    public function test_other_users_cant_add_bullets_to_the_owners_daily_log(): void
     {
         Event::fake();
         /** @var \App\Models\User */
@@ -188,7 +188,7 @@ class CollectionTest extends TestCase
         Event::assertNotDispatched(DailyLogUpdated::class);
     }
 
-    public function test_only_an_authorized_user_can_invite_someone_to_a_collection()
+    public function test_only_an_authorized_user_can_invite_someone_to_a_collection(): void
     {
         /** @var \App\Models\User */
         $user = User::factory()->create();
@@ -204,7 +204,7 @@ class CollectionTest extends TestCase
         $response->assertForbidden();
     }
 
-    public function test_users_can_be_invited_to_a_collection()
+    public function test_users_can_be_invited_to_a_collection(): void
     {
         /** @var \App\Models\User */
         $user = User::factory()->create();
@@ -221,7 +221,7 @@ class CollectionTest extends TestCase
         $this->assertTrue($collection->users->contains($friend));
     }
 
-    public function test_a_user_must_exist_to_be_invited_to_a_collection()
+    public function test_a_user_must_exist_to_be_invited_to_a_collection(): void
     {
         /** @var \App\Models\User */
         $user = User::factory()->create();
@@ -236,7 +236,7 @@ class CollectionTest extends TestCase
         $response->assertJsonValidationErrors(['email' => 'A user with this email address was not found.']);
     }
 
-    public function test_a_user_cannot_be_invited_to_a_collection_twice()
+    public function test_a_user_cannot_be_invited_to_a_collection_twice(): void
     {
         /** @var \App\Models\User */
         $user = User::factory()->create();
@@ -253,7 +253,7 @@ class CollectionTest extends TestCase
         $response->assertJsonValidationErrors(['email' => 'This user has already been added to this collection.']);
     }
 
-    public function test_bullets_can_be_reordered()
+    public function test_bullets_can_be_reordered(): void
     {
         /** @var \App\Models\User */
         $user = User::factory()->create();
@@ -281,7 +281,7 @@ class CollectionTest extends TestCase
         $this->assertSame(1, $bullets[2]->order);
     }
 
-    public function test_only_bullets_from_the_authorized_collection_can_be_ordered()
+    public function test_only_bullets_from_the_authorized_collection_can_be_ordered(): void
     {
         /** @var \App\Models\User */
         $user = User::factory()->create();

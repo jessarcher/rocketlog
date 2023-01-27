@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Response;
+use Illuminate\Http\RedirectResponse;
 use App\Events\CollectionUpdated;
 use App\Events\DailyLogUpdated;
 use App\Models\Collection;
@@ -10,7 +12,7 @@ use Inertia\Inertia;
 
 class CollectionController extends Controller
 {
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $this->validate($request, ['name' => 'required|string']);
 
@@ -22,7 +24,7 @@ class CollectionController extends Controller
         return redirect(route('c.show', $collection));
     }
 
-    public function show(Collection $collection)
+    public function show(Collection $collection): Response
     {
         $this->authorize($collection);
 
@@ -31,7 +33,7 @@ class CollectionController extends Controller
         ]);
     }
 
-    public function update(Request $request, Collection $collection)
+    public function update(Request $request, Collection $collection): RedirectResponse
     {
         $this->authorize($collection);
 
@@ -48,7 +50,7 @@ class CollectionController extends Controller
         return redirect(route('c.show', $collection));
     }
 
-    public function destroy(Collection $collection)
+    public function destroy(Collection $collection): RedirectResponse
     {
         $this->authorize($collection);
 

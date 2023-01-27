@@ -9,7 +9,7 @@ class InviteUserToCollectionRequest extends FormRequest
 {
     public ?User $invitedUser;
 
-    public function authorize()
+    public function authorize(): bool
     {
         return $this->user()->can('update', $this->collection);
     }
@@ -23,7 +23,7 @@ class InviteUserToCollectionRequest extends FormRequest
         $this->invitedUser = User::firstWhere('email', $this->input('email'));
     }
 
-    public function rules()
+    public function rules(): array
     {
         return [
             'email' => [

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Response;
+use Illuminate\Http\RedirectResponse;
 use App\Events\CollectionUpdated;
 use App\Events\DailyLogUpdated;
 use App\Models\Bullet;
@@ -10,7 +12,7 @@ use Illuminate\Http\Request;
 
 class CollectionBulletController extends Controller
 {
-    public function store(Request $request, Collection $collection)
+    public function store(Request $request, Collection $collection): RedirectResponse
     {
         $this->authorize('update', $collection);
 
@@ -26,7 +28,7 @@ class CollectionBulletController extends Controller
         return redirect(route('c.show', $collection));
     }
 
-    public function update(Request $request, Collection $collection, Bullet $bullet)
+    public function update(Request $request, Collection $collection, Bullet $bullet): RedirectResponse
     {
         $this->authorize('update', $collection);
 
@@ -43,7 +45,7 @@ class CollectionBulletController extends Controller
         return redirect(route('c.show', $collection));
     }
 
-    public function move(Request $request, Collection $collection)
+    public function move(Request $request, Collection $collection): Response
     {
         $this->authorize('update', $collection);
 
@@ -67,7 +69,7 @@ class CollectionBulletController extends Controller
         return back();
     }
 
-    public function destroy(Collection $collection, Bullet $bullet)
+    public function destroy(Collection $collection, Bullet $bullet): RedirectResponse
     {
         $this->authorize('update', $collection);
 
