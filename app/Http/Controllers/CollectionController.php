@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Response;
-use Illuminate\Http\RedirectResponse;
 use App\Events\CollectionUpdated;
 use App\Events\DailyLogUpdated;
 use App\Models\Collection;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Inertia\Inertia;
 
 class CollectionController extends Controller

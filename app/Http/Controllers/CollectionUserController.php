@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Response;
-use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\InviteUserToCollectionRequest;
 use App\Models\Collection;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 
 class CollectionUserController extends Controller
 {

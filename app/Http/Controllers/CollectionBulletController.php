@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Response;
-use Illuminate\Http\RedirectResponse;
 use App\Events\CollectionUpdated;
 use App\Events\DailyLogUpdated;
 use App\Models\Bullet;
 use App\Models\Collection;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class CollectionBulletController extends Controller
 {

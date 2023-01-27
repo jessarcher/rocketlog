@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Response;
-use Illuminate\Http\RedirectResponse;
 use App\Events\CollectionUpdated;
 use App\Events\DailyLogUpdated;
 use App\Models\Collection;
+use Illuminate\Http\RedirectResponse;
 
 class CollectionBulletDoneController extends Controller
 {
