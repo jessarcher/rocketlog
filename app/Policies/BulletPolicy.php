@@ -16,7 +16,7 @@ class BulletPolicy
      * @param  \App\Models\User  $user
      * @return mixed
      */
-    public function viewAny(User $user)
+    public function viewAny(User $user): mixed
     {
         //
     }
@@ -28,7 +28,7 @@ class BulletPolicy
      * @param  \App\Models\Bullet  $bullet
      * @return mixed
      */
-    public function view(User $user, Bullet $bullet)
+    public function view(User $user, Bullet $bullet): mixed
     {
         if ($bullet->user_id === $user->id) {
             return true;
@@ -53,7 +53,7 @@ class BulletPolicy
      * @param  \App\Models\User  $user
      * @return mixed
      */
-    public function create(User $user)
+    public function create(User $user): mixed
     {
         return true;
     }
@@ -65,7 +65,7 @@ class BulletPolicy
      * @param  \App\Models\Bullet  $bullet
      * @return mixed
      */
-    public function update(User $user, Bullet $bullet)
+    public function update(User $user, Bullet $bullet): mixed
     {
         return $this->view($user, $bullet);
     }
@@ -77,7 +77,7 @@ class BulletPolicy
      * @param  \App\Models\Bullet  $bullet
      * @return mixed
      */
-    public function delete(User $user, Bullet $bullet)
+    public function delete(User $user, Bullet $bullet): mixed
     {
         return $this->view($user, $bullet);
     }
@@ -89,7 +89,7 @@ class BulletPolicy
      * @param  \App\Models\Bullet  $bullet
      * @return mixed
      */
-    public function restore(User $user, Bullet $bullet)
+    public function restore(User $user, Bullet $bullet): mixed
     {
         //
     }
@@ -101,7 +101,7 @@ class BulletPolicy
      * @param  \App\Models\Bullet  $bullet
      * @return mixed
      */
-    public function forceDelete(User $user, Bullet $bullet)
+    public function forceDelete(User $user, Bullet $bullet): mixed
     {
         //
     }

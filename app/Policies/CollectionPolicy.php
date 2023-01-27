@@ -16,7 +16,7 @@ class CollectionPolicy
      * @param  \App\Models\User  $user
      * @return mixed
      */
-    public function viewAny(User $user)
+    public function viewAny(User $user): mixed
     {
         //
     }
@@ -28,7 +28,7 @@ class CollectionPolicy
      * @param  \App\Models\Collection  $collection
      * @return mixed
      */
-    public function view(User $user, Collection $collection)
+    public function view(User $user, Collection $collection): mixed
     {
         if ($collection->user_id === $user->id) {
             return true;
@@ -45,7 +45,7 @@ class CollectionPolicy
      * @param  \App\Models\User  $user
      * @return mixed
      */
-    public function create(User $user)
+    public function create(User $user): mixed
     {
         return true;
     }
@@ -57,7 +57,7 @@ class CollectionPolicy
      * @param  \App\Models\Collection  $collection
      * @return mixed
      */
-    public function update(User $user, Collection $collection)
+    public function update(User $user, Collection $collection): mixed
     {
         return $this->view($user, $collection);
     }
@@ -69,7 +69,7 @@ class CollectionPolicy
      * @param  \App\Models\Collection  $collection
      * @return mixed
      */
-    public function delete(User $user, Collection $collection)
+    public function delete(User $user, Collection $collection): mixed
     {
         if ($collection->user_id === $user->id) {
             return true;
@@ -83,7 +83,7 @@ class CollectionPolicy
      * @param  \App\Models\Collection  $collection
      * @return mixed
      */
-    public function restore(User $user, Collection $collection)
+    public function restore(User $user, Collection $collection): mixed
     {
         //
     }
@@ -95,7 +95,7 @@ class CollectionPolicy
      * @param  \App\Models\Collection  $collection
      * @return mixed
      */
-    public function forceDelete(User $user, Collection $collection)
+    public function forceDelete(User $user, Collection $collection): mixed
     {
         //
     }
@@ -107,7 +107,7 @@ class CollectionPolicy
      * @param  \App\Models\Collection  $collection
      * @return mixed
      */
-    public function share(User $user, Collection $collection)
+    public function share(User $user, Collection $collection): mixed
     {
         if ($collection->user_id === $user->id) {
             return true;
