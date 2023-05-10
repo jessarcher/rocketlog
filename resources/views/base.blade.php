@@ -55,7 +55,7 @@
         @routes
         @stack('scripts')
         @if (config('app.url') === 'https://rocketlog.app')
-            <script src="https://truthful-thirtynine.rocketlog.app/script.js" data-site="PREDBIVK" defer></script>
+            <script src="https://cdn.usefathom.com/script.js" data-site="PREDBIVK" defer></script>
         @endif
     </head>
     <body class="font-sans antialiased {{ $bodyClass ?? '' }}">
