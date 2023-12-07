@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8ad1200ba8b1fba88a47876f3684f1ab",
+    "content-hash": "bb123b835035a0c46ddb0acff743a78c",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -2688,12 +2688,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "81d5ed94136bdc5da091b4901c5aec8c2fa1c76b"
+                "reference": "88d6037dcda4f5696b85ce24ad11ff7e97fd14f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/81d5ed94136bdc5da091b4901c5aec8c2fa1c76b",
-                "reference": "81d5ed94136bdc5da091b4901c5aec8c2fa1c76b",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/88d6037dcda4f5696b85ce24ad11ff7e97fd14f0",
+                "reference": "88d6037dcda4f5696b85ce24ad11ff7e97fd14f0",
                 "shasum": ""
             },
             "require": {
@@ -2883,7 +2883,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2023-12-07T01:25:31+00:00"
+            "time": "2023-12-07T19:28:35+00:00"
         },
         {
             "name": "laravel/horizon",
@@ -3092,35 +3092,35 @@
         },
         {
             "name": "laravel/pulse",
-            "version": "dev-master",
+            "version": "v1.0.0-beta5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/pulse.git",
-                "reference": "bf5ec22f61df839b0910c29268ff9823d870f8a2"
+                "reference": "27055078f4cf3ad771e4fa23ec6da50a170c5d1d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/pulse/zipball/bf5ec22f61df839b0910c29268ff9823d870f8a2",
-                "reference": "bf5ec22f61df839b0910c29268ff9823d870f8a2",
+                "url": "https://api.github.com/repos/laravel/pulse/zipball/27055078f4cf3ad771e4fa23ec6da50a170c5d1d",
+                "reference": "27055078f4cf3ad771e4fa23ec6da50a170c5d1d",
                 "shasum": ""
             },
             "require": {
                 "doctrine/sql-formatter": "^1.1",
                 "guzzlehttp/promises": "^1.0 || ^2.0",
-                "illuminate/auth": "^9.0 || ^10.0",
-                "illuminate/cache": "^9.0 || ^10.0",
-                "illuminate/config": "^9.0 || ^10.0",
-                "illuminate/console": "^9.0 || ^10.0",
-                "illuminate/contracts": "^9.0 || ^10.0",
-                "illuminate/database": "^9.0 || ^10.0",
-                "illuminate/events": "^9.0 || ^10.0",
-                "illuminate/http": "^9.0 || ^10.0",
-                "illuminate/queue": "^9.0 || ^10.0",
-                "illuminate/redis": "^9.0 || ^10.0",
-                "illuminate/routing": "^9.0 || ^10.0",
-                "illuminate/support": "^9.0 || ^10.0",
-                "illuminate/view": "^9.0 || ^10.0",
-                "livewire/livewire": "^3.0",
+                "illuminate/auth": "^10.21",
+                "illuminate/cache": "^10.21",
+                "illuminate/config": "^10.21",
+                "illuminate/console": "^10.21",
+                "illuminate/contracts": "^10.21",
+                "illuminate/database": "^10.21",
+                "illuminate/events": "^10.21",
+                "illuminate/http": "^10.21",
+                "illuminate/queue": "^10.21",
+                "illuminate/redis": "^10.21",
+                "illuminate/routing": "^10.21",
+                "illuminate/support": "^10.21",
+                "illuminate/view": "^10.21",
+                "livewire/livewire": "^3.02",
                 "nesbot/carbon": "^2.67",
                 "php": "^8.1"
             },
@@ -3134,9 +3134,8 @@
                 "pestphp/pest": "^2.0",
                 "pestphp/pest-plugin-laravel": "^2.2",
                 "phpstan/phpstan": "^1.11",
-                "predis/predis": "^2.2"
+                "predis/predis": "^1.0 || ^2.0"
             },
-            "default-branch": true,
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -3174,7 +3173,7 @@
                 "issues": "https://github.com/laravel/pulse/issues",
                 "source": "https://github.com/laravel/pulse"
             },
-            "time": "2023-12-01T16:10:46+00:00"
+            "time": "2023-12-05T22:49:00+00:00"
         },
         {
             "name": "laravel/sanctum",
@@ -12854,11 +12853,10 @@
             "alias_normalized": "0.5.4.0"
         }
     ],
-    "minimum-stability": "stable",
+    "minimum-stability": "beta",
     "stability-flags": {
         "beyondcode/laravel-websockets": 20,
-        "laravel/framework": 20,
-        "laravel/pulse": 20
+        "laravel/framework": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

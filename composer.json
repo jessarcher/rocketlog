@@ -16,7 +16,7 @@
         "laravel/framework": "10.x-dev",
         "laravel/horizon": "^5.12",
         "laravel/jetstream": "^2.15",
-        "laravel/pulse": "1.x-dev",
+        "laravel/pulse": "^1.0",
         "laravel/sanctum": "^3.2",
         "laravel/spark-paddle": "1.2.1",
         "laravel/tinker": "^2.8",
@@ -65,7 +65,7 @@
             "Tests\\": "tests/"
         }
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "beta",
     "prefer-stable": true,
     "scripts": {
         "post-autoload-dump": [
