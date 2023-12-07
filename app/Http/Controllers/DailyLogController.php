@@ -5,14 +5,12 @@ namespace App\Http\Controllers;
 use App\Events\CollectionUpdated;
 use App\Events\DailyLogUpdated;
 use App\Models\Bullet;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Inertia\Inertia;
 
 class DailyLogController extends Controller
 {
-    public function index(Request $request): Response
+    public function index(Request $request)
     {
         $dates = $request
             ->user()
@@ -44,7 +42,7 @@ class DailyLogController extends Controller
         ]);
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
         if (empty($request->name)) {
             return;
@@ -62,7 +60,7 @@ class DailyLogController extends Controller
         return redirect(route('daily-log.index'));
     }
 
-    public function update(Request $request, Bullet $bullet): RedirectResponse
+    public function update(Request $request, Bullet $bullet)
     {
         $this->authorize($bullet);
 
@@ -77,7 +75,7 @@ class DailyLogController extends Controller
         return redirect(route('daily-log.index'));
     }
 
-    public function move(Request $request): Response
+    public function move(Request $request)
     {
         $bullet = Bullet::find($request->id);
         abort_if($bullet === null, 400, 'Invalid bullet');
@@ -97,7 +95,7 @@ class DailyLogController extends Controller
         return back();
     }
 
-    public function destroy(Request $request, Bullet $bullet): RedirectResponse
+    public function destroy(Request $request, Bullet $bullet)
     {
         $this->authorize($bullet);
 

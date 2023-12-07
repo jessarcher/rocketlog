@@ -4,12 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Bullet;
 use App\Models\Collection;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class CollectionOrderController extends Controller
 {
-    public function update(Request $request, Collection $collection): RedirectResponse
+    public function update(Request $request, Collection $collection)
     {
         $this->authorize($collection);
 

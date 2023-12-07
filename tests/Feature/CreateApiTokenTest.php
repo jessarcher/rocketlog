@@ -14,7 +14,7 @@ class CreateApiTokenTest extends TestCase
     public function test_api_tokens_can_be_created(): void
     {
         if (! Features::hasApiFeatures()) {
-            return $this->markTestSkipped('API support is not enabled.');
+            $this->markTestSkipped('API support is not enabled.');
         }
 
         if (Features::hasTeamFeatures()) {

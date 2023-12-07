@@ -5,18 +5,17 @@ namespace App\Http\Controllers;
 use App\Http\Requests\InviteUserToCollectionRequest;
 use App\Models\Collection;
 use App\Models\User;
-use Illuminate\Http\RedirectResponse;
 
 class CollectionUserController extends Controller
 {
-    public function store(InviteUserToCollectionRequest $request, Collection $collection): RedirectResponse
+    public function store(InviteUserToCollectionRequest $request, Collection $collection)
     {
         $collection->users()->attach($request->invitedUser);
 
         return redirect(route('c.show', $collection));
     }
 
-    public function destroy(Collection $collection, User $user): RedirectResponse
+    public function destroy(Collection $collection, User $user)
     {
         $this->authorize('update', $collection);
 

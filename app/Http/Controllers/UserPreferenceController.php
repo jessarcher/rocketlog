@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class UserPreferenceController extends Controller
 {
-    public function update(Request $request): RedirectResponse
+    public function update(Request $request)
     {
         $user = $request->user();
 

@@ -5,11 +5,10 @@ namespace App\Http\Controllers;
 use App\Events\CollectionUpdated;
 use App\Events\DailyLogUpdated;
 use App\Models\Collection;
-use Illuminate\Http\RedirectResponse;
 
 class CollectionBulletDoneController extends Controller
 {
-    public function destroy(Collection $collection): RedirectResponse
+    public function destroy(Collection $collection)
     {
         $this->authorize('update', $collection);
 
