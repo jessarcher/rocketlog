@@ -4,13 +4,12 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('websockets_statistics_entries', function (Blueprint $table) {
             $table->renameColumn('peak_connection_count', 'peak_connections_count');
@@ -21,10 +20,8 @@ return new class extends Migration {
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::table('websockets_statistics_entries', function (Blueprint $table) {
             $table->renameColumn('peak_connections_count', 'peak_connection_count');

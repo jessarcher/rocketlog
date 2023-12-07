@@ -17,14 +17,14 @@ class DailyLogTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
-    public function test_it_requires_authentication()
+    public function test_it_requires_authentication(): void
     {
         $this
             ->get('/daily-log')
             ->assertRedirect('/login');
     }
 
-    public function test_it_only_shows_my_bullets()
+    public function test_it_only_shows_my_bullets(): void
     {
         /** @var \App\Models\User */
         $user = User::factory()->create();
@@ -42,7 +42,7 @@ class DailyLogTest extends TestCase
         $response->assertDontSee($otherBullet->name);
     }
 
-    public function test_it_only_shows_six_days_of_bullets()
+    public function test_it_only_shows_six_days_of_bullets(): void
     {
         /** @var \App\Models\User */
         $user = User::factory()->create();
@@ -83,7 +83,7 @@ class DailyLogTest extends TestCase
         $response->assertDontSee($oldBullet->name);
     }
 
-    public function test_it_stores_bullets()
+    public function test_it_stores_bullets(): void
     {
         Event::fake();
         /** @var \App\Models\User */
@@ -107,7 +107,7 @@ class DailyLogTest extends TestCase
         Event::assertDispatched(fn (DailyLogUpdated $event) => $event->userId === $user->id);
     }
 
-    public function test_it_updates_bullets()
+    public function test_it_updates_bullets(): void
     {
         Event::fake();
         /** @var \App\Models\User */
@@ -132,7 +132,7 @@ class DailyLogTest extends TestCase
         Event::assertDispatched(fn (DailyLogUpdated $event) => $event->userId === $user->id);
     }
 
-    public function test_it_moves_bullets()
+    public function test_it_moves_bullets(): void
     {
         Event::fake();
         /** @var \App\Models\User */
@@ -157,7 +157,7 @@ class DailyLogTest extends TestCase
         Event::assertDispatched(fn (DailyLogUpdated $event) => $event->userId === $user->id);
     }
 
-    public function test_a_user_cant_move_others_bullets()
+    public function test_a_user_cant_move_others_bullets(): void
     {
         /** @var \App\Models\User */
         $user = User::factory()->create();
@@ -174,7 +174,7 @@ class DailyLogTest extends TestCase
         $response->assertForbidden();
     }
 
-    public function test_a_user_can_move_others_bullets_if_they_own_the_collection()
+    public function test_a_user_can_move_others_bullets_if_they_own_the_collection(): void
     {
         Event::fake();
         /** @var \App\Models\User */
@@ -200,7 +200,7 @@ class DailyLogTest extends TestCase
         Event::assertDispatched(fn (CollectionUpdated $event) => $event->collectionId === $collection->id);
     }
 
-    public function test_a_user_can_move_others_bullets_if_they_have_access_to_the_collection()
+    public function test_a_user_can_move_others_bullets_if_they_have_access_to_the_collection(): void
     {
         Event::fake();
         /** @var \App\Models\User */
@@ -227,7 +227,7 @@ class DailyLogTest extends TestCase
         Event::assertDispatched(fn (CollectionUpdated $event) => $event->collectionId === $collection->id);
     }
 
-    public function test_it_destroys_bullets()
+    public function test_it_destroys_bullets(): void
     {
         Event::fake();
         /** @var \App\Models\User */
@@ -244,7 +244,7 @@ class DailyLogTest extends TestCase
         Event::assertDispatched(fn (DailyLogUpdated $event) => $event->userId === $user->id);
     }
 
-    public function test_a_user_cant_update_others_bullets()
+    public function test_a_user_cant_update_others_bullets(): void
     {
         /** @var \App\Models\User */
         $user = User::factory()->create();
@@ -262,7 +262,7 @@ class DailyLogTest extends TestCase
         $response->assertForbidden();
     }
 
-    public function test_a_user_cant_delete_others_bullets()
+    public function test_a_user_cant_delete_others_bullets(): void
     {
         /** @var \App\Models\User */
         $user = User::factory()->create();

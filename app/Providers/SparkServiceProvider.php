@@ -13,10 +13,8 @@ class SparkServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap any application services.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         Spark::billable(User::class)->resolve(function (Request $request) {
             return $request->user();
