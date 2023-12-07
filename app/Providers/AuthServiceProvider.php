@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Bullet;
 use App\Models\Collection;
+use App\Models\User;
 use App\Policies\BulletPolicy;
 use App\Policies\CollectionPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -28,6 +29,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::define('viewWebSocketsDashboard', fn ($user) => $user->id === 1);
+        Gate::define('viewWebSocketsDashboard', fn (User $user) => $user->id === 1);
+        Gate::define('viewPulse', fn (User $user) => $user->id === 1);
     }
 }
