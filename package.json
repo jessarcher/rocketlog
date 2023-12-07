@@ -15,7 +15,7 @@
         "@tailwindcss/typography": "^0.5.4",
         "@types/autosize": "^4.0.1",
         "@typescript-eslint/parser": "^5.30.6",
-        "@vitejs/plugin-vue": "^2.3.3",
+        "@vitejs/plugin-vue": "^4.5.1",
         "autoprefixer": "^10.4.0",
         "autosize": "^5.0.1",
         "axios": "^0.27",
