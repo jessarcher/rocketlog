@@ -2688,12 +2688,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "bb49a72c1a839b2b19d0fcea4e8b203a122454ef"
+                "reference": "eb948833d513088249d73775586d8fe0ccf48158"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/bb49a72c1a839b2b19d0fcea4e8b203a122454ef",
-                "reference": "bb49a72c1a839b2b19d0fcea4e8b203a122454ef",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/eb948833d513088249d73775586d8fe0ccf48158",
+                "reference": "eb948833d513088249d73775586d8fe0ccf48158",
                 "shasum": ""
             },
             "require": {
@@ -2883,7 +2883,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2023-12-13T15:07:28+00:00"
+            "time": "2023-12-13T21:31:30+00:00"
         },
         {
             "name": "laravel/horizon",
@@ -6879,16 +6879,16 @@
         },
         {
             "name": "spatie/eloquent-sortable",
-            "version": "4.0.2",
+            "version": "4.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/eloquent-sortable.git",
-                "reference": "74994d10a17d15d2cdb319d6b2ad7cb6fa067c0a"
+                "reference": "960ee1c888171f77cba9e3108da69c00a0d02e9c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/eloquent-sortable/zipball/74994d10a17d15d2cdb319d6b2ad7cb6fa067c0a",
-                "reference": "74994d10a17d15d2cdb319d6b2ad7cb6fa067c0a",
+                "url": "https://api.github.com/repos/spatie/eloquent-sortable/zipball/960ee1c888171f77cba9e3108da69c00a0d02e9c",
+                "reference": "960ee1c888171f77cba9e3108da69c00a0d02e9c",
                 "shasum": ""
             },
             "require": {
@@ -6937,7 +6937,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/eloquent-sortable/issues",
-                "source": "https://github.com/spatie/eloquent-sortable/tree/4.0.2"
+                "source": "https://github.com/spatie/eloquent-sortable/tree/4.1.0"
             },
             "funding": [
                 {
@@ -6949,7 +6949,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-01-23T08:34:14+00:00"
+            "time": "2023-12-11T16:39:58+00:00"
         },
         {
             "name": "spatie/laravel-backup",
@@ -12855,8 +12855,7 @@
     "minimum-stability": "beta",
     "stability-flags": {
         "beyondcode/laravel-websockets": 20,
-        "laravel/framework": 20,
-        "laravel/pulse": 10
+        "laravel/framework": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
