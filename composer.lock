@@ -2688,12 +2688,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "5d9cf9ca81f5985b90dcbaa4a9a3f81c2f471e7a"
+                "reference": "047edbc3a370ccf8be58f35f2e262d59210a3852"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/5d9cf9ca81f5985b90dcbaa4a9a3f81c2f471e7a",
-                "reference": "5d9cf9ca81f5985b90dcbaa4a9a3f81c2f471e7a",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/047edbc3a370ccf8be58f35f2e262d59210a3852",
+                "reference": "047edbc3a370ccf8be58f35f2e262d59210a3852",
                 "shasum": ""
             },
             "require": {
@@ -2739,6 +2739,8 @@
                 "voku/portable-ascii": "^2.0"
             },
             "conflict": {
+                "carbonphp/carbon-doctrine-types": ">=3.0",
+                "doctrine/dbal": ">=4.0",
                 "tightenco/collect": "<5.5.33"
             },
             "provide": {
@@ -2851,6 +2853,7 @@
                 "files": [
                     "src/Illuminate/Collections/helpers.php",
                     "src/Illuminate/Events/functions.php",
+                    "src/Illuminate/Filesystem/functions.php",
                     "src/Illuminate/Foundation/helpers.php",
                     "src/Illuminate/Support/helpers.php"
                 ],
@@ -2883,7 +2886,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2023-12-16T16:47:47+00:00"
+            "time": "2023-12-21T15:33:23+00:00"
         },
         {
             "name": "laravel/horizon",
@@ -12801,16 +12804,16 @@
         },
         {
             "name": "spatie/laravel-ignition",
-            "version": "2.3.2",
+            "version": "2.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-ignition.git",
-                "reference": "4800661a195e15783477d99f7f8f669a49793996"
+                "reference": "66499cd3c858642ded56dafb8fa0352057ca20dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-ignition/zipball/4800661a195e15783477d99f7f8f669a49793996",
-                "reference": "4800661a195e15783477d99f7f8f669a49793996",
+                "url": "https://api.github.com/repos/spatie/laravel-ignition/zipball/66499cd3c858642ded56dafb8fa0352057ca20dd",
+                "reference": "66499cd3c858642ded56dafb8fa0352057ca20dd",
                 "shasum": ""
             },
             "require": {
@@ -12889,7 +12892,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-12-15T13:44:49+00:00"
+            "time": "2023-12-21T09:43:05+00:00"
         },
         {
             "name": "symfony/yaml",
@@ -13035,5 +13038,5 @@
     "platform-overrides": {
         "php": "8.2"
     },
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }
