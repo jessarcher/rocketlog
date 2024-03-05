@@ -15,7 +15,7 @@
         "inertiajs/inertia-laravel": "0.6.11 as 0.5.4",
         "laravel/framework": "10.x-dev",
         "laravel/horizon": "^5.12",
-        "laravel/jetstream": "^2.15",
+        "laravel/jetstream": "^4.3",
         "laravel/pulse": "^1.0",
         "laravel/sanctum": "^3.2",
         "laravel/spark-paddle": "1.2.1",
