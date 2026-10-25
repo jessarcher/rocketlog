@@ -59,16 +59,16 @@ services:
             - '${FORWARD_MAILHOG_DASHBOARD_PORT:-8025}:8025'
         networks:
             - sail
-    websockets:
+    reverb:
       build:
           context: ./vendor/laravel/sail/runtimes/8.1
           dockerfile: Dockerfile
           args:
               WWWGROUP: '${WWWGROUP}'
       image: sail-8.1/app
-      command: php artisan websockets:serve
+      command: php artisan reverb:serve
       ports:
-          - '6001:6001'
+          - '${FORWARD_REVERB_PORT:-6001}:8080'
       environment:
           WWWUSER: '${WWWUSER}'
           LARAVEL_SAIL: 1
