@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dd898aa1a546c0bc096f80a29ed47747",
+    "content-hash": "53440dc8eac026a7f69798d175679ed9",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -2375,16 +2375,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v10.50.3",
+            "version": "10.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "74e222cee687f957d95aaadddae69270e3205cf7"
+                "reference": "61c01c74d61b10ee0ac9dcdb3508f362ac8297ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/74e222cee687f957d95aaadddae69270e3205cf7",
-                "reference": "74e222cee687f957d95aaadddae69270e3205cf7",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/61c01c74d61b10ee0ac9dcdb3508f362ac8297ad",
+                "reference": "61c01c74d61b10ee0ac9dcdb3508f362ac8297ad",
                 "shasum": ""
             },
             "require": {
@@ -2579,7 +2579,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2026-08-12T03:46:26+00:00"
+            "time": "2026-10-24T14:38:10+00:00"
         },
         {
             "name": "laravel/horizon",
@@ -12397,10 +12397,18 @@
             "version": "0.6.11.0",
             "alias": "0.5.4",
             "alias_normalized": "0.5.4.0"
+        },
+        {
+            "package": "laravel/framework",
+            "version": "10.9999999.9999999.9999999-dev",
+            "alias": "10.51.0",
+            "alias_normalized": "10.51.0.0"
         }
     ],
     "minimum-stability": "beta",
-    "stability-flags": [],
+    "stability-flags": {
+        "laravel/framework": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
