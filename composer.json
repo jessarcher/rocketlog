@@ -15,6 +15,7 @@
         "laravel/framework": "^10.48",
         "laravel/horizon": "^5.12",
         "laravel/jetstream": "^2.15",
+        "laravel/nightwatch": "^1.13",
         "laravel/reverb": "^1.12",
         "laravel/sanctum": "^3.2",
         "laravel/spark-paddle": "1.2.1",
