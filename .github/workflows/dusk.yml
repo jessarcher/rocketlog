@@ -8,7 +8,7 @@ jobs:
         operating-system:
           - ubuntu-latest
         php-version:
-          - '8.2'
+          - '8.3'
     name: php ${{ matrix.php-version }} on ${{ matrix.operating-system }}
     runs-on: ${{ matrix.operating-system }}
     services:
@@ -58,9 +58,7 @@ jobs:
       - name: Build assets
         run: npm run build
       - name: Upgrade chrome driver
-        run: php artisan dusk:chrome-driver
-      - name: Start chrome driver
-        run: ./vendor/laravel/dusk/bin/chromedriver-linux &
+        run: php artisan dusk:chrome-driver $(google-chrome --version | cut -d' ' -f3 | cut -d'.' -f1)
       - name: Generate application key
         run: php artisan key:generate
       - name: Run Laravel application
@@ -70,6 +68,7 @@ jobs:
           DB_DATABASE: test
           DB_USERNAME: root
           DB_PASSWORD: null
+          CACHE_DRIVER: file
         run: |
           php artisan migrate:fresh --seed
           php artisan serve --no-reload > storage/logs/server.log 2>&1 &

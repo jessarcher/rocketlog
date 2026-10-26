@@ -51,6 +51,19 @@ const nameInput = ref(null)
 
 onMounted(() => autosize(nameInput.value))
 
+watch(() => props.bullet, (bullet) => {
+    if (dirty.value || processing.value) {
+        return
+    }
+
+    name.value = bullet.name
+    state.value = bullet.state
+
+    if (nameInput.value) {
+        autosize.update(nameInput.value)
+    }
+})
+
 const save = async () => {
   if (!dirty.value) {
     return
