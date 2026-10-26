@@ -1,7 +1,7 @@
 <script setup>
 import autosize from 'autosize'
 import { computed, onMounted, ref, watch } from 'vue'
-import { usePage } from '@inertiajs/inertia-vue3'
+import { usePage } from '@inertiajs/vue3'
 import dayjs from 'dayjs'
 import Icon from '@/Components/Icon.vue'
 
@@ -37,7 +37,7 @@ const complete = computed({
   }
 })
 
-const mine = computed(() => props.bullet.user_id === usePage().props.value.user.id)
+const mine = computed(() => props.bullet.user_id === usePage().props.auth.user.id)
 
 watch(state, async (state) => {
   processing.value = true

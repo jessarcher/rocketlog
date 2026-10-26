@@ -1,11 +1,11 @@
 <script setup>
 import { ref } from 'vue'
-import { usePage } from '@inertiajs/inertia-vue3'
+import { usePage } from '@inertiajs/vue3'
 import AppLayout from './AppLayout.vue'
 import JetButton from '@/Jetstream/Button.vue'
 import Index from '@/Components/Index.vue'
 
-const showingWelcome = ref(! usePage().props.value.user.preferences?.dismissed_welcome)
+const showingWelcome = ref(! usePage().props.auth.user.preferences?.dismissed_welcome)
 
 const dismissWelcome = () => {
   showingWelcome.value = false

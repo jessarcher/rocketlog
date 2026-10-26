@@ -5,10 +5,10 @@ import ContentUpdateNotification from '@/Components/ContentUpdateNotification.vu
 import NewBullet from '@/Components/NewBullet.vue'
 import SubscriptionPromptModal from '@/Components/SubscriptionPromptModal.vue'
 import Icon from '@/Components/Icon.vue'
-import { Link } from '@inertiajs/inertia-vue3'
+import { Link } from '@inertiajs/vue3'
 import { computed, nextTick, onMounted, onUnmounted, ref } from 'vue'
-import { usePage } from '@inertiajs/inertia-vue3'
-import { Inertia } from '@inertiajs/inertia'
+import { usePage } from '@inertiajs/vue3'
+import { router } from '@inertiajs/vue3'
 import dayjs from 'dayjs'
 
 const props = defineProps(['days'])
@@ -46,7 +46,7 @@ const setToday = () => {
 }
 
 const listenForUpdates = () => {
-    const userId = usePage().props.value.user.id
+    const userId = usePage().props.auth.user.id
     window.Echo
         .private(`user.${userId}`)
         .listen('DailyLogUpdated', (e) => {
@@ -78,7 +78,7 @@ const reloadWhenHiddenIfContentAvailable = () => {
 }
 
 const storeBullet = (bullet) => new Promise((resolve, reject) => {
-    Inertia.post(
+    router.post(
         route('daily-log.store'),
         { ...bullet, date: dayjs().startOf('day').format('YYYY-MM-DD') },
         {
@@ -95,24 +95,24 @@ const storeBullet = (bullet) => new Promise((resolve, reject) => {
     )
 })
 
-const updateBullet = (bullet) => Inertia.patch(
+const updateBullet = (bullet) => router.patch(
     route('daily-log.update', bullet.id),
     bullet,
     { preserveScroll: true, headers: { 'X-Socket-ID': Echo.socketId() } }
 )
 
-const deleteBullet = (bullet) => Inertia.delete(
+const deleteBullet = (bullet) => router.delete(
     route('daily-log.destroy', bullet.id),
     { preserveScroll: true, headers: { 'X-Socket-ID': Echo.socketId() } }
 )
 
-const migrateBullet = (bullet) => Inertia.patch(
+const migrateBullet = (bullet) => router.patch(
     route('daily-log.update', bullet.id),
     { date: dayjs().startOf('day').format('YYYY-MM-DD') },
     { preserveScroll: true, headers: { 'X-Socket-ID': Echo.socketId() } }
 )
 
-const migrateBulletTo = (bullet, collection) => Inertia.put(
+const migrateBulletTo = (bullet, collection) => router.put(
     route('c.bullets.move', collection.hashid),
     { id: bullet.id },
     { preserveScroll: true, headers: { 'X-Socket-ID': Echo.socketId() } }
@@ -121,7 +121,7 @@ const migrateBulletTo = (bullet, collection) => Inertia.put(
 const reload = () => {
     reloading.value = true
 
-    Inertia.reload({
+    router.reload({
         only: ['days'],
         onFinish: () => {
             contentUpdateAvailable.value = false

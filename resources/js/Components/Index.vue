@@ -1,11 +1,11 @@
 <script setup>
-import { Inertia } from '@inertiajs/inertia'
+import { router } from '@inertiajs/vue3'
 import { ref } from 'vue'
 import IndexLink from './IndexLink.vue'
 
 const newCollectionName = ref('')
 
-const addCollection = () => Inertia.post(
+const addCollection = () => router.post(
   route('c.store'),
   { name: newCollectionName.value },
   {

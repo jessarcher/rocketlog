@@ -11,10 +11,10 @@ import JetDangerButton from '@/Jetstream/DangerButton.vue'
 import JetInputError from '@/Jetstream/InputError.vue'
 import SubscriptionPromptModal from '@/Components/SubscriptionPromptModal.vue'
 import Icon from '@/Components/Icon.vue'
-import { Link } from '@inertiajs/inertia-vue3'
+import { Link } from '@inertiajs/vue3'
 import Draggable from 'vuedraggable'
-import { useForm, usePage } from '@inertiajs/inertia-vue3'
-import { Inertia } from '@inertiajs/inertia'
+import { useForm, usePage } from '@inertiajs/vue3'
+import { router } from '@inertiajs/vue3'
 import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import dayjs from 'dayjs'
 
@@ -68,7 +68,7 @@ const reloadWhenHiddenIfContentAvailable = () => {
     onUnmounted(() => document.removeEventListener('visibilitychange', handler))
 }
 
-const update = () => Inertia.patch(
+const update = () => router.patch(
     route('c.update', props.collection.hashid),
     {
         name: name.value,
@@ -79,14 +79,14 @@ const update = () => Inertia.patch(
 )
 
 const storeBullet = (bullet) => new Promise((resolve, reject) => {
-    Inertia.post(
+    router.post(
         route('c.bullets.store', props.collection.hashid),
         bullet,
         {
             preserveScroll: true,
             headers: { 'X-Socket-ID': Echo.socketId() },
             onSuccess: () => {
-                if (usePage().props.value.showSubscriptionPrompt) {
+                if (usePage().props.showSubscriptionPrompt) {
                     showingSubscriptionPrompt.value = true
                 }
                 resolve()
@@ -96,7 +96,7 @@ const storeBullet = (bullet) => new Promise((resolve, reject) => {
     )
 })
 
-const updateBullet = (bullet) => Inertia.patch(
+const updateBullet = (bullet) => router.patch(
     route('c.bullets.update', [props.collection.hashid, bullet.id]),
     bullet,
     {
@@ -105,7 +105,7 @@ const updateBullet = (bullet) => Inertia.patch(
     }
 )
 
-const migrateBulletTo = (bullet, collection) => Inertia.put(
+const migrateBulletTo = (bullet, collection) => router.put(
     route('c.bullets.move', collection.hashid),
     { id: bullet.id },
     {
@@ -114,7 +114,7 @@ const migrateBulletTo = (bullet, collection) => Inertia.put(
     }
 )
 
-const migrateBulletToDailyLog = (bullet) => Inertia.put(
+const migrateBulletToDailyLog = (bullet) => router.put(
     route('daily-log.move'),
     {
         id: bullet.id,
@@ -126,7 +126,7 @@ const migrateBulletToDailyLog = (bullet) => Inertia.put(
     }
 )
 
-const deleteBullet = (bullet) => Inertia.delete(
+const deleteBullet = (bullet) => router.delete(
     route('c.bullets.destroy', [props.collection.hashid, bullet.id]),
     {
         preserveScroll: true,
@@ -137,7 +137,7 @@ const deleteBullet = (bullet) => Inertia.delete(
 const clearDone = () => {
     processing.value = true
 
-    Inertia.delete(
+    router.delete(
         route('c.destroy-done', props.collection.hashid),
         {
             preserveScroll: true,
@@ -153,7 +153,7 @@ const clearDone = () => {
 const deleteCollection = () => {
     processing.value = true
 
-    Inertia.delete(
+    router.delete(
         route('c.destroy', props.collection.hashid),
         {
             preserveScroll: true,
@@ -166,7 +166,7 @@ const deleteCollection = () => {
 const addUser = () => {
     processing.value = true
 
-    Inertia.post(
+    router.post(
         route('c.users.store', props.collection.hashid),
         { email: addUserEmail.value },
         {
@@ -198,7 +198,7 @@ const removeUser = () => removeUserForm.delete(
 const reload = () => {
     reloading.value = true
 
-    Inertia.reload({
+    router.reload({
         only: ['collection'],
         headers: { 'X-Socket-ID': Echo.socketId() },
         onFinish: () => {
@@ -208,7 +208,7 @@ const reload = () => {
     })
 }
 
-const saveOrder = () => Inertia.put(
+const saveOrder = () => router.put(
     route('c.order.update', props.collection.hashid),
     bullets.value.map(bullet => bullet.id),
     {
@@ -399,7 +399,7 @@ onMounted(() => {
                 >
                     <template #status>
                         <Link
-                            v-if="bullet.date && bullet.user_id === $page.props.user.id"
+                            v-if="bullet.date && bullet.user_id === $page.props.auth.user.id"
                             :href="route('daily-log.index')"
                             title="Appears in daily log"
                             class="inline-block md:-mt-1 -mb-1 p-2 rounded-md text-gray-400 dark:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 transition duration-150 ease-in-out"
