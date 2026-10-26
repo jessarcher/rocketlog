@@ -21,8 +21,29 @@ abstract class DuskTestCase extends BaseTestCase
     public static function prepare()
     {
         if (! static::runningInSail()) {
+            static::useChromedriver(static::chromeDriverPath());
+
             static::startChromeDriver();
         }
+    }
+
+    /**
+     * Locate the Chromedriver binary, accounting for the directory layout
+     * used by recent versions of the dusk:chrome-driver command.
+     *
+     * @return string
+     */
+    protected static function chromeDriverPath()
+    {
+        $base = dirname(__DIR__).'/vendor/laravel/dusk/bin';
+
+        foreach (['chromedriver-linux64/chromedriver', 'chromedriver-linux'] as $path) {
+            if (is_file("{$base}/{$path}")) {
+                return "{$base}/{$path}";
+            }
+        }
+
+        return "{$base}/chromedriver-linux";
     }
 
     /**
