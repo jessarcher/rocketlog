@@ -101,10 +101,9 @@ class PartialReloadTest extends DuskTestCase
             "return JSON.stringify(Array.from(document.querySelectorAll('textarea')).map(t => t.value))"
         ))->first() ?: '[]';
 
-        file_put_contents('/tmp/opencode/dusk-diag.txt', microtime(true)
-            .' url: '.$browser->driver->getCurrentURL()
-            .' | text: '.str_replace("\n", ' | ', substr(collect($browser->script("return document.body.innerText"))->first() ?: '', 0, 150))
-            ." | textareas: {$values}\n", FILE_APPEND);
+        fwrite(STDERR, "\n[assert] url: ".$browser->driver->getCurrentURL()
+            .' | textarecount: '.strlen($values)
+            ." | textareas: ".substr($values, 0, 150)."\n");
 
         $this->assertStringContainsString($expected, $values);
     }
