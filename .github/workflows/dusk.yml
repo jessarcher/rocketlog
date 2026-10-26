@@ -70,6 +70,7 @@ jobs:
           DB_DATABASE: test
           DB_USERNAME: root
           DB_PASSWORD: null
+          CACHE_DRIVER: file
         run: |
           php artisan migrate:fresh --seed
           php artisan serve --no-reload > storage/logs/server.log 2>&1 &
