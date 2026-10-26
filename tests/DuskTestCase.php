@@ -69,7 +69,13 @@ abstract class DuskTestCase extends BaseTestCase
 
         foreach (['chromedriver-linux64/chromedriver', 'chromedriver-linux'] as $path) {
             if (is_file("{$base}/{$path}")) {
-                return "{$base}/{$path}";
+                $binary = "{$base}/{$path}";
+
+                if (! is_executable($binary)) {
+                    chmod($binary, 0755);
+                }
+
+                return $binary;
             }
         }
 
