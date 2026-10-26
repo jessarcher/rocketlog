@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -98,17 +100,17 @@ class User extends Authenticatable implements MustVerifyEmail
         return 'https://www.gravatar.com/avatar/'.md5($this->email).'?d=https%3A%2F%2Fui-avatars.com%2Fapi%2F/'.urlencode($name).'/160';
     }
 
-    public function bullets()
+    public function bullets(): HasMany
     {
         return $this->hasMany(Bullet::class);
     }
 
-    public function collections()
+    public function collections(): HasMany
     {
         return $this->hasMany(Collection::class)->orderBy('name');
     }
 
-    public function sharedCollections()
+    public function sharedCollections(): BelongsToMany
     {
         return $this->belongsToMany(Collection::class)->orderBy('name');
     }
