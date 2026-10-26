@@ -24,6 +24,29 @@ abstract class DuskTestCase extends BaseTestCase
             static::useChromedriver(static::chromeDriverPath());
 
             static::startChromeDriver();
+
+            static::waitForChromeDriver();
+        }
+    }
+
+    /**
+     * Wait for Chromedriver to accept connections so the first test does not
+     * race the driver's startup, which is slower on cold CI runners.
+     *
+     * @return void
+     */
+    protected static function waitForChromeDriver()
+    {
+        for ($attempt = 0; $attempt < 50; $attempt++) {
+            $socket = @fsockopen('127.0.0.1', 9515, $errno, $errstr, 0.2);
+
+            if ($socket !== false) {
+                fclose($socket);
+
+                return;
+            }
+
+            usleep(100_000);
         }
     }
 
