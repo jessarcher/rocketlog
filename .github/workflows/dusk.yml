@@ -8,7 +8,7 @@ jobs:
         operating-system:
           - ubuntu-latest
         php-version:
-          - '8.2'
+          - '8.3'
     name: php ${{ matrix.php-version }} on ${{ matrix.operating-system }}
     runs-on: ${{ matrix.operating-system }}
     services:
@@ -58,9 +58,7 @@ jobs:
       - name: Build assets
         run: npm run build
       - name: Upgrade chrome driver
-        run: |
-          php artisan dusk:chrome-driver $(google-chrome --version | cut -d' ' -f3 | cut -d'.' -f1)
-          chmod +x vendor/laravel/dusk/bin/chromedriver-linux*/chromedriver
+        run: php artisan dusk:chrome-driver $(google-chrome --version | cut -d' ' -f3 | cut -d'.' -f1)
       - name: Generate application key
         run: php artisan key:generate
       - name: Run Laravel application
