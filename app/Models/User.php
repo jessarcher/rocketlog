@@ -44,16 +44,6 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'preferences' => 'array',
-    ];
-
-    /**
      * The accessors to append to the model's array form.
      *
      * @var array
@@ -61,6 +51,19 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $appends = [
         'profile_photo_url',
     ];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'preferences' => 'array',
+        ];
+    }
 
     /**
      * Update the user's profile photo.

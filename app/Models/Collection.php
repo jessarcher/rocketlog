@@ -17,14 +17,17 @@ class Collection extends Model
 
     protected $guarded = [];
 
-    protected $casts = [
-        'hide_done' => 'boolean',
-        'user_id' => 'integer',
-    ];
-
     protected $appends = [
         'hashid',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'hide_done' => 'boolean',
+            'user_id' => 'integer',
+        ];
+    }
 
     protected function name(): Attribute
     {
