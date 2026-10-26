@@ -2,9 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\Providers\AppServiceProvider;
 use App\Models\User;
-use App\Providers\RouteServiceProvider;
+use App\Providers\AppServiceProvider;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;

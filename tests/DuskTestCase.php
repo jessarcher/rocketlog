@@ -10,7 +10,6 @@ use RuntimeException;
 
 abstract class DuskTestCase extends BaseTestCase
 {
-
     /**
      * Prepare for Dusk test execution.
      *
