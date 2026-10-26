@@ -13,7 +13,15 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware->redirectGuestsTo(fn () => route('login'));
+        $middleware->redirectUsersTo(RouteServiceProvider::HOME);
+
+        $middleware->web([
+            \Laravel\Jetstream\Http\Middleware\AuthenticateSession::class,
+            \App\Http\Middleware\HandleInertiaRequests::class,
+        ]);
+
+        $middleware->throttleApi();
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
