@@ -16,7 +16,7 @@ class PartialReloadTest extends DuskTestCase
         $bullet = $collection->bullets()->first();
         $bullet->update(['name' => 'Original Test Bullet']);
 
-        $this->browse(function (Browser $browser) use ($user, $collection, $bullet) {
+        $this->browse(function (Browser $browser) use ($collection, $bullet) {
             $this->loginViaUi($browser);
             $browser->visit(route('c.show', $collection))
                 ->pause(1000);
@@ -38,7 +38,7 @@ class PartialReloadTest extends DuskTestCase
         $bullet = $user->bullets()->orderBy('id')->first();
         $bullet->update(['name' => 'Original Test Bullet']);
 
-        $this->browse(function (Browser $browser) use ($user, $bullet) {
+        $this->browse(function (Browser $browser) use ($bullet) {
             $this->loginViaUi($browser);
             $browser->visit(route('daily-log.index'))
                 ->pause(1000);

@@ -4,7 +4,6 @@ namespace App\Providers;
 
 use App\Models\Bullet;
 use App\Models\Collection;
-use App\Models\User;
 use App\Policies\BulletPolicy;
 use App\Policies\CollectionPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;

@@ -69,7 +69,6 @@ class User extends Authenticatable implements MustVerifyEmail
      * instead of a per-object public ACL, which S3-compatible providers with
      * bucket-level visibility (e.g. Laravel Cloud Object Storage) reject.
      *
-     * @param  \Illuminate\Http\UploadedFile  $photo
      * @return void
      */
     public function updateProfilePhoto(UploadedFile $photo)
