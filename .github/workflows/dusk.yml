@@ -58,7 +58,9 @@ jobs:
       - name: Build assets
         run: npm run build
       - name: Upgrade chrome driver
-        run: php artisan dusk:chrome-driver
+        run: |
+          php artisan dusk:chrome-driver
+          chmod +x vendor/laravel/dusk/bin/chromedriver-linux*/chromedriver
       - name: Generate application key
         run: php artisan key:generate
       - name: Run Laravel application
