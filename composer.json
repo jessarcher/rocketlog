@@ -17,7 +17,7 @@
         "laravel/nightwatch": "^1.13",
         "laravel/reverb": "^1.12",
         "laravel/sanctum": "^4.0",
-        "laravel/spark-paddle": "^1.2.1",
+        "laravel/spark-paddle": "1.2.1",
         "laravel/tinker": "^2.9",
         "league/flysystem-aws-s3-v3": "^3.35",
         "mtvs/eloquent-hashids": "^3.5",

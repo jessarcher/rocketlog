@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b05c390a43adec7aca45360f0b633245",
+    "content-hash": "f07b0a8b96e33851d514c05cf27b386c",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -3002,29 +3002,28 @@
         },
         {
             "name": "laravel/spark-paddle",
-            "version": "v1.2.7",
+            "version": "v1.2.1",
             "source": {
                 "type": "git",
                 "url": "git@github.com:laravel/spark-paddle.git",
-                "reference": "6c9f998b2a6e8170ed1360facc970afcdea865f2"
+                "reference": "418e5cbf019e093d24d182940aaf582991924798"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://spark.laravel.com/dist/laravel/spark-paddle/laravel-spark-paddle-6c9f998b2a6e8170ed1360facc970afcdea865f2-zip-aeb043.zip",
-                "reference": "6c9f998b2a6e8170ed1360facc970afcdea865f2",
-                "shasum": "7685272554a257a4023b62fae9563b758d6a12c1"
+                "url": "https://spark.laravel.com/dist/laravel/spark-paddle/laravel-spark-paddle-418e5cbf019e093d24d182940aaf582991924798-zip-e9d879.zip",
+                "reference": "418e5cbf019e093d24d182940aaf582991924798",
+                "shasum": "984184094318488ee93f6a9ade78265897183c67"
             },
             "require": {
-                "ext-bcmath": "*",
                 "ext-json": "*",
                 "inertiajs/inertia-laravel": "^0.5.1",
-                "laravel/cashier-paddle": "^1.5.4",
+                "laravel/cashier-paddle": "^1.0",
                 "php": "^7.3|^8.0"
             },
             "require-dev": {
                 "mockery/mockery": "^1.0",
-                "orchestra/testbench": "^6.0|^7.0",
-                "phpunit/phpunit": "^8.0|^9.5"
+                "orchestra/testbench": "^6.0",
+                "phpunit/phpunit": "^8.0"
             },
             "type": "library",
             "extra": {
@@ -3070,10 +3069,10 @@
                 "scaffolding"
             ],
             "support": {
-                "source": "https://github.com/laravel/spark-paddle/tree/v1.2.7",
+                "source": "https://github.com/laravel/spark-paddle/tree/v1.2.1",
                 "issues": "https://github.com/laravel/spark-paddle/issues"
             },
-            "time": "2022-04-14T17:27:45+00:00"
+            "time": "2022-02-10T07:50:53+00:00"
         },
         {
             "name": "laravel/tinker",
