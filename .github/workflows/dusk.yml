@@ -59,6 +59,11 @@ jobs:
         run: npm run build
       - name: Upgrade chrome driver
         run: php artisan dusk:chrome-driver
+      - name: Verify chrome driver
+        run: |
+          ls -la vendor/laravel/dusk/bin/
+          find vendor/laravel/dusk/bin -name chromedriver -exec ls -la {} \;
+          vendor/laravel/dusk/bin/chromedriver-linux*/chromedriver --version
       - name: Generate application key
         run: php artisan key:generate
       - name: Run Laravel application

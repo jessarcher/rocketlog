@@ -48,6 +48,13 @@ abstract class DuskTestCase extends BaseTestCase
 
             usleep(100_000);
         }
+
+        throw new RuntimeException(
+            'Chromedriver did not accept connections within 5 seconds. '
+            .'Exit code: '.static::$chromeProcess?->getExitCode()
+            .'. Output: '.static::$chromeProcess?->getOutput()
+            .'. Error output: '.static::$chromeProcess?->getErrorOutput()
+        );
     }
 
     /**
