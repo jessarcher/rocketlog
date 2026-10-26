@@ -30,6 +30,8 @@ class CollectionBulletController extends Controller
     {
         $this->authorize('update', $collection);
 
+        abort_if($bullet->collection_id !== $collection->id, 404);
+
         $bullet->update($request->only(
             array_merge(['name', 'state'], $bullet->user_id === $request->user()->id ? ['date'] : [])
         ));
@@ -70,6 +72,8 @@ class CollectionBulletController extends Controller
     public function destroy(Collection $collection, Bullet $bullet)
     {
         $this->authorize('update', $collection);
+
+        abort_if($bullet->collection_id !== $collection->id, 404);
 
         $bullet->delete();
 

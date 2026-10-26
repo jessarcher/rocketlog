@@ -17,7 +17,7 @@ class CollectionUserController extends Controller
 
     public function destroy(Collection $collection, User $user)
     {
-        $this->authorize('update', $collection);
+        $this->authorize('share', $collection);
 
         $collection->users()->detach($user);
 

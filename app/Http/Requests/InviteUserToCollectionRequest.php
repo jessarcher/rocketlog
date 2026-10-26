@@ -11,7 +11,7 @@ class InviteUserToCollectionRequest extends FormRequest
 
     public function authorize(): bool
     {
-        return $this->user()->can('update', $this->collection);
+        return $this->user()->can('share', $this->collection);
     }
 
     protected function prepareForValidation()
