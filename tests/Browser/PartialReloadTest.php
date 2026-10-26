@@ -59,7 +59,8 @@ class PartialReloadTest extends DuskTestCase
         $browser->visit('/login');
 
         if (str_contains($browser->driver->getCurrentURL(), 'login')) {
-            $browser->type('#email', 'full@example.com')
+            $browser->waitFor('#email', 5)
+                ->type('#email', 'full@example.com')
                 ->type('#password', 'password')
                 ->press('Login')
                 ->pause(2000);
