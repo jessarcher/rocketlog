@@ -18,6 +18,11 @@ class Collection extends Model
     use HasHashid;
     use HashidRouting;
 
+    public function getRouteKeyName()
+    {
+        return 'hashid';
+    }
+
     protected $guarded = [];
 
     protected $appends = [
