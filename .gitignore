@@ -5,6 +5,7 @@
 /public/vendor
 /resources/views/vendor
 /lang/spark
+/resources/lang/spark
 /storage/*.key
 /vendor
 .env
