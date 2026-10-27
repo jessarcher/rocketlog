@@ -58,37 +58,13 @@ class PartialReloadTest extends DuskTestCase
     {
         $browser->visit('/login')->pause(1500);
 
-        // Capture a raw login POST result through the page's own axios instance
-        $browser->script(
-            "window.axios.post('/login', { email: 'full@example.com', password: 'password' })".
-            ".then(r => window.__loginResult = { status: r.status, redirect: r.request.responseURL, data: JSON.stringify(r.data).slice(0, 120) })".
-            ".catch(e => window.__loginResult = { error: e.response ? { status: e.response.status, data: JSON.stringify(e.response.data).slice(0, 120) } : String(e) });"
-        );
-        $browser->pause(2500);
-        fwrite(STDERR, "\nLOGIN POST RESULT: ".collect($browser->script("return JSON.stringify(window.__loginResult)"))->first()."\n");
-
-        $url = $browser->driver->getCurrentURL();
-        $text = substr(collect($browser->script("return document.body.innerText"))->first() ?: '', 0, 200);
-        fwrite(STDERR, "\n[login] url: {$url} | text: {$text}\n");
-
-        if (str_contains($url, 'login')) {
+        if (str_contains($browser->driver->getCurrentURL(), 'login')) {
             $browser->waitFor('#email', 5)
                 ->type('#email', 'full@example.com')
                 ->type('#password', 'password')
                 ->press('Login')
                 ->pause(2000);
         }
-
-        $cookies = collect($browser->driver->manage()->getCookies())
-            ->map(fn ($c) => substr($c['name'], 0, 10).'='.substr($c['value'], 0, 20).'...')
-            ->implode(', ');
-        fwrite(STDERR, "\nBROWSER COOKIES: {$cookies}\n");
-
-        $rows = \Illuminate\Support\Facades\DB::table('sessions')->orderByDesc('last_activity')->limit(2)
-            ->get(['id', 'user_id', 'last_activity'])
-            ->map(fn ($r) => substr($r->id, 0, 10)."/u{$r->user_id}")
-            ->implode(', ');
-        fwrite(STDERR, "SESSION ROWS: {$rows}\n");
     }
 
     /**
@@ -101,10 +77,6 @@ class PartialReloadTest extends DuskTestCase
             "return JSON.stringify(Array.from(document.querySelectorAll('textarea')).map(t => t.value))"
         ))->first() ?: '[]';
 
-        fwrite(STDERR, "\n[assert] url: ".$browser->driver->getCurrentURL()
-            .' | textarecount: '.strlen($values)
-            ." | textareas: ".substr($values, 0, 150)."\n");
-
-        $this->assertStringContainsString($expected, $values);
+        $this->assertStringContainsString($expected, $values, "Bullet names: ".$values);
     }
 }

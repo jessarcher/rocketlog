@@ -9,7 +9,6 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
-        "doctrine/dbal": "^3.5",
         "inertiajs/inertia-laravel": "2.0.28 as 0.5.4",
         "laravel/framework": "^11.51",
         "laravel/horizon": "^5.22",
