@@ -129,7 +129,9 @@ return [
 
     'cookie' => env(
         'SESSION_COOKIE',
-        Str::slug((string) env('APP_NAME', 'laravel')).'-session'
+        // Deliberately kept from previous versions; differs from the Laravel
+        // skeleton to avoid invalidating existing session cookies.
+        Str::slug((string) env('APP_NAME', 'laravel'), '_').'_session'
     ),
 
     /*

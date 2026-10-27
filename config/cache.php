@@ -112,6 +112,8 @@ return [
     |
     */
 
-    'prefix' => env('CACHE_PREFIX', Str::slug((string) env('APP_NAME', 'laravel')).'-cache-'),
+    // Deliberately kept from previous versions; differs from the Laravel skeleton
+    // to preserve existing cache keys on shared stores.
+    'prefix' => env('CACHE_PREFIX', Str::slug((string) env('APP_NAME', 'laravel'), '_').'_cache_'),
 
 ];
