@@ -77,6 +77,6 @@ class PartialReloadTest extends DuskTestCase
             "return JSON.stringify(Array.from(document.querySelectorAll('textarea')).map(t => t.value))"
         ))->first() ?: '[]';
 
-        $this->assertStringContainsString($expected, $values, "Bullet names: ".$values);
+        $this->assertStringContainsString($expected, $values, 'Bullet names: '.$values);
     }
 }

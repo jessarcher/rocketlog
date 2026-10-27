@@ -26,7 +26,7 @@ class DailyLogTest extends TestCase
 
     public function test_it_only_shows_my_bullets(): void
     {
-        /** @var \App\Models\User */
+        /** @var User */
         $user = User::factory()->create();
         $myBullet = $user->bullets()->save(
             Bullet::factory()->make(['date' => now()->format('Y-m-d')])
@@ -44,7 +44,7 @@ class DailyLogTest extends TestCase
 
     public function test_it_only_shows_six_days_of_bullets(): void
     {
-        /** @var \App\Models\User */
+        /** @var User */
         $user = User::factory()->create();
 
         $this->travelTo(now()->subDays(7));
@@ -86,7 +86,7 @@ class DailyLogTest extends TestCase
     public function test_it_stores_bullets(): void
     {
         Event::fake();
-        /** @var \App\Models\User */
+        /** @var User */
         $user = User::factory()->create();
 
         $response = $this
@@ -110,7 +110,7 @@ class DailyLogTest extends TestCase
     public function test_it_updates_bullets(): void
     {
         Event::fake();
-        /** @var \App\Models\User */
+        /** @var User */
         $user = User::factory()->create();
         $bullet = $user->bullets()->save(Bullet::factory()->make(['date' => now()->subDays(2)]));
 
@@ -135,7 +135,7 @@ class DailyLogTest extends TestCase
     public function test_it_moves_bullets(): void
     {
         Event::fake();
-        /** @var \App\Models\User */
+        /** @var User */
         $user = User::factory()->create();
         $collection = $user->collections()->save(Collection::factory()->make());
         $bullet = $user->bullets()->save(Bullet::factory()->make(['date' => null, 'collection_id' => $collection->id]));
@@ -159,7 +159,7 @@ class DailyLogTest extends TestCase
 
     public function test_a_user_cant_move_others_bullets(): void
     {
-        /** @var \App\Models\User */
+        /** @var User */
         $user = User::factory()->create();
         $collection = Collection::factory()->create();
         $bullet = $collection->bullets()->save(Bullet::factory()->make(['date' => null]));
@@ -177,7 +177,7 @@ class DailyLogTest extends TestCase
     public function test_a_user_can_move_others_bullets_if_they_own_the_collection(): void
     {
         Event::fake();
-        /** @var \App\Models\User */
+        /** @var User */
         $user = User::factory()->create();
         $collection = Collection::factory()->create(['user_id' => $user->id]);
         $bullet = Bullet::factory()->create(['date' => null, 'collection_id' => $collection->id]);
@@ -203,7 +203,7 @@ class DailyLogTest extends TestCase
     public function test_a_user_can_move_others_bullets_if_they_have_access_to_the_collection(): void
     {
         Event::fake();
-        /** @var \App\Models\User */
+        /** @var User */
         $user = User::factory()->create();
         $collection = Collection::factory()->create();
         $collection->users()->attach($user);
@@ -230,7 +230,7 @@ class DailyLogTest extends TestCase
     public function test_it_destroys_bullets(): void
     {
         Event::fake();
-        /** @var \App\Models\User */
+        /** @var User */
         $user = User::factory()->create();
         $collection = $user->collections()->save(Collection::factory()->make());
         $bullet = $user->bullets()->save(Bullet::factory()->make(['date' => null, 'collection_id' => $collection->id]));
@@ -246,7 +246,7 @@ class DailyLogTest extends TestCase
 
     public function test_a_user_cant_update_others_bullets(): void
     {
-        /** @var \App\Models\User */
+        /** @var User */
         $user = User::factory()->create();
         $otherUser = User::factory()->create();
         $bullet = $otherUser->bullets()->save(
@@ -264,7 +264,7 @@ class DailyLogTest extends TestCase
 
     public function test_a_user_cant_delete_others_bullets(): void
     {
-        /** @var \App\Models\User */
+        /** @var User */
         $user = User::factory()->create();
         $otherUser = User::factory()->create();
         $bullet = $otherUser->bullets()->save(
