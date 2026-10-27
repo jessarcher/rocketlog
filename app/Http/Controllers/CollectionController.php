@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Gate;
 use App\Events\CollectionUpdated;
 use App\Events\DailyLogUpdated;
 use App\Models\Collection;
@@ -12,7 +13,7 @@ class CollectionController extends Controller
 {
     public function store(Request $request)
     {
-        $this->validate($request, ['name' => 'required|string']);
+        $request->validate(['name' => 'required|string']);
 
         $collection = $request->user()->collections()->create([
             'name' => $request->name,
@@ -24,7 +25,7 @@ class CollectionController extends Controller
 
     public function show(Collection $collection)
     {
-        $this->authorize($collection);
+        Gate::authorize('view', $collection);
 
         return Inertia::render('Collection', [
             'collection' => $collection->load('bullets', 'users'),
@@ -33,9 +34,9 @@ class CollectionController extends Controller
 
     public function update(Request $request, Collection $collection)
     {
-        $this->authorize($collection);
+        Gate::authorize('update', $collection);
 
-        $this->validate($request, [
+        $request->validate([
             'name' => 'required|string',
             'type' => 'in:bullet,checklist',
             'hide_done' => 'boolean',
@@ -50,7 +51,7 @@ class CollectionController extends Controller
 
     public function destroy(Collection $collection)
     {
-        $this->authorize($collection);
+        Gate::authorize('delete', $collection);
 
         $bullets = $collection->bullets;
 

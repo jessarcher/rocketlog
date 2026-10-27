@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\InviteUserToCollectionRequest;
 use App\Models\Collection;
 use App\Models\User;
@@ -17,7 +18,7 @@ class CollectionUserController extends Controller
 
     public function destroy(Collection $collection, User $user)
     {
-        $this->authorize('share', $collection);
+        Gate::authorize('share', $collection);
 
         $collection->users()->detach($user);
 

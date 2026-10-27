@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Gate;
 use App\Events\CollectionUpdated;
 use App\Events\DailyLogUpdated;
 use App\Models\Bullet;
@@ -62,7 +63,7 @@ class DailyLogController extends Controller
 
     public function update(Request $request, Bullet $bullet)
     {
-        $this->authorize($bullet);
+        Gate::authorize('update', $bullet);
 
         $bullet->update($request->only(['name', 'state', 'date']));
 
@@ -80,7 +81,7 @@ class DailyLogController extends Controller
         $bullet = Bullet::find($request->id);
         abort_if($bullet === null, 400, 'Invalid bullet');
 
-        $this->authorize('update', $bullet);
+        Gate::authorize('update', $bullet);
 
         if ($bullet->collection_id) {
             broadcast(new CollectionUpdated($bullet->collection_id))->toOthers();
@@ -97,7 +98,7 @@ class DailyLogController extends Controller
 
     public function destroy(Request $request, Bullet $bullet)
     {
-        $this->authorize($bullet);
+        Gate::authorize('delete', $bullet);
 
         $bullet->delete();
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Gate;
 use App\Events\CollectionUpdated;
 use App\Events\DailyLogUpdated;
 use App\Models\Collection;
@@ -10,7 +11,7 @@ class CollectionBulletDoneController extends Controller
 {
     public function destroy(Collection $collection)
     {
-        $this->authorize('update', $collection);
+        Gate::authorize('update', $collection);
 
         $completeBullets = $collection->bullets()->whereState('complete')->get();
 
