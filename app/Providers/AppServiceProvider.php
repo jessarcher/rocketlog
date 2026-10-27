@@ -6,14 +6,10 @@ use App\Models\Bullet;
 use App\Models\Collection;
 use App\Policies\BulletPolicy;
 use App\Policies\CollectionPolicy;
-use Illuminate\Broadcasting\Broadcasters\PusherBroadcaster;
-use Illuminate\Broadcasting\BroadcastManager;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\RateLimiter;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -40,13 +36,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Laravel 10's BroadcastManager doesn't include the "reverb" driver, which
-        // is a Pusher-compatible driver built into the framework since Laravel 11.
-        // This shim can be removed once the application upgrades to Laravel 11+.
-        Broadcast::extend('reverb', function ($app, array $config) {
-            return new PusherBroadcaster($app->make(BroadcastManager::class)->pusher($config));
-        });
-
         $this->bootAuth();
         $this->bootRoute();
     }
