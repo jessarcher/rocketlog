@@ -25,11 +25,11 @@ class CollectionUpdated implements ShouldBroadcast
     /**
      * Get the channels the event should broadcast on.
      *
-     * @return \Illuminate\Broadcasting\Channel|array
+     * @return array<int, \Illuminate\Broadcasting\Channel>
      */
-    public function broadcastOn()
+    public function broadcastOn(): array
     {
-        return new PrivateChannel('collection.'.$this->collectionId);
+        return [new PrivateChannel('collection.'.$this->collectionId)];
     }
 
     public function broadcastWith()

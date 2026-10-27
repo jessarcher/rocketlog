@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Notifications\Notifiable;
@@ -44,16 +46,6 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'preferences' => 'array',
-    ];
-
-    /**
      * The accessors to append to the model's array form.
      *
      * @var array
@@ -63,13 +55,25 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'preferences' => 'array',
+        ];
+    }
+
+    /**
      * Update the user's profile photo.
      *
      * Overrides Jetstream to store the photo with the disk's default visibility
      * instead of a per-object public ACL, which S3-compatible providers with
      * bucket-level visibility (e.g. Laravel Cloud Object Storage) reject.
      *
-     * @param  \Illuminate\Http\UploadedFile  $photo
      * @return void
      */
     public function updateProfilePhoto(UploadedFile $photo)
@@ -96,17 +100,17 @@ class User extends Authenticatable implements MustVerifyEmail
         return 'https://www.gravatar.com/avatar/'.md5($this->email).'?d=https%3A%2F%2Fui-avatars.com%2Fapi%2F/'.urlencode($name).'/160';
     }
 
-    public function bullets()
+    public function bullets(): HasMany
     {
         return $this->hasMany(Bullet::class);
     }
 
-    public function collections()
+    public function collections(): HasMany
     {
         return $this->hasMany(Collection::class)->orderBy('name');
     }
 
-    public function sharedCollections()
+    public function sharedCollections(): BelongsToMany
     {
         return $this->belongsToMany(Collection::class)->orderBy('name');
     }

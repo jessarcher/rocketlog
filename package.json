@@ -6,9 +6,6 @@
         "lint": "eslint --ext .js,.vue resources/js/"
     },
     "devDependencies": {
-        "@inertiajs/inertia": "^0.11.1",
-        "@inertiajs/inertia-vue3": "^0.6.0",
-        "@inertiajs/progress": "^0.2.7",
         "@sentry/tracing": "^7.85.0",
         "@sentry/vue": "^7.85.0",
         "@tailwindcss/forms": "^0.5.7",
@@ -35,5 +32,8 @@
         "vue": "^3.3.10",
         "vue-inline-svg": "^3.1.0",
         "vuedraggable": "^4.1.0"
+    },
+    "dependencies": {
+        "@inertiajs/vue3": "^2.3.29"
     }
 }

@@ -4,6 +4,7 @@
 /public/storage
 /public/vendor
 /resources/views/vendor
+/lang/spark
 /resources/lang/spark
 /storage/*.key
 /vendor
@@ -16,3 +17,4 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 .phpunit.cache
+.cloud

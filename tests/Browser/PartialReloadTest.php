@@ -16,7 +16,7 @@ class PartialReloadTest extends DuskTestCase
         $bullet = $collection->bullets()->first();
         $bullet->update(['name' => 'Original Test Bullet']);
 
-        $this->browse(function (Browser $browser) use ($user, $collection, $bullet) {
+        $this->browse(function (Browser $browser) use ($collection, $bullet) {
             $this->loginViaUi($browser);
             $browser->visit(route('c.show', $collection))
                 ->pause(1000);
@@ -38,7 +38,7 @@ class PartialReloadTest extends DuskTestCase
         $bullet = $user->bullets()->orderBy('id')->first();
         $bullet->update(['name' => 'Original Test Bullet']);
 
-        $this->browse(function (Browser $browser) use ($user, $bullet) {
+        $this->browse(function (Browser $browser) use ($bullet) {
             $this->loginViaUi($browser);
             $browser->visit(route('daily-log.index'))
                 ->pause(1000);
@@ -56,7 +56,7 @@ class PartialReloadTest extends DuskTestCase
 
     private function loginViaUi(Browser $browser): void
     {
-        $browser->visit('/login');
+        $browser->visit('/login')->pause(1500);
 
         if (str_contains($browser->driver->getCurrentURL(), 'login')) {
             $browser->waitFor('#email', 5)
@@ -77,6 +77,6 @@ class PartialReloadTest extends DuskTestCase
             "return JSON.stringify(Array.from(document.querySelectorAll('textarea')).map(t => t.value))"
         ))->first() ?: '[]';
 
-        $this->assertStringContainsString($expected, $values, "Expected [{$expected}] in textarea values: {$values}");
+        $this->assertStringContainsString($expected, $values, "Bullet names: ".$values);
     }
 }

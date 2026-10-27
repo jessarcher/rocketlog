@@ -10,15 +10,12 @@ use RuntimeException;
 
 abstract class DuskTestCase extends BaseTestCase
 {
-    use CreatesApplication;
-
     /**
      * Prepare for Dusk test execution.
      *
-     * @beforeClass
-     *
      * @return void
      */
+    #[\PHPUnit\Framework\Attributes\BeforeClass]
     public static function prepare()
     {
         if (! static::runningInSail()) {
@@ -112,7 +109,7 @@ abstract class DuskTestCase extends BaseTestCase
      *
      * @return bool
      */
-    protected function hasHeadlessDisabled()
+    protected function hasHeadlessDisabled(): bool
     {
         return isset($_SERVER['DUSK_HEADLESS_DISABLED']) ||
                isset($_ENV['DUSK_HEADLESS_DISABLED']);

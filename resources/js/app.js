@@ -2,19 +2,21 @@ import './bootstrap'
 import '../css/app.css'
 
 import { createApp, h } from 'vue'
-import { createInertiaApp } from '@inertiajs/inertia-vue3'
-import { Inertia } from '@inertiajs/inertia'
-import { InertiaProgress } from '@inertiajs/progress'
+import { createInertiaApp } from '@inertiajs/vue3'
+import { router } from '@inertiajs/vue3'
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import * as Sentry from '@sentry/vue';
 import { Integrations } from '@sentry/tracing';
-import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m'
+import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/index.js'
+
+const appName = document.querySelector('meta[name="app-name"]')?.content ?? 'RocketLog'
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
     resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue')),
-    setup({ el, app, props, plugin }) {
-        const vue = createApp({ render: () => h(app, props) })
+    progress: { color: '#8B5CF6' },
+    setup({ el, App, props, plugin }) {
+        const vue = createApp({ render: () => h(App, props) })
             .use(plugin)
             .use(ZiggyVue, Ziggy)
 
@@ -36,9 +38,7 @@ createInertiaApp({
     },
 })
 
-InertiaProgress.init({ color: '#8B5CF6' })
-
-Inertia.on('navigate', () => {
+router.on('navigate', () => {
     if (typeof window.fathom !== 'undefined') {
         window.fathom.trackPageview();
     }

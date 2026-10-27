@@ -25,11 +25,14 @@ class Bullet extends Model implements Sortable
         'complete',
     ];
 
-    protected $casts = [
-        'date' => 'date',
-        'user_id' => 'integer',
-        'order' => 'integer',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'date' => 'date',
+            'user_id' => 'integer',
+            'order' => 'integer',
+        ];
+    }
 
     protected function complete(): Attribute
     {

@@ -18,7 +18,7 @@ defineEmits(['close'])
         >
         <div class="mt-4 sm:mt-0 sm:ml-4">
           <p class="">
-            <strong>Hey there, {{ $page.props.user.name }}!</strong>
+            <strong>Hey there, {{ $page.props.auth.user.name }}!</strong>
           </p>
           <p class="mt-4">
             I'm here if you need any help or have any ideas for making RocketLog even better.
