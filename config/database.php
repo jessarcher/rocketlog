@@ -150,7 +150,7 @@ return [
         'options' => [
             'cluster' => env('REDIS_CLUSTER', 'redis'),
             // Deliberately kept from previous versions; differs from the Laravel
-            // skeleton to preserve existing Redis keys (queues, jobs, horizon).
+            // skeleton to preserve existing Redis keys (queues and jobs).
             'prefix' => env('REDIS_PREFIX', Str::slug((string) env('APP_NAME', 'laravel'), '_').'_database_'),
             'persistent' => env('REDIS_PERSISTENT', false),
         ],
