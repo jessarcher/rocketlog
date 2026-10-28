@@ -12,6 +12,6 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.3'
-          tools: phplint
-      - name: Check syntax
-        run: phplint .
+          tools: pint
+      - name: Check style
+        run: pint --test

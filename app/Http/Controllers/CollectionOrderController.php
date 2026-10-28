@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Bullet;
 use App\Models\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class CollectionOrderController extends Controller
 {
     public function update(Request $request, Collection $collection)
     {
-        $this->authorize($collection);
+        Gate::authorize('update', $collection);
 
         $orderedIds = $request->json()->all();
 

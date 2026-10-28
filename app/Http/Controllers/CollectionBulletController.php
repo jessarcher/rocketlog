@@ -7,12 +7,13 @@ use App\Events\DailyLogUpdated;
 use App\Models\Bullet;
 use App\Models\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class CollectionBulletController extends Controller
 {
     public function store(Request $request, Collection $collection)
     {
-        $this->authorize('update', $collection);
+        Gate::authorize('update', $collection);
 
         $collection->bullets()->create([
             'name' => $request->name,
@@ -28,7 +29,7 @@ class CollectionBulletController extends Controller
 
     public function update(Request $request, Collection $collection, Bullet $bullet)
     {
-        $this->authorize('update', $collection);
+        Gate::authorize('update', $collection);
 
         abort_if($bullet->collection_id !== $collection->id, 404);
 
@@ -47,11 +48,11 @@ class CollectionBulletController extends Controller
 
     public function move(Request $request, Collection $collection)
     {
-        $this->authorize('update', $collection);
+        Gate::authorize('update', $collection);
 
         $bullet = Bullet::find($request->id);
         abort_if($bullet === null, 400, 'Invalid bullet');
-        $this->authorize('update', $bullet);
+        Gate::authorize('update', $bullet);
 
         if ($bullet->collection_id === null) {
             $bullet->date = null;
@@ -71,7 +72,7 @@ class CollectionBulletController extends Controller
 
     public function destroy(Collection $collection, Bullet $bullet)
     {
-        $this->authorize('update', $collection);
+        Gate::authorize('update', $collection);
 
         abort_if($bullet->collection_id !== $collection->id, 404);
 

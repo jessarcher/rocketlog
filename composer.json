@@ -8,21 +8,21 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.2",
+        "php": "^8.5",
         "inertiajs/inertia-laravel": "2.0.28 as 0.5.4",
-        "laravel/framework": "^11.51",
+        "laravel/framework": "^12.0",
         "laravel/horizon": "^5.22",
         "laravel/jetstream": "^5.0",
         "laravel/nightwatch": "^1.13",
         "laravel/reverb": "^1.12",
         "laravel/sanctum": "^4.0",
         "laravel/spark-paddle": "1.2.1",
-        "laravel/tinker": "^2.9",
+        "laravel/tinker": "^3.0",
         "league/flysystem-aws-s3-v3": "^3.35",
         "mtvs/eloquent-hashids": "^3.5",
         "pusher/pusher-php-server": "^7.2",
         "sentry/sentry-laravel": "^4.3",
-        "spatie/eloquent-sortable": "^4.2",
+        "spatie/eloquent-sortable": "^5.0",
         "symfony/http-client": "^7.0",
         "symfony/mailgun-mailer": "^7.0",
         "tightenco/ziggy": "^2.0"
@@ -31,6 +31,7 @@
         "fakerphp/faker": "^1.23",
         "laravel/dusk": "^8.0",
         "laravel/pail": "^1.1",
+        "laravel/pint": "^1.30",
         "laravel/sail": "^1.26",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.1",
@@ -38,7 +39,7 @@
     },
     "config": {
         "platform": {
-            "php": "8.2"
+            "php": "8.5"
         },
         "optimize-autoloader": true,
         "preferred-install": "dist",
@@ -67,32 +68,26 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
     "scripts": {
+        "dev": [
+            "Composer\\Config::disableProcessTimeout",
+            "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1 --timeout=0\" \"php artisan pail --timeout=0\" \"npm run dev\" --names=server,queue,logs,vite --kill-others"
+        ],
+        "test": [
+            "@php artisan config:clear --ansi",
+            "@php artisan test"
+        ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"
+        ],
+        "post-update-cmd": [
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
-        ],
-        "deploy": [
-            "npm run build",
-            "@php artisan migrate --force",
-            "@php artisan route:cache",
-            "@php artisan view:cache",
-            "@php artisan horizon:terminate",
-            "@php artisan spark:install"
-        ],
-        "clear": [
-            "@php artisan cache:clear",
-            "@php artisan config:clear",
-            "@php artisan route:clear",
-            "@php artisan view:clear"
-        ],
-        "post-update-cmd": [
-            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
         ]
     },
     "repositories": [

@@ -15,7 +15,7 @@
     }
     @media (min-width: 1024px) {
         .spotlight-bg {
-            background-image: url('/images/spotlight-bg.svg');
+            background-image: url('../images/spotlight-bg.svg');
             background-attachment: fixed;
             background-repeat: no-repeat;
             background-size: cover;
@@ -30,7 +30,7 @@
     }
     @media (min-width: 1024px) and (prefers-color-scheme: dark) {
         .spotlight-bg {
-            background-image: url('/images/spotlight-bg-dark.svg');
+            background-image: url('../images/spotlight-bg-dark.svg');
         }
     }
 }

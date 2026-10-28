@@ -6,6 +6,7 @@ use Facebook\WebDriver\Chrome\ChromeOptions;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Laravel\Dusk\TestCase as BaseTestCase;
+use PHPUnit\Framework\Attributes\BeforeClass;
 use RuntimeException;
 
 abstract class DuskTestCase extends BaseTestCase
@@ -15,7 +16,7 @@ abstract class DuskTestCase extends BaseTestCase
      *
      * @return void
      */
-    #[\PHPUnit\Framework\Attributes\BeforeClass]
+    #[BeforeClass]
     public static function prepare()
     {
         if (! static::runningInSail()) {
@@ -83,7 +84,7 @@ abstract class DuskTestCase extends BaseTestCase
     /**
      * Create the RemoteWebDriver instance.
      *
-     * @return \Facebook\WebDriver\Remote\RemoteWebDriver
+     * @return RemoteWebDriver
      */
     protected function driver()
     {
@@ -106,8 +107,6 @@ abstract class DuskTestCase extends BaseTestCase
 
     /**
      * Determine whether the Dusk command has disabled headless mode.
-     *
-     * @return bool
      */
     protected function hasHeadlessDisabled(): bool
     {

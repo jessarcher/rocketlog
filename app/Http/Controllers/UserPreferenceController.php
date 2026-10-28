@@ -10,7 +10,7 @@ class UserPreferenceController extends Controller
     {
         $user = $request->user();
 
-        $this->validate($request, [
+        $request->validate([
             'dismissed_welcome' => ['nullable', 'boolean'],
         ]);
 

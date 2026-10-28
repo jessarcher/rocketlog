@@ -23,7 +23,7 @@ class CollectionTest extends TestCase
 
     public function test_it_stores_a_new_collection(): void
     {
-        /** @var \App\Models\User */
+        /** @var User */
         $user = User::factory()->create();
 
         $response = $this
@@ -40,7 +40,7 @@ class CollectionTest extends TestCase
 
     public function test_it_shows_a_users_collection(): void
     {
-        /** @var \App\Models\User */
+        /** @var User */
         $user = User::factory()->create();
         $collection = Collection::factory()->create(['user_id' => $user->id]);
         $bullet = Bullet::factory()->create(['collection_id' => $collection->id]);
@@ -60,7 +60,7 @@ class CollectionTest extends TestCase
 
     public function test_it_shows_a_collection_that_a_user_has_access_to(): void
     {
-        /** @var \App\Models\User */
+        /** @var User */
         $user = User::factory()->create();
         $collection = Collection::factory()->create();
         $collection->users()->attach($user);
@@ -74,7 +74,7 @@ class CollectionTest extends TestCase
 
     public function test_it_forbids_collections_a_user_doesnt_have_access_to(): void
     {
-        /** @var \App\Models\User */
+        /** @var User */
         $user = User::factory()->create();
         $collection = Collection::factory()->create();
 
@@ -88,7 +88,7 @@ class CollectionTest extends TestCase
     public function test_it_updates_a_collection(): void
     {
         Event::fake();
-        /** @var \App\Models\User */
+        /** @var User */
         $user = User::factory()->create();
         $collection = Collection::factory()->create(['user_id' => $user->id]);
 
@@ -113,7 +113,7 @@ class CollectionTest extends TestCase
     public function test_it_destroys_a_collection(): void
     {
         Event::fake();
-        /** @var \App\Models\User */
+        /** @var User */
         $user = User::factory()->create();
         $collection = Collection::factory()->create(['user_id' => $user->id]);
 
@@ -127,7 +127,7 @@ class CollectionTest extends TestCase
 
     public function test_only_the_owner_can_delete_the_collection(): void
     {
-        /** @var \App\Models\User */
+        /** @var User */
         $user = User::factory()->create();
         $collection = Collection::factory()->create();
         $collection->users()->attach($user);
@@ -142,7 +142,7 @@ class CollectionTest extends TestCase
     public function test_users_can_add_bullets_to_the_daily_log(): void
     {
         Event::fake();
-        /** @var \App\Models\User */
+        /** @var User */
         $user = User::factory()->create();
         $collection = $user->collections()->save(Collection::factory()->make());
         $bullet = $collection->bullets()->save(
@@ -167,7 +167,7 @@ class CollectionTest extends TestCase
     public function test_other_users_cant_add_bullets_to_the_owners_daily_log(): void
     {
         Event::fake();
-        /** @var \App\Models\User */
+        /** @var User */
         $user = User::factory()->create();
         $collection = Collection::factory()->create();
         $collection->users()->attach($user);
@@ -190,7 +190,7 @@ class CollectionTest extends TestCase
 
     public function test_only_an_authorized_user_can_invite_someone_to_a_collection(): void
     {
-        /** @var \App\Models\User */
+        /** @var User */
         $user = User::factory()->create();
         $collection = Collection::factory()->create();
         $friend = User::factory()->create();
@@ -206,7 +206,7 @@ class CollectionTest extends TestCase
 
     public function test_users_can_be_invited_to_a_collection(): void
     {
-        /** @var \App\Models\User */
+        /** @var User */
         $user = User::factory()->create();
         $collection = $user->collections()->save(Collection::factory()->make());
         $friend = User::factory()->create();
@@ -223,7 +223,7 @@ class CollectionTest extends TestCase
 
     public function test_a_user_must_exist_to_be_invited_to_a_collection(): void
     {
-        /** @var \App\Models\User */
+        /** @var User */
         $user = User::factory()->create();
         $collection = $user->collections()->save(Collection::factory()->make());
 
@@ -238,7 +238,7 @@ class CollectionTest extends TestCase
 
     public function test_a_user_cannot_be_invited_to_a_collection_twice(): void
     {
-        /** @var \App\Models\User */
+        /** @var User */
         $user = User::factory()->create();
         $collection = $user->collections()->save(Collection::factory()->make());
         $friend = User::factory()->create();
@@ -255,7 +255,7 @@ class CollectionTest extends TestCase
 
     public function test_bullets_can_be_reordered(): void
     {
-        /** @var \App\Models\User */
+        /** @var User */
         $user = User::factory()->create();
         $collection = Collection::factory()->for($user)->create();
         // $bullets = Bullet::factory()->for($collection)->times(3)->create();
@@ -283,7 +283,7 @@ class CollectionTest extends TestCase
 
     public function test_only_bullets_from_the_authorized_collection_can_be_ordered(): void
     {
-        /** @var \App\Models\User */
+        /** @var User */
         $user = User::factory()->create();
         $collection = Collection::factory()->for($user)->create();
         Bullet::factory()->times(3)->create();

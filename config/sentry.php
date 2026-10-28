@@ -1,5 +1,7 @@
 <?php
 
+use App\Support\TraceSampler;
+
 return [
 
     'dsn' => env('SENTRY_LARAVEL_DSN', env('SENTRY_DSN')),
@@ -32,7 +34,7 @@ return [
 
     'traces_sample_rate' => (float) (env('SENTRY_TRACES_SAMPLE_RATE', 0.0)),
 
-    'traces_sampler' => [\App\Support\TraceSampler::class, 'sample'],
+    'traces_sampler' => [TraceSampler::class, 'sample'],
 
     'controllers_base_namespace' => env('SENTRY_CONTROLLERS_BASE_NAMESPACE', 'App\\Http\\Controllers'),
 ];
